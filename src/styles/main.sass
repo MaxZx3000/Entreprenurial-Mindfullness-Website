@@ -1,0 +1,140 @@
+*
+    box-sizing: border-box
+
+.website-logo
+    width: 200px
+
+main
+    margin-top: 80px
+
+// h1 header
+.h1-header
+    text-align: center
+    width: 100%
+    display: block
+    padding-top: 20px
+    padding-bottom: 20px
+    padding-left: 0px
+    padding-right: 0px
+    background-color: #f4f4f4
+
+    h1
+        color: #4B7BE5
+
+    ::before, ::after
+        content: ''
+        display: inline-block
+        width: 30px
+        height: 30px
+        transform: translateY(5px)
+        margin-left: 20px
+        margin-right: 20px
+        background-color: #4B7BE5
+        border-radius: 100%
+
+// Button
+.action-button
+    padding: 10px 20px 10px 20px
+    border-radius: 30px
+    background: white
+    border: 2px solid #4B7BE5
+    margin-top: 10px
+    
+.action-button:hover
+    background: #6FDFDF
+    color: white
+    border: 2px solid white
+    transition: 0.2 ease
+
+.secondary-action-button
+    padding: 10px 20px 10px 20px
+    border: 2px solid #5534A5
+    background-color: white
+    border-radius: 30px
+    margin-top: 10px
+
+.danger-action-button
+    padding: 10px 20px 10px 20px
+    border: 2px solid red
+    background-color: white
+    border-radius: 30px
+    margin-top: 10px
+
+main
+    button, a
+        display: block !important
+        transition: 0.2s ease
+        text-align: center !important
+        text-decoration: none !important
+
+button
+    color: black
+
+a
+    color: #5534A5
+
+a:hover
+    color: #A85CF9
+
+// Font
+h1
+    font-size: 30px
+
+h2
+    font-size: 25px
+
+h3
+    font-size: 20px
+
+// Image and Icons
+#profile-image
+    border-radius: 100%
+
+// Icons
+.icon-small
+    background-color: #4B7BE5
+    padding: 5px
+    border-radius: 100%
+    color: white
+
+.icon-large-danger
+    font-size: 70px
+    color: red
+
+// Icon Button
+.icon-button
+    border-radius: 100%
+    border: 0
+    background-color: #4B7BE5
+    width: 50px
+    height: 50px
+
+    .material-icons
+        color: white
+        transform: translateY(2px)
+
+.icon-button:hover
+    background-color: #4B7BE5
+
+.icon-button-caption
+    background-color: #6FDFDF
+    border-radius: 30px
+    border: 0
+    padding-left: 13px
+    padding-right: 13px
+    padding-top: 5px
+    padding-bottom: 5px
+    
+    .material-icons
+        color: white
+        transform: translateY(2px)
+
+    .caption
+        display: inline-block
+        color: white
+        padding-left: 5px
+        text-style: bold
+        transform: translateY(-5px)
+
+.icon-button-caption:hover
+    background-color: #6FDFDF
