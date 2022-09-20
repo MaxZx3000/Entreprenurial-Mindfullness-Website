@@ -23,32 +23,46 @@ class ResultPage extends HTMLElement{
         const resultSectionElement = this.resultElement.querySelector(".result-section");
         const gaugeElement = new GaugeElement();
         const scoreJSON = await MyFetch.getUserCurrentScore();
-        const score = scoreJSON.json.score;
-        const scoreDescriptionEn = scoreJSON.json.score_desc_en;
-        const scoreDescriptionId = scoreJSON.json.score_desc_id;
-        const lastUpdatedScore = scoreJSON.json.last_updated;
+        if (scoreJSON.status === 200){
+            console.log(scoreJSON.json)
+            const score = scoreJSON.json.score;
+            const scoreDescriptionEn = scoreJSON.json.score_desc_en;
+            const scoreDescriptionId = scoreJSON.json.score_desc_id;
+            const lastUpdatedScore = scoreJSON.json.last_updated;
 
-        gaugeElement.intiializeValues(score, 7);
-        gaugeElement.renderAll();
+            gaugeElement.intiializeValues(score, 7);
+            gaugeElement.renderAll();
 
-        resultSectionElement.innerHTML += ` 
-            <div id = "score-div">
-                <p id = "last-updated-score" data-i18n-key = "last_updated_score"></p>
-                <p id = "last">
-                    ${lastUpdatedScore}
+            resultSectionElement.innerHTML += ` 
+                <div id = "score-div">
+                    <p id = "last-updated-score" data-i18n-key = "last_updated_score"></p>
+                    <p id = "last">
+                        ${lastUpdatedScore}
+                    </p>
+                </div>
+                
+            `
+            resultSectionElement.appendChild(gaugeElement);
+            resultSectionElement.innerHTML += `
+                <p id = "mindfullness-status">Mindfullness Transformation</p>
+                <div id = "mindfulness-description">
+                    <p id = "mindfulness-description-id">${scoreDescriptionEn}</p>
+                    <p id = "mindfulness-description-en">${scoreDescriptionId}</p>
+                </div>
+                <p id = "your-entreprenurial-score" data-i18n-key = "your_entreprenurial_score">Your Entreprenurial Score</p>
+            `;
+        
+        }
+        else if (scoreJSON.status === 404){
+            resultSectionElement.innerHTML = `
+                <p id = "mindfulness-description">
+                    <span class="material-icons material-symbols-outlined" id = "no-test-icon">
+                        edit_document
+                    </span>
+                    <p id = "no-test">You haven't performed entreprenurial mindfulness test yet! Please try taking the test first and submit it!</p>
                 </p>
-            </div>
-            
-        `
-        resultSectionElement.appendChild(gaugeElement);
-        resultSectionElement.innerHTML += `
-            <p id = "mindfullness-status">Mindfullness Transformation</p>
-            <div id = "mindfulness-description">
-                <p id = "mindfulness-description-id">${scoreDescriptionEn}</p>
-                <p id = "mindfulness-description-en">${scoreDescriptionId}</p>
-            </div>
-            <p id = "your-entreprenurial-score" data-i18n-key = "your_entreprenurial_score">Your Entreprenurial Score</p>
-        `;
+            `
+        }
         
         Localization.initTranslate();
     }
