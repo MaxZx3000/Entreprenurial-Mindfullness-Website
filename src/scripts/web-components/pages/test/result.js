@@ -26,6 +26,7 @@ class ResultPage extends HTMLElement{
         if (scoreJSON.status === 200){
             console.log(scoreJSON.json)
             const score = scoreJSON.json.score;
+            const scoreTitle = scoreJSON.json.score_title;
             const scoreDescriptionEn = scoreJSON.json.score_desc_en;
             const scoreDescriptionId = scoreJSON.json.score_desc_id;
             const lastUpdatedScore = scoreJSON.json.last_updated;
@@ -44,7 +45,7 @@ class ResultPage extends HTMLElement{
             `
             resultSectionElement.appendChild(gaugeElement);
             resultSectionElement.innerHTML += `
-                <p id = "mindfullness-status">Mindfullness Transformation</p>
+                <p id = "mindfullness-status">${scoreTitle}</p>
                 <div id = "mindfulness-description">
                     <p id = "mindfulness-description-id">${scoreDescriptionEn}</p>
                     <p id = "mindfulness-description-en">${scoreDescriptionId}</p>

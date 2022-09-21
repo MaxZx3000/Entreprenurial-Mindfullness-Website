@@ -3,6 +3,9 @@ import HTMLHelpers from "../../../globals/htnl-helpers";
 import MyFetch from "../../../globals/my-fetch";
 import Validation from "../../../globals/validation";
 import Localization from "../../../utils/localization";
+import UserGlobal from "../../../globals/user-helpers";
+import WindowController from "../../../utils/window-manager";
+import SwalCustomFunctions from "../../../globals/swal-custom-function";
 
 class DeleteAccountPage extends HTMLElement{
     constructor(){
@@ -61,24 +64,26 @@ class DeleteAccountPage extends HTMLElement{
                 HTMLHelpers.makeInvalidStatusField(this.deletePasswordElement, validationResult)
                 return
             }
-            await this.submitDeletePassword(json)    
+            await this.submitDeletePassword(jsonRequestBody)    
         });
     }
     async submitDeletePassword(jsonRequestBody){
-        const responseBody = await MyFetch.getDeleteAccountLink()
+        const responseBody = await MyFetch.getDeleteAccountLink(jsonRequestBody.password)
 
         if (responseBody.status === 200){
             Swal.fire({
-                title: "Success",
+                title: "Hooray",
                 icon: "success",
                 showCancelButton: false,
                 showConfirmButton: false,
                 showDenyButton: false,
                 html: `
-                    <p>${responseJSONData.json.message}</p>
+                    <p>${responseBody.json.message}</p>
                     <button type = "button" id = "swal-close-button" class = "action-button" id = "forgot-password" style = "width: 100%">OK</button>
                 `
             })
+            UserGlobal.logoutUser()
+            WindowController.setWindowURLHash("login")
         }
         else if (responseBody.status === 401){
             Swal.fire({
@@ -88,12 +93,12 @@ class DeleteAccountPage extends HTMLElement{
                 showConfirmButton: false,
                 showDenyButton: false,
                 html: `
-                    <p>${responseJSONData.json.message}</p>
+                    <p>${responseBody.json.message}</p>
                     <button type = "button" id = "swal-close-button" class = "action-button" id = "forgot-password" style = "width: 100%">OK</button>
                 `
             })
         }
-        WindowController.setWindowURLHash("login")
+        SwalCustomFunctions.initializeCloseButton();
     }
     appendChildren(){
         this.appendChild(this.deletePasswordElement);

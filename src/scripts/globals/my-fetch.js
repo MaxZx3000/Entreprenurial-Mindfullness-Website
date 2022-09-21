@@ -136,8 +136,12 @@ class MyFetch{
         )
         return responseJSON
     }
-    static async getDeleteAccountLink(){
+    static async getDeleteAccountLink(password){
+        const password_json = {
+            'password': password
+        }
         const requestBody = RequestJSONTemplate.getGetAuthorizationJSONData()
+        requestBody.body = JSON.stringify(password_json)
         requestBody.method = "DELETE"
         const responseJSON = await FetchHelpers.getJSONResult(
             ApiEndpoint.getUserLink(),

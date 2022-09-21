@@ -1,9 +1,22 @@
 footer-element
     position: relative
 
+    img
+        width: 350px !important
+        position: relative
+        transform: translateX(-50%)
+        left: 50%
+        padding-left: 20px
+        padding-right: 20px
+
+    p, h3
+        padding-left: 10px
+        padding-right: 10px
+
     .footer-grid
         background-color: #A85CF9
-        padding: 20px
+        padding-top: 20px
+        padding-bottom: 20px
         color: white
 
         a
@@ -23,3 +36,11 @@ footer-element
 
     a
         display: inline !important
+        word-wrap: break-word
+
+    @media screen and (max-width: 573px)
+        img
+            width: 300px !important 
+            
+            
+    

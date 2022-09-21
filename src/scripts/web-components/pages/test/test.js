@@ -243,8 +243,8 @@ class TestPage extends HTMLElement{
                         <button type = "button" id = "swal-close-button" class = "action-button" style = "width: 100%">OK</button>
                     `
                 })
-
-                WindowController.setWindowURLHash(`result`)
+                SwalCustomFunctions.initializeCloseButton();
+                WindowController.setWindowURLHash(`result`);
             }
             else{
                 Swal.fire({
@@ -300,6 +300,7 @@ class TestPage extends HTMLElement{
     }
     async preRender(){
         this.renderLoadingElement();
+        Localization.initTranslate();
         await this.fetchQuestions();
         await this.fetchScoresData();
         await this.fetchCurrentUserAnswer();
@@ -310,7 +311,7 @@ class TestPage extends HTMLElement{
         this.render();
         this.setListeners();
         this.updateAnswerCaptionValue();
-        Localization.initTranslate()
+        Localization.initTranslate();
         this.appendChildren();
     }
     disconnectedCallback(){
