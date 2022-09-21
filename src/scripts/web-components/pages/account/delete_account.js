@@ -78,7 +78,7 @@ class DeleteAccountPage extends HTMLElement{
                 showConfirmButton: false,
                 showDenyButton: false,
                 html: `
-                    <p>${responseBody.json.message}</p>
+                    <p>${Localization.getLocalizedText("success-delete-account")}</p>
                     <button type = "button" id = "swal-close-button" class = "action-button" id = "forgot-password" style = "width: 100%">OK</button>
                 `
             })

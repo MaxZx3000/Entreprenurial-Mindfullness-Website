@@ -88,5 +88,11 @@
     "page-not-found-1": "Sepertinya, Anda tersesat. Mohon dicoba kembali dengan melakukan navigasi dari header!",
     "page-not-found-2": "Lalu, ada kemungkinan juga bahwa Anda mengakses halaman yang tidak diperbolehkan!",
     "saving_answer": "Menyimpan...",
-    "not_performed_test": "Anda belum melakukan tes kesadaran kewirausahaan! Silakan coba ambil tes terlebih dahulu dan kirim jawaban Anda!"
+    "not_performed_test": "Anda belum melakukan tes kesadaran kewirausahaan! Silakan coba ambil tes terlebih dahulu dan kirim jawaban Anda!",
+    "success-register": "Registrasi akun berhasil!",
+    "success-login": "Masuk ke aplikasi berhasil!",
+    "success-delete-account": "Berhasil Menghapus akun Anda!",
+    "success-edit-profile": "Berhasil mengubah detail profil Anda!",
+    "success-change-password": "Berhasil mengubah password!",
+    "duplicate_username_email": "Username/ email sudah diambil! Silakan coba dengan nama pengguna/ email yang berbeda!"
 }

@@ -156,7 +156,7 @@ class LoginPage extends HTMLElement{
                         showConfirmButton: false,
                         allowOutsideClick: false,
                         html: `
-                            <p>${responseJSONData.json.message}</p>
+                            <p>${Localization.getLocalizedText('success-login')}</p>
                             <button type = "button" id = "swal-close-button" class = "action-button" id = "forgot-password" style = "width: 100%">OK</button>
                         `
                     })

@@ -165,7 +165,7 @@ class EditProfilePage extends HTMLElement{
                 showConfirmButton: false,
                 showDenyButton: false,
                 html: `
-                    <p>${responseJSONData.json.message}</p>
+                    <p>${Localization.getLocalizedText("success-edit-profile")}</p>
                     <button type = "button" id = "swal-close-button" class = "action-button" id = "forgot-password" style = "width: 100%">OK</button>
                 
                 `

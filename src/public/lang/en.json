@@ -88,5 +88,11 @@
     "page-not-found-1": "It looks like that you lost. Please try again by navigating from the header link!",
     "page-not-found-2": "Also, it may be possible that you're trying to access forbidden page.",
     "saving_answer": "Saving...",
-    "not_performed_test": "You haven't performed entreprenurial mindfulness test yet! Please try taking the test first and submit it!"
+    "not_performed_test": "You haven't performed entreprenurial mindfulness test yet! Please try taking the test first and submit it!",
+    "success-register": "Success register your account!",
+    "success-login": "Login success!",
+    "success-delete-account": "Successfully erase your account!",
+    "success-edit-profile": "Successfully edit your profile!",
+    "success-change-password": "Successfully change your password!",
+    "duplicate_username_email": "Username/ email is already taken! Please try with different username/ email!"
 }
