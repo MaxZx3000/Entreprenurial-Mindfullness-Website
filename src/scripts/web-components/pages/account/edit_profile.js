@@ -20,9 +20,9 @@ class EditProfilePage extends HTMLElement{
                 <form>
                     <div class = "image-container">
                         <img id = 'profile-picture' src = "https://upload.wikimedia.org/wikipedia/commons/6/67/Vector_Face_wearing_Spectacles.png" id = "profile-image">
-                        <button type = "file" class = "icon-button" id = "edit-picture">
+                        <!-- <button type = "file" class = "icon-button" id = "edit-picture">
                             <span class="material-icons material-symbols-outlined">edit</span>
-                        </button>
+                        </button> -->
                     </div>
                     <div class = "form-group">
                         <label for = "fullname" data-i18n-key = "fullname">Full name</label>
@@ -188,7 +188,7 @@ class EditProfilePage extends HTMLElement{
         }
     }
     validateForm(json){
-        if (Validation.validateFullname(json.fullname)["isTrue"] === false){
+        if (Validation.validateFullname(json.fullname).isTrue === false){
             const validation = Validation.validateFullname(json.fullname)
             validation.element = "#fullname"
             return validation
@@ -226,32 +226,32 @@ class EditProfilePage extends HTMLElement{
             })
         });   
 
-        const editPictureElement = this.editProfileElement.querySelector("#edit-picture")
-        editPictureElement.addEventListener("click", () => {
-            Swal.fire({
-                title: "Upload Image",
-                showCloseButton: false,
-                showConfirmButton: false,
-                showDenyButton: false,
-                html: `
-                    <input type = "file" id = "image-file-picker">
-                    <button type = "button" id = "swal-confirm-button" class = "action-button" style = "width: 100%">OK</button>
-                    <div class = "invalid-feedback">
+        // const editPictureElement = this.editProfileElement.querySelector("#edit-picture")
+        // editPictureElement.addEventListener("click", () => {
+        //     Swal.fire({
+        //         title: "Upload Image",
+        //         showCloseButton: false,
+        //         showConfirmButton: false,
+        //         showDenyButton: false,
+        //         html: `
+        //             <input type = "file" id = "image-file-picker">
+        //             <button type = "button" id = "swal-confirm-button" class = "action-button" style = "width: 100%">OK</button>
+        //             <div class = "invalid-feedback">
                         
-                    </div>
-                `
-            })
-            const imageConfirmElement = document.querySelector("#swal-confirm-button")
-            imageConfirmElement.addEventListener("click", () => {
-                const imageInputElement = document.querySelector("#image-file-picker")
-                const [file] = imageInputElement.files
-                if (file) {
-                    const imagePreviewElement = this.editProfileElement.querySelector("#profile-picture")
-                    imagePreviewElement.src = URL.createObjectURL(file)
-                    Swal.clickConfirm()
-                }
-            })
-        })
+        //             </div>
+        //         `
+        //     })
+        //     const imageConfirmElement = document.querySelector("#swal-confirm-button")
+        //     imageConfirmElement.addEventListener("click", () => {
+        //         const imageInputElement = document.querySelector("#image-file-picker")
+        //         const [file] = imageInputElement.files
+        //         if (file) {
+        //             const imagePreviewElement = this.editProfileElement.querySelector("#profile-picture")
+        //             imagePreviewElement.src = URL.createObjectURL(file)
+        //             Swal.clickConfirm()
+        //         }
+        //     })
+        // })
         const registerButtonElement = this.editProfileElement.querySelector("#register-button")
             registerButtonElement.addEventListener("click", async () => {
                 const fullname = this.editProfileElement.querySelector("#fullname").value
@@ -274,8 +274,8 @@ class EditProfilePage extends HTMLElement{
 
                 const validationResult = this.validateForm(jsonRequestBody)
                 
-                console.log("Result:")
-                console.log(validationResult)
+                // console.log("Result:")
+                // console.log(validationResult)
 
                 if (validationResult.isTrue === false){
                     HTMLHelpers.makeInvalidStatusField(this.editProfileElement, validationResult)
