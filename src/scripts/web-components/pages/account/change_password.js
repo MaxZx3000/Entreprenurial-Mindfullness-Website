@@ -14,7 +14,7 @@ class ChangePasswordPage extends HTMLElement{
     render(){
         this.changePasswordElement.innerHTML = `
             <div class = "container">
-                <h1>Change Password</h1>
+                <h1 data-i18n-key = "change_password"></h1>
                 <form>
                     <div class = "form-group">
                         <label for = "current_password" data-i18n-key = "current_password">Current Password</label>
@@ -37,7 +37,7 @@ class ChangePasswordPage extends HTMLElement{
 
                         </div>
                     </div>
-                    <button id = "apply-password" type = "button" class = "action-button">Apply Changes</button>
+                    <button id = "apply-password" type = "button" class = "action-button" data-i18n-key = "update"></button>
                 </form>
             </div>
         `;

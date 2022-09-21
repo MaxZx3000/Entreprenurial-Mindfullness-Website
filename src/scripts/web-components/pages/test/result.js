@@ -10,10 +10,9 @@ class ResultPage extends HTMLElement{
     async render(){
         this.resultElement.innerHTML = `
             <div class = "h1-header">
-                <h1>Result</h1>
+                <h1 data-i18n-key = "result">Result</h1>
             </div>
             <div class = "container">
-                
                 <div class = "result-section">
                 </div>
             </div>
@@ -60,7 +59,7 @@ class ResultPage extends HTMLElement{
                     <span class="material-icons material-symbols-outlined" id = "no-test-icon">
                         edit_document
                     </span>
-                    <p id = "no-test">You haven't performed entreprenurial mindfulness test yet! Please try taking the test first and submit it!</p>
+                    <p id = "no-test" data-i18n-key = "not_performed_test"></p>
                 </p>
             `
         }

@@ -14,7 +14,7 @@ class AccountPage extends HTMLElement{
     render(){
         this.accountElement.innerHTML = `
             <div class = "h1-header">
-                <h1>Your Account</h1>
+                <h1 data-i18n-key = "profile_config">Your Account</h1>
             </div>
             <div class = "container">
                 <div class = "nav nav-tabs">
@@ -23,7 +23,7 @@ class AccountPage extends HTMLElement{
                             <span class="material-icons material-symbols-outlined">
                                 account_circle
                             </span>
-                            <span class = "nav-title">Account Info</span>
+                            <span class = "nav-title" data-i18n-key = "account_info">Account Info</span>
                         </a>
                     </li>
                     <li class = "nav-item">
@@ -31,7 +31,7 @@ class AccountPage extends HTMLElement{
                             <span class="material-icons material-symbols-outlined">
                                 edit
                             </span>
-                            <span class = "nav-title">Edit Profile</span>
+                            <span class = "nav-title" data-i18n-key = "edit_profile">Edit Profile</span>
                         </a>
                     </li>
                     <li class = "nav-item">
@@ -39,7 +39,7 @@ class AccountPage extends HTMLElement{
                             <span class="material-icons material-symbols-outlined">
                                 key
                             </span>
-                            <span class = "nav-title">Password</span>
+                            <span class = "nav-title" data-i18n-key = "password">Password</span>
                         </a>
                     </li>
                     <li class = "nav-item">
@@ -47,7 +47,7 @@ class AccountPage extends HTMLElement{
                             <span class="material-icons material-symbols-outlined">
                                 delete_forever
                             </span>
-                            <span class = "nav-title">Delete Account</span>
+                            <span class = "nav-title" data-i18n-key = "delete_account">Delete Account</span>
                         </a>
                     </li>
                 </div>
