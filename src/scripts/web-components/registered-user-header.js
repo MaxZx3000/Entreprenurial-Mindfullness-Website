@@ -12,7 +12,7 @@ class RegisteredUserHeader extends HTMLElement{
     _setHeaderElement(){
         this.registeredUserHeaderElement.innerHTML = `
             <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="#home">
                      <img src = "./images/entreprenurial-mindfullness-logo.png" class = "website-logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,24 +25,28 @@ class RegisteredUserHeader extends HTMLElement{
                             <a class="nav-link" href="#profile_intro" data-i18n-key = "profile">Profile</a>
                             <!-- <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> -->
                         </li>
-                       
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img id = "profile-menu" src = "https://upload.wikimedia.org/wikipedia/commons/6/67/Vector_Face_wearing_Spectacles.png" class = "nav-link dropdown-toggle" id = "profile-image" role = "button" data-toggle = "dropdown" aria-haspopup = "true" aria-expanded = "false">
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="nav-link" href = "#account/account-info">Edit Profile</a>
-                                <a class="nav-link" href = "#result">Result</a>
-                                <button id = "logout-button" class="nav-link">Logout</button>
-                            </div>
-                        </li>
+
+                        
                         <li class="nav-item">
                             <select name = "change-language" id = "change-language" class = "form-control" data-i18n-switcher class = "dropdown-menu" aria-labelledby = "navbarDropdownMenuLink">
                                 <option value = "in" data-i18n-key = "indonesian">Indonesian</option>
                                 <option value = "en" data-i18n-key = "english">English</option>
                             </select>
                         </li>
+                        
                     </ul>
+                    <form class="form-inline my-2 my-lg-0 dropdown">
+                        <!-- <li class="nav-item dropdown"> -->
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img id = "profile-menu" src = "https://upload.wikimedia.org/wikipedia/commons/6/67/Vector_Face_wearing_Spectacles.png" class = "nav-link dropdown-toggle" id = "profile-image" role = "button" data-toggle = "dropdown" aria-haspopup = "true" aria-expanded = "false">
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="nav-link" href = "#account/account-info">Edit Profile</a>
+                                <a class="nav-link" href = "#result">Result</a>
+                                <button id = "logout-button" class="nav-link">Logout</button>
+                            </div>
+                        <!-- </li> -->
+                    </form>
                 </div>
             </nav>
         `;

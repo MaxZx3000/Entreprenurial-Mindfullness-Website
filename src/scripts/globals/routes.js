@@ -20,7 +20,6 @@ class Routes {
     if (url === '' || url === 'home'){
       return new HomePage();
     }
-
     // For Non Registered User.
     if (UserHelpers.getJWTToken() === null){
       if (url === 'register'){
