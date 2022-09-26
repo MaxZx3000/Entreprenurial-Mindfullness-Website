@@ -67,7 +67,7 @@ class ResultPage extends HTMLElement{
         Localization.initTranslate();
     }
 
-    async connectedCallback(){
+    async init(){
         this.render();
         this.renderResultElement();
         this.appendChildren();

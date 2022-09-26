@@ -22,7 +22,7 @@ class FooterElement extends HTMLElement{
         this._setCopyrightFooterElement();
     }
 
-    connectedCallback(){
+    async init(){
         this.render();
         this.appendChildren();
     }

@@ -1,3 +1,5 @@
+import MyFetch from "../../globals/my-fetch";
+import FetchHelpers from "../../utils/fetch-helpers";
 import Localization from "../../utils/localization";
 
 class StatisticsPage extends HTMLElement{
@@ -28,8 +30,12 @@ class StatisticsPage extends HTMLElement{
 
         return data;
     }
-
+    async fetchStatisticsData(){
+        const statisticsJSON = await MyFetch.getStatistics()
+        this.statistics = statisticsJSON
+    }
     render(){
+        const statisticsJSON = this.statistics.json
         this.statisticsElement.innerHTML = `
             <div class = "h1-header">
                 <h1>Statistics</h1>
@@ -38,12 +44,15 @@ class StatisticsPage extends HTMLElement{
                 <div class = "row">
                     <div class = "container" id = "em-stats">
                         <h2>Overall EM Stats</h2>
-                        <p>Mean of EM Score: 0.5</p>
-                        <p>Lower bound of EM Score: 0.5</p>
-                        <p>Upper bound of EM Score: 0.8</p>
+                        <p>Mean of EM Score: ${statisticsJSON.mean}</p>
+                        <p>Median of EM Score: ${statisticsJSON.median}</p>
+                        <p>Lower bound of EM Score: ${statisticsJSON.lower_bound}</p>
+                        <p>Upper bound of EM Score: ${statisticsJSON.upper_bound}</p>
+                        <!-- <p>P Value EM Score: ${statisticsJSON.p_value}</p>
+                        <p>FF Score EM Score: ${statisticsJSON.ff_score}</p> -->
                     </div>
                     <hr>
-                    <div class = "container" id = "statistical-test">
+                    <!-- <div class = "container" id = "statistical-test">
                         <h2>Statistical Tests Results: </h2>
                         <table>
                             <tr>
@@ -83,44 +92,44 @@ class StatisticsPage extends HTMLElement{
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         `;
-        this.addPieCountryElement();
-        this.addGenderElement();
-        this.addStatusElement();
+        // this.addPieCountryElement();
+        // this.addGenderElement();
+        // this.addStatusElement();
     }
 
-    addPieCountryElement(){
-        const countryChartElement = this.statisticsElement.querySelector("#countryChart");
-        const countryContext = countryChartElement.getContext("2d")
+    // addPieCountryElement(){
+    //     const countryChartElement = this.statisticsElement.querySelector("#countryChart");
+    //     const countryContext = countryChartElement.getContext("2d")
 
-        const countryChart = new Chart(countryContext, {
-            type: 'doughnut',
-            data: this._getData()
-        });
-    }
-    addGenderElement(){
-        const countryChartElement = this.statisticsElement.querySelector("#genderChart");
-        const countryContext = countryChartElement.getContext("2d")
+    //     const countryChart = new Chart(countryContext, {
+    //         type: 'doughnut',
+    //         data: this._getData()
+    //     });
+    // }
+    // addGenderElement(){
+    //     const countryChartElement = this.statisticsElement.querySelector("#genderChart");
+    //     const countryContext = countryChartElement.getContext("2d")
 
-        const countryChart = new Chart(countryContext, {
-            type: 'doughnut',
-            data: this._getData()
-        });
-    }
-    addStatusElement(){
-        const countryChartElement = this.statisticsElement.querySelector("#statusChart");
-        const countryContext = countryChartElement.getContext("2d")
+    //     const countryChart = new Chart(countryContext, {
+    //         type: 'doughnut',
+    //         data: this._getData()
+    //     });
+    // }
+    // addStatusElement(){
+    //     const countryChartElement = this.statisticsElement.querySelector("#statusChart");
+    //     const countryContext = countryChartElement.getContext("2d")
 
-        const countryChart = new Chart(countryContext, {
-            type: 'doughnut',
-            data: this._getData()
-        });
-    }
-    connectedCallback(){
+    //     const countryChart = new Chart(countryContext, {
+    //         type: 'doughnut',
+    //         data: this._getData()
+    //     });
+    // }
+    async init(){
+        await this.fetchStatisticsData();
         this.render();
-        Localization.initTranslate();
         this.appendChildren();
     }
     appendChildren(){

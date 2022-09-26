@@ -1,4 +1,5 @@
 import UserGlobal from "../../../globals/user-helpers";
+import Localization from "../../../utils/localization";
 
 class ProfileIntroPage extends HTMLElement{
     constructor(){
@@ -26,8 +27,9 @@ class ProfileIntroPage extends HTMLElement{
         `;
     }
 
-    async connectedCallback(){
+    async init(){
         await this.render();
+        Localization.initTranslate();
         this.appendChildren();
     }
 

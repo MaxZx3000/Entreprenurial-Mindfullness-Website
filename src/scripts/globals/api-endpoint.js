@@ -20,7 +20,8 @@ const _API_ENDPOINT = {
     LOGOUT: `${BASE_URL.API_ENDPOINT}/logout`,
     ANSWER: `${BASE_URL.API_ENDPOINT}/answer`,
     JWT_AUTHENTICATION_TEST: `${BASE_URL.API_ENDPOINT}/jwt-authentication-test`,
-    USER_SCORE: `${BASE_URL.API_ENDPOINT}/user-score`
+    USER_SCORE: `${BASE_URL.API_ENDPOINT}/user-score`,
+    STATISTICS: `${BASE_URL.API_ENDPOINT}/statistics`,
 };
 
 class ApiEndpoint{
@@ -77,6 +78,9 @@ class ApiEndpoint{
     }
     static getUserScoreLink(){
         return `${_API_ENDPOINT.USER_SCORE}`
+    }
+    static getStatisticsLink(){
+        return `${_API_ENDPOINT.STATISTICS}`
     }
 }
 

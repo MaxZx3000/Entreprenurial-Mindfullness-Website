@@ -23,7 +23,7 @@ class LoadingElement extends HTMLElement{
     appendChildren(){
         this.appendChild(this.loadingElement);
     }
-    connectedCallback(){
+    async init(){
         this.render();
         this.appendChildren();
     }

@@ -12,9 +12,8 @@ class DeleteAccountPage extends HTMLElement{
         super();
         this.deletePasswordElement = document.createElement("div");
     }
-    connectedCallback(){
+    async init(){
         this.render();
-        Localization.initTranslate();
         this.setListeners();
         this.appendChildren();
     }
@@ -68,6 +67,7 @@ class DeleteAccountPage extends HTMLElement{
         });
     }
     async submitDeletePassword(jsonRequestBody){
+        SwalCustomFunctions.initializeLoadingPopUp();
         const responseBody = await MyFetch.getDeleteAccountLink(jsonRequestBody.password)
 
         if (responseBody.status === 200){
@@ -93,7 +93,7 @@ class DeleteAccountPage extends HTMLElement{
                 showConfirmButton: false,
                 showDenyButton: false,
                 html: `
-                    <p>${responseBody.json.message}</p>
+                    <p>${Localization.getLocalizedText('wrong-password')}</p>
                     <button type = "button" id = "swal-close-button" class = "action-button" id = "forgot-password" style = "width: 100%">OK</button>
                 `
             })

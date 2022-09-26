@@ -17,7 +17,7 @@ class NotFoundPage extends HTMLElement{
             </div>
         `;
     }
-    connectedCallback(){
+    async init(){
         this.render();
         this.appendChildren();
         Localization.initTranslate();

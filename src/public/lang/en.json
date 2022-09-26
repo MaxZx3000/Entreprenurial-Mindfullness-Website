@@ -76,7 +76,7 @@
     "test_tutorial_title": "Filling Instructions",
     "test_tutorial_explanation": "Based on your general opinion about yourself, give a score for each statement. Your choice should consider the statements on the left or right. If you feel that you’re in the middle, you can choose the middle score (4).",
     "save_answer": "Save Answer",
-    "submit_answer": "Submit Answer",
+    "submit_answer": "See Mindfulness Score",
     "success_submit": "Successfully submit the answer! Let's see your results!",
     "failed_submit": "Failed to submit your answer! Please try again!",
     "processing_answer": "Processing your score...",
@@ -94,5 +94,6 @@
     "success-delete-account": "Successfully erase your account!",
     "success-edit-profile": "Successfully edit your profile!",
     "success-change-password": "Successfully change your password!",
+    "wrong-password": "Wrong Password",
     "duplicate_username_email": "Username/ email is already taken! Please try with different username/ email!"
 }

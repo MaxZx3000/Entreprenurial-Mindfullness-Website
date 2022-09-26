@@ -5,7 +5,7 @@ class HeaderElement extends HTMLElement{
         super();
         this.headerElement = document.createElement('div');
     }
-    connectedCallback(){
+    async init(){
         this.render();
         this._setListeners();
         this.appendChildren();

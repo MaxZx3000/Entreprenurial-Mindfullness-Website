@@ -245,7 +245,7 @@ class RegisterPage extends HTMLElement{
         SwalCustomFunctions.initializeCloseButton();
     }
     validateForm(json){
-        if (Validation.validateUsername(json.username)["isTrue"] === false){
+        if (Validation.validateUsername(json.username).isTrue === false){
             const validation = Validation.validateUsername(json.username)
             validation.element = "#username"
             return validation
@@ -357,12 +357,12 @@ class RegisterPage extends HTMLElement{
                 })
                return
             }
-
+            SwalCustomFunctions.initializeLoadingPopUp();
             await this.performRequest(jsonRequestBody)
             
         })
     }
-    async connectedCallback(){
+    async init(){
         this.render();
         Localization.initTranslate();
         this.fetchData();

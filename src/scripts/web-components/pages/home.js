@@ -8,7 +8,7 @@ class HomePage extends HTMLElement{
         this.homeElement = document.createElement('div');
     }
 
-    connectedCallback(){
+    async init(){
         this.render();
         Localization.initTranslate();
         this.appendChildren();

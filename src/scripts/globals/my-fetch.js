@@ -169,6 +169,14 @@ class MyFetch{
         )
         return responseJSON
     }
+    static async getStatistics(){
+        const requestBody = RequestJSONTemplate.getGetMethodJSONData()
+        const responseJSON = await FetchHelpers.getJSONResult(
+            ApiEndpoint.getStatisticsLink(),
+            requestBody,
+        )
+        return responseJSON
+    }
 }
 
 export default MyFetch

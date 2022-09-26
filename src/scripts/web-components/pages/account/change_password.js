@@ -17,21 +17,21 @@ class ChangePasswordPage extends HTMLElement{
                 <h1 data-i18n-key = "change_password"></h1>
                 <form>
                     <div class = "form-group">
-                        <label for = "current_password" data-i18n-key = "current_password">Current Password</label>
+                        <label for = "current_password" data-i18n-key = "current_password"></label>
                         <input class = "form-control" type = "password" id = "current_password" name = "current_password">
                         <div class = "invalid-feedback">
                         
                         </div>
                     </div>
                     <div class = "form-group">
-                        <label for = "new_password" data-i18n-key = "new_password">New Password</label>
+                        <label for = "new_password" data-i18n-key = "new_password"></label>
                         <input class = "form-control" type = "password" id = "new_password" name = "new_password">
                         <div class = "invalid-feedback">
                             
                         </div>
                     </div>
                     <div class = "form-group">
-                        <label for = "confirm_password" data-i18n-key = "confirm_password">Confirm Password</label>
+                        <label for = "confirm_password" data-i18n-key = "confirm_password"></label>
                         <input class = "form-control" type = "password" id = "confirm_password" name = "confirm_password">
                         <div class = "invalid-feedback">
 
@@ -80,6 +80,7 @@ class ChangePasswordPage extends HTMLElement{
             return
         }
 
+        SwalCustomFunctions.initializeLoadingPopUp()
         const responseJSONData = await MyFetch.changePassword(jsonRequestBody);
         if (responseJSONData.status === 200){
             Swal.fire({
@@ -89,7 +90,7 @@ class ChangePasswordPage extends HTMLElement{
                 showConfirmButton: false,
                 showDenyButton: false,
                 html: `
-                    <p>${Localization.getLocalizedText("success-edit-password")}</p>
+                    <p>${Localization.getLocalizedText("success-change-password")}</p>
                     <button type = "button" id = "swal-close-button" class = "action-button" id = "forgot-password" style = "width: 100%">OK</button>
                 `,
             });
@@ -124,9 +125,8 @@ class ChangePasswordPage extends HTMLElement{
             this.submitPassword()
         })
     }
-    connectedCallback(){
+    async init(){
         this.render();
-        Localization.initTranslate();
         this.setListeners();
         this.appendChildren();
     }

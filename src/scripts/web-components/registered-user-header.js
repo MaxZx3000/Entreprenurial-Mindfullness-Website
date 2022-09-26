@@ -41,7 +41,7 @@ class RegisteredUserHeader extends HTMLElement{
                             <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
                                 <a class="nav-link" href = "#account/account-info" data-i18n-key = "profile_config">Edit Profile</a>
                                 <a class="nav-link" href = "#result" data-i18n-key = "result">Result</a>
-                                <button id = "logout-button" class="nav-link" data-i18n-key = "logout">Logout</button>
+                                <button type = "button"  id = "logout-button" class="nav-link" data-i18n-key = "logout">Logout</button>
                             </div>
                         <!-- </li> -->
                     </form>
@@ -82,7 +82,7 @@ class RegisteredUserHeader extends HTMLElement{
     render(){
         this._setHeaderElement();
     }
-    connectedCallback(){
+    async init(){
         this.render();
         this._setListeners();
         this.appendChildren();

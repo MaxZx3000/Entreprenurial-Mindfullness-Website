@@ -128,6 +128,7 @@ class LoginPage extends HTMLElement{
                     },
                     body: JSON.stringify(jsonRequestBody)
                 };
+                SwalCustomFunctions.initializeLoadingPopUp();
                 const responseJSONData = await FetchHelpers.getJSONResult(
                     ApiEndpoint.getLoginLink(),
                     jsonRequestData,
@@ -179,7 +180,7 @@ class LoginPage extends HTMLElement{
             }
         });
     }
-    connectedCallback(){
+    async init(){
         this.render();
         Localization.initTranslate();
         this.setListeners();

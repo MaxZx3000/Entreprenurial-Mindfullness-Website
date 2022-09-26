@@ -14,6 +14,18 @@ class SwalCustomFunctions{
         const swalCloseButton = swalWindowElement.querySelector(`#${okSwalButtonId}`);
         swalCloseButton.addEventListener("click", customFunction)
     }
+    static initializeLoadingPopUp(){
+        Swal.fire({
+            title: 'Processing your request...',
+            showConfirmButton: false,
+            showCloseButton: false,
+            showDenyButton: false,
+            timerProgressBar: true,
+            didOpen: () => {
+                Swal.showLoading()
+            }            
+        });
+    }
 }
 
 

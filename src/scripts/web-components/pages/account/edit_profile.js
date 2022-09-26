@@ -156,6 +156,7 @@ class EditProfilePage extends HTMLElement{
         } 
     }
     async performRequest(jsonRequestData){
+        SwalCustomFunctions.initializeLoadingPopUp();
         const responseJSONData = await MyFetch.editProfile(jsonRequestData)
         if (responseJSONData.status === 200){
             Swal.fire({
@@ -323,9 +324,8 @@ class EditProfilePage extends HTMLElement{
         await this.addBusinessesOptionElement();
         this.fetchUserData()
     }
-    async connectedCallback(){
+    async init(){
         this.render();
-        Localization.initTranslate();
         this.fetchData();
         this.setListeners();
         this.appendChildren();

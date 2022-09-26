@@ -14,7 +14,7 @@ class AccountPage extends HTMLElement{
     render(){
         this.accountElement.innerHTML = `
             <div class = "h1-header">
-                <h1 data-i18n-key = "profile_config">Your Account</h1>
+                <h1 data-i18n-key = "profile_config"></h1>
             </div>
             <div class = "container">
                 <div class = "nav nav-tabs">
@@ -23,7 +23,7 @@ class AccountPage extends HTMLElement{
                             <span class="material-icons material-symbols-outlined">
                                 account_circle
                             </span>
-                            <span class = "nav-title" data-i18n-key = "account_info">Account Info</span>
+                            <span class = "nav-title" data-i18n-key = "account_info"></span>
                         </a>
                     </li>
                     <li class = "nav-item">
@@ -31,7 +31,7 @@ class AccountPage extends HTMLElement{
                             <span class="material-icons material-symbols-outlined">
                                 edit
                             </span>
-                            <span class = "nav-title" data-i18n-key = "edit_profile">Edit Profile</span>
+                            <span class = "nav-title" data-i18n-key = "edit_profile"></span>
                         </a>
                     </li>
                     <li class = "nav-item">
@@ -39,7 +39,7 @@ class AccountPage extends HTMLElement{
                             <span class="material-icons material-symbols-outlined">
                                 key
                             </span>
-                            <span class = "nav-title" data-i18n-key = "password">Password</span>
+                            <span class = "nav-title" data-i18n-key = "password"></span>
                         </a>
                     </li>
                     <li class = "nav-item">
@@ -47,7 +47,7 @@ class AccountPage extends HTMLElement{
                             <span class="material-icons material-symbols-outlined">
                                 delete_forever
                             </span>
-                            <span class = "nav-title" data-i18n-key = "delete_account">Delete Account</span>
+                            <span class = "nav-title" data-i18n-key = "delete_account"></span>
                         </a>
                     </li>
                 </div>
@@ -63,7 +63,7 @@ class AccountPage extends HTMLElement{
             this.initializeChangePage();
         });
     }
-    initializeChangePage(){
+    async initializeChangePage(){
         const currentURL = WindowController.getURLStripParts()[1];
         console.log(currentURL);
 
@@ -80,38 +80,60 @@ class AccountPage extends HTMLElement{
             editProfileLink.className = "nav-link";
             deleteAccountLink.className = "nav-link";
             passwordLink.className = "nav-link";
-            subpageElement.appendChild(new AccountInfoPage());
+            const accountInfoElement = new AccountInfoPage(); 
+            await accountInfoElement.init()
+            accountInfoElement.style.visibility = "hidden";
+            subpageElement.appendChild(accountInfoElement);
+            await Localization.initTranslate();
+            accountInfoElement.style.visibility = "visible";
         }
         else if (currentURL === "edit-profile"){
             accountInfoLink.className = "nav-link";
             editProfileLink.className = "nav-link active";
             deleteAccountLink.className = "nav-link";
             passwordLink.className = "nav-link";
-            subpageElement.appendChild(new EditProfilePage());
+            const editProfilePageElement = new EditProfilePage();
+            await editProfilePageElement.init();
+            editProfilePageElement.style.visibility = "hidden";
+            await Localization.initTranslate();
+            editProfilePageElement.style.visibility = "visible";
+            
+            subpageElement.appendChild(editProfilePageElement);
+            await Localization.initTranslate();
         }
         else if (currentURL === "password"){
             accountInfoLink.className = "nav-link";
             editProfileLink.className = "nav-link";
             passwordLink.className = "nav-link active";
             deleteAccountLink.className = "nav-link";
-            subpageElement.appendChild(new ChangePasswordPage());
+            const changePasswordPageElement = new ChangePasswordPage();
+            await changePasswordPageElement.init();
+            changePasswordPageElement.style.visibility = "hidden";
+            subpageElement.appendChild(changePasswordPageElement);
+            await Localization.initTranslate();
+            changePasswordPageElement.style.visibility = "visible";
         }
         else if (currentURL === "delete-account"){
             accountInfoLink.className = "nav-link";
             editProfileLink.className = "nav-link";
             passwordLink.className = "nav-link";
             deleteAccountLink.className = "nav-link active";
-            subpageElement.appendChild(new DeleteAccountPage());
+            const deleteAccountPageElement = new DeleteAccountPage();
+            await deleteAccountPageElement.init();
+            deleteAccountPageElement.style.visibility = "hidden";
+            subpageElement.appendChild(deleteAccountPageElement);
+            await Localization.initTranslate();
+            deleteAccountPageElement.style.visibility = "visible";
         }
+        
     }
     appendChildren(){
         this.appendChild(this.accountElement);
     }
-    connectedCallback(){
+    async init(){
         this.render();
-        this.initializeChangePage();
+        await this.initializeChangePage();
         this.addListeners();
-        Localization.initTranslate();
         this.appendChildren();
     }
    

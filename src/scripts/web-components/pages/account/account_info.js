@@ -8,7 +8,6 @@ class AccountInfoPage extends HTMLElement{
         this.userData = null
     }
     render(){
-        
         this.accountInfoElement.innerHTML = `
             <div class = "container">
                 <table>
@@ -34,11 +33,10 @@ class AccountInfoPage extends HTMLElement{
     appendChildren(){
         this.appendChild(this.accountInfoElement);
     }
-    async connectedCallback(){
+    async init(){
         await this.fetchUserData();
         this.render();
         this.appendChildren();
-        Localization.initTranslate();
     }
 }
 

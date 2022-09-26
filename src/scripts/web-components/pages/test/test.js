@@ -29,9 +29,12 @@ class TestPage extends HTMLElement{
             this.updateAnswerCaptionValue();
         }
     }
-    renderLoadingElement(){
+    async renderLoadingElement(){
         this.loadingElement.setMessage(Localization.getLocalizedText("fetching_question"))
-        this.appendChild(this.loadingElement)
+        await this.loadingElement.init();
+        this.appendChild(this.loadingElement);
+        await Localization.initTranslate();
+        this.loadingElement.style.visibility = "visible"
     }
     removeLoadingElement(){
         this.removeChild(this.loadingElement)
@@ -299,14 +302,13 @@ class TestPage extends HTMLElement{
         console.log(`Response JSON Data: ${this.userAnswer.ACT}`)
     }
     async preRender(){
-        this.renderLoadingElement();
-        Localization.initTranslate();
+        await this.renderLoadingElement();
         await this.fetchQuestions();
         await this.fetchScoresData();
         await this.fetchCurrentUserAnswer();
         this.removeLoadingElement();
     }
-    async connectedCallback(){
+    async init(){
         await this.preRender();
         this.render();
         this.setListeners();
@@ -314,7 +316,7 @@ class TestPage extends HTMLElement{
         Localization.initTranslate();
         this.appendChildren();
     }
-    disconnectedCallback(){
+    disinit(){
         window.removeEventListener("hashchange", this.refreshQuestionFunction)
     }
     appendChildren(){

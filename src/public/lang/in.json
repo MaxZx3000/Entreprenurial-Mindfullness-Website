@@ -76,7 +76,7 @@
     "test_tutorial_title": "Petunjuk Pengisian",
     "test_tutorial_explanation": "Berdasarkan pendapat umum Anda tentang diri Anda, beri nilai pernyataan berikut yang tepat untuk Anda. Pilihan Anda mengacu pada pernyataan yang paling cocok di antara pilihan di kiri atau kanan. Jika di antara keduanya, maka Anda bisa memilih opsi nilai di tengah (4).",
     "save_answer": "Simpan Jawaban",
-    "submit_answer": "Finalisasi Jawaban",
+    "submit_answer": "Lihat Skor Mindfulness",
     "success_submit": "Berhasil melakukan pengumpulan jawaban! Mari melihat jawaban Anda!",
     "failed_submit": "Gagal melakukan pengumpulan jawaban! Silahkan dicoba kembali!",
     "processing_answer": "Sedang memproses skor...",
@@ -94,5 +94,6 @@
     "success-delete-account": "Berhasil Menghapus akun Anda!",
     "success-edit-profile": "Berhasil mengubah detail profil Anda!",
     "success-change-password": "Berhasil mengubah password!",
+    "wrong-password": "Sandi yang dimasukkan salah",
     "duplicate_username_email": "Username/ email sudah diambil! Silakan coba dengan nama pengguna/ email yang berbeda!"
 }

@@ -32,35 +32,47 @@ import WindowController from './scripts/utils/window-manager';
 import UserHelpers from "./scripts/globals/user-helpers";
 import RegisteredUserHeader from "./scripts/web-components/registered-user-header.js";
 import HeaderElement from "./scripts/web-components/header.js";
+import Localization from "./scripts/utils/localization";
 
 let currentURL = ""
 
-const defineHeader = () => {
+const defineHeader = async () => {
     const headerElement = document.querySelector("header")
     headerElement.innerHTML = ""
     if (UserHelpers.isLogin()){
-        headerElement.appendChild(new RegisteredUserHeader());
+        const chosenHeaderElement = new RegisteredUserHeader()
+        await chosenHeaderElement.init();
+        headerElement.appendChild(chosenHeaderElement);
+
         return;    
     }
-    headerElement.appendChild(new HeaderElement());
+    const chosenHeaderElement = new HeaderElement()
+    await chosenHeaderElement.init();
+    headerElement.appendChild(chosenHeaderElement);
+    return;
 }
 
-const defineBodyPage = () => {
+const defineBodyPage = async () => {
     const bodyElement = document.querySelector('main');    
     const nextURLPage = WindowController.getURLStripParts()[0];
     if (currentURL !== nextURLPage){
         bodyElement.innerHTML = "";
-        bodyElement.appendChild(RouteManager.getPage(nextURLPage));
+        const pageElement = RouteManager.getPage(nextURLPage);
+        await pageElement.init();
+        bodyElement.appendChild(pageElement);
+        bodyElement.style.visibility = "hidden"
+        await Localization.initTranslate();
+        bodyElement.style.visibility = "visible"
     }
     currentURL = nextURLPage
 };
 
-window.addEventListener("hashchange", async() => {
-    defineHeader();
-    defineBodyPage();
+window.addEventListener("hashchange", async () => {
+    await defineHeader();
+    await defineBodyPage();
 })
 
-window.addEventListener('DOMContentLoaded', async() => {
-    defineHeader();
-    defineBodyPage();
+window.addEventListener('DOMContentLoaded', async () => {
+    await defineHeader();
+    await defineBodyPage();
 });
