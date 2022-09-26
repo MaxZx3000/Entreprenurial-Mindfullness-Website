@@ -12,6 +12,7 @@ class RegisterPage extends HTMLElement{
     constructor(){
         super();
         this.registerElement = document.createElement("div");
+        this.provinceJSON = {}
     }
     render(){
         this.registerElement.innerHTML = `
@@ -110,26 +111,45 @@ class RegisterPage extends HTMLElement{
         `;
     }
     async fetchData(){
+        await this.addCountriesOptionElement();
         this.addProvincesOptionElement();
-        this.addCountriesOptionElement();
         this.addAgesOptionElement();
         this.addStatusesOptionElement();
         this.addBusinessesOptionElement();
+    }
+    addProvincesOfflineOptionElement(){
+        const selectProvincesElement = this.registerElement.querySelector("#province_id");
+        const selectCountryElement = this.registerElement.querySelector("#country_id");
+
+        const filteredProvinceJSON = this.provinceJSON.filter(province => province.country_id == selectCountryElement.value)
+        console.log(filteredProvinceJSON)
+        selectProvincesElement.innerHTML = ""
+        filteredProvinceJSON.forEach((province) => {
+            const optionElement = document.createElement("option")
+            optionElement.innerText = province.name
+            optionElement.value = province.id
+            selectProvincesElement.appendChild(optionElement)
+        })
     }
     async addProvincesOptionElement(){
         const provinceJSON = await FetchHelpers.getJSONResult(
             ApiEndpoint.getProvinceAllLink(),
             FetchHelpers.getDefaultRequestBody(),
         )
+
         if (provinceJSON.status === 200){
-            const provinces = provinceJSON.json;
-            console.log(provinces)
+            this.provinceJSON = provinceJSON.json;
             const selectProvincesElement = this.registerElement.querySelector("#province_id");
-            provinces.forEach((province) => {
+            const selectCountryElement = this.registerElement.querySelector("#country_id");
+            
+            this.provinceJSON.forEach((province) => {
                 const optionElement = document.createElement("option")
                 optionElement.innerText = province.name
                 optionElement.value = province.id
                 selectProvincesElement.appendChild(optionElement)
+            });
+            selectCountryElement.addEventListener("change", () => {
+                this.addProvincesOfflineOptionElement();
             });
         }
     }

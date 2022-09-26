@@ -21,6 +21,7 @@ class SwalCustomFunctions{
             showCloseButton: false,
             showDenyButton: false,
             timerProgressBar: true,
+            allowOutsideClick: false,
             didOpen: () => {
                 Swal.showLoading()
             }            

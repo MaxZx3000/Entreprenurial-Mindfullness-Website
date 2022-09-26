@@ -12,6 +12,7 @@ class EditProfilePage extends HTMLElement{
     constructor(){
         super();
         this.editProfileElement = document.createElement('div');
+        this.provinceJSON = {}
     }
     render(){
         this.editProfileElement.innerHTML = `
@@ -83,19 +84,40 @@ class EditProfilePage extends HTMLElement{
             </div>
         `;
     }
+
+    addProvincesOfflineOptionElement(){
+        const selectProvincesElement = this.editProfileElement.querySelector("#province_id");
+        const selectCountryElement = this.editProfileElement.querySelector("#country_id");
+
+        const filteredProvinceJSON = this.provinceJSON.filter(province => province.country_id == selectCountryElement.value)
+        console.log(filteredProvinceJSON)
+        selectProvincesElement.innerHTML = ""
+        filteredProvinceJSON.forEach((province) => {
+            const optionElement = document.createElement("option")
+            optionElement.innerText = province.name
+            optionElement.value = province.id
+            selectProvincesElement.appendChild(optionElement)
+        })
+    }
+
     async addProvincesOptionElement(){
         const provinceJSON = await FetchHelpers.getJSONResult(
             ApiEndpoint.getProvinceAllLink(),
             FetchHelpers.getDefaultRequestBody(),
         )
         if (provinceJSON.status === 200){
-            const provinces = provinceJSON.json;
+            this.provinceJSON = provinceJSON.json;
             const selectProvincesElement = this.editProfileElement.querySelector("#province_id");
-            provinces.forEach((province) => {
+            const selectCountryElement = this.editProfileElement.querySelector("#country_id");
+
+            this.provinceJSON.forEach((province) => {
                 const optionElement = document.createElement("option")
                 optionElement.innerText = province.name
                 optionElement.value = province.id
                 selectProvincesElement.appendChild(optionElement)
+            });
+            selectCountryElement.addEventListener("change", () => {
+                this.addProvincesOfflineOptionElement();
             });
         }
     }
@@ -155,6 +177,7 @@ class EditProfilePage extends HTMLElement{
             })
         } 
     }
+
     async performRequest(jsonRequestData){
         SwalCustomFunctions.initializeLoadingPopUp();
         const responseJSONData = await MyFetch.editProfile(jsonRequestData)
