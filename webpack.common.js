@@ -2,9 +2,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+// const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 const path = require('path');
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
 
 module.exports = {
   entry: path.resolve(__dirname, 'src/index.js'),
@@ -90,8 +92,15 @@ module.exports = {
         },
       ],
     }),
+    // new ServiceWorkerWebpackPlugin({
+    //   entry: path.resolve(__dirname, 'src/scripts/service-worker.js'),
+    // }),
+    
     new CssMinimizerPlugin(),
     new MiniCssExtractPlugin(),
+    new WorkboxWebpackPlugin.GenerateSW({
+      swDest: "./sw.bundle.js",
+    }),
     new BundleAnalyzerPlugin(),
   ],
   optimization: {
