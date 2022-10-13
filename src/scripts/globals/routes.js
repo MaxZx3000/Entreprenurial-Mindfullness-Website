@@ -8,6 +8,7 @@ import ResultPage from "../web-components/pages/test/result.js";
 import AccountPage from "../web-components/pages/account/account.js";
 import StatisticsPage from "../web-components/pages/statistics.js";
 import UserHelpers from "./user-helpers.js";
+import HistoryPage from "../web-components/pages/test/history.js";
 
 class Routes {
   constructor() {
@@ -19,6 +20,9 @@ class Routes {
   getPage(url) {
     if (url === '' || url === 'home'){
       return new HomePage();
+    }
+    else if (url === "statistics"){
+      return new StatisticsPage();
     }
     // For Non Registered User.
     if (UserHelpers.getJWTToken() === null){
@@ -37,14 +41,14 @@ class Routes {
       else if (url === "test"){
         return new TestPage();
       }
-      else if (url === "result"){
+      else if (url.startsWith("result?")){
         return new ResultPage();
-      }
-      else if (url === "statistics"){
-        return new StatisticsPage();
       }
       else if (url === "profile_intro"){
         return new ProfileIntroPage();
+      }
+      else if (url === "history"){
+        return new HistoryPage();
       }
     }
     return new NotFoundPage();

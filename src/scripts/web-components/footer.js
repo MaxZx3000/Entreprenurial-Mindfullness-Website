@@ -15,6 +15,7 @@ class FooterElement extends HTMLElement{
                 <p>Jl. K.H. Syahdan No. 9, Palmerah, West Jakarta, DKI Jakarta, Indonesia</p>
                 <p data-i18n-key = "have_any_questions">Have any questions? Email us at </p>
             </div>
+            <p id = "copyright-form">© 2022 RIG Edutech Bina Nusantara University</p>
         `;
     }
     
@@ -22,7 +23,7 @@ class FooterElement extends HTMLElement{
         this._setCopyrightFooterElement();
     }
 
-    async init(){
+    connectedCallback(){
         this.render();
         this.appendChildren();
     }

@@ -13,6 +13,22 @@ class _TextFormatter {
       }
       return formattedText;
     }
+    getHumanReadableDate(dateString){
+      const date = new Date(dateString);
+      const hours = date.getHours();
+      const minute = date.getMinutes();
+      const second = date.getSeconds();
+      const day = date.getDate();
+      const month = date.getMonth();
+      const year = date.getFullYear();
+      
+    }
+    _getMonth(monthIndex){
+      const month = ["January", "February", "March", "April", "June", "July",
+                     "August", "September", "October", "November", "December"];
+
+      return month[monthIndex]
+    }
   }
   const TextFormatter = new _TextFormatter();
   Object.freeze(TextFormatter);

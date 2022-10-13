@@ -1,3 +1,4 @@
+import regeneratorRuntime from "regenerator-runtime";
 import "./styles/home.sass";
 import './styles/main.sass';
 import './styles/header.sass';
@@ -14,7 +15,8 @@ import './styles/account/change_password.sass';
 import './styles/account/delete_password.sass';
 import './styles/account/account_info.sass';
 import './styles/account/account.sass';
-import './styles/test/test.sass';   
+import './styles/test/test.sass';
+import './styles/test/history.sass';
 import './styles/test/result.sass';
 import './styles/range_bar.sass';
 import './styles/gauge.sass';
@@ -43,13 +45,11 @@ const defineHeader = async () => {
         const chosenHeaderElement = new RegisteredUserHeader()
         await chosenHeaderElement.init();
         headerElement.appendChild(chosenHeaderElement);
-
         return;    
     }
     const chosenHeaderElement = new HeaderElement()
     await chosenHeaderElement.init();
     headerElement.appendChild(chosenHeaderElement);
-    return;
 }
 
 const defineBodyPage = async () => {
@@ -61,9 +61,9 @@ const defineBodyPage = async () => {
         await pageElement.init();
         bodyElement.appendChild(pageElement);
         bodyElement.style.visibility = "hidden"
-        await Localization.initTranslate();
         bodyElement.style.visibility = "visible"
     }
+    await Localization.initTranslate();
     currentURL = nextURLPage
 };
 

@@ -80,7 +80,7 @@
     "success_submit": "Berhasil melakukan pengumpulan jawaban! Mari melihat jawaban Anda!",
     "failed_submit": "Gagal melakukan pengumpulan jawaban! Silahkan dicoba kembali!",
     "processing_answer": "Sedang memproses skor...",
-    "last_updated_score": "Skor paling terakhir pada tanggal: ",
+    "last_updated_score": "Tanggal: ",
     "your_entreprenurial_score": "Skor Entreprenurial Anda",
     "logout": "Keluar",
     "logout_success": "Berhasil keluar dari akun Anda!",
@@ -95,5 +95,7 @@
     "success-edit-profile": "Berhasil mengubah detail profil Anda!",
     "success-change-password": "Berhasil mengubah password!",
     "wrong-password": "Sandi yang dimasukkan salah",
-    "duplicate_username_email": "Username/ email sudah diambil! Silakan coba dengan nama pengguna/ email yang berbeda!"
+    "duplicate_username_email": "Email sudah diambil! Silakan coba dengan nama email yang berbeda!",
+    "unanswered_questions_numbers": "Anda belum menjawab pertanyaan-pertanyaan ini: ",
+    "unanswered_questions_instruction": "Mohon menjawab pertanyaan-pertanyaan ini terlebih dahulu!"
 }

@@ -4,20 +4,20 @@ import StorageHelpers from "./storage-helpers"
 import UserGlobal from "./user-helpers"
 
 class RequestJSONTemplate{
-    static getGetMethodJSONData(){
+    static getGetMethodJSONData(contentType = "application/json"){
         return {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': contentType,
                 mode: 'cors',
             },
         }
     }
-    static getGetAuthorizationJSONData(){
+    static getGetAuthorizationJSONData(contentType = "application/json"){
         return {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': contentType,
                 'Authorization': `Bearer ${UserGlobal.getJWTToken()}`,
                 'mode': 'cors'
             }
@@ -79,38 +79,47 @@ class MyFetch{
         jsonRequestData.method = 'PUT'
         jsonRequestData.body = JSON.stringify(requestJSONBody)
         const responseJSON = await FetchHelpers.getJSONResult(
-            ApiEndpoint.getUserLink(),
+            ApiEndpoint.getUserEditLink(),
             jsonRequestData
         )
         return responseJSON
     }
-    static async saveAnswer(requestJSONBody){
+    static async getHistories(){
         const jsonRequestData = RequestJSONTemplate.getGetAuthorizationJSONData()
-        jsonRequestData.method = "PUT"
-        jsonRequestData.body = JSON.stringify(requestJSONBody)
-
         const responseJSON = await FetchHelpers.getJSONResult(
-            ApiEndpoint.getAnswerLink(),
+            ApiEndpoint.getHistoryLink(),
             jsonRequestData
         )
-        
         return responseJSON
     }
     static async submitAnswer(requestJSONBody){
         const jsonRequestData = RequestJSONTemplate.getGetAuthorizationJSONData()
         jsonRequestData.method = "POST"
-        jsonRequestData.body = JSON.stringify(requestJSONBody)
-
+        jsonRequestData.body = JSON.stringify({
+            "answer":  requestJSONBody
+        });
         const responseJSON = await FetchHelpers.getJSONResult(
-            ApiEndpoint.getAnswerLink(),
+            ApiEndpoint.getQuestionLink(),
             jsonRequestData
         )
 
         return responseJSON
     }
-    static async getAnswer(){
+    static async getAnswer(testID){
+        const jsonRequestBody = RequestJSONTemplate.getGetAuthorizationJSONData();
+        jsonRequestBody.method = "POST";
+        jsonRequestBody.body = JSON.stringify({
+            "id": testID
+        })
         const responseJSON = await FetchHelpers.getJSONResult(
             ApiEndpoint.getAnswerLink(),
+            jsonRequestBody,
+        )
+        return responseJSON
+    }
+    static async getQuestionData(){
+        const responseJSON = await FetchHelpers.getJSONResult(
+            ApiEndpoint.getQuestionLink(),
             RequestJSONTemplate.getGetAuthorizationJSONData(),
         )
         return responseJSON
@@ -141,8 +150,8 @@ class MyFetch{
             'password': password
         }
         const requestBody = RequestJSONTemplate.getGetAuthorizationJSONData()
-        requestBody.body = JSON.stringify(password_json)
         requestBody.method = "DELETE"
+        requestBody.body = JSON.stringify(password_json)
         const responseJSON = await FetchHelpers.getJSONResult(
             ApiEndpoint.getUserLink(),
             requestBody

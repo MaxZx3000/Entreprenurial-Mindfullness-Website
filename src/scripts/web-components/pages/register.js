@@ -22,10 +22,9 @@ class RegisterPage extends HTMLElement{
             <div class = "container">
                 <form class = "needs-validation" novalidate>
                     <div class = "form-group">
-                        <label for = "username" data-i18n-key = "Username">Username</label>
-                        <input type = "text" class = "form-control" id = "username" name = "username">
+                        <label for = "e_mail_address" data-i18n-key = "e_mail_address">E-mail address</label>
+                        <input type = "text" class = "form-control" id = "email" name = "email">
                         <div class="invalid-feedback">
-                            
                         </div>
                     </div>
                     <div class = "form-group">
@@ -43,12 +42,6 @@ class RegisterPage extends HTMLElement{
                     <div class = "form-group">
                         <label for = "fullname" data-i18n-key = "fullname">Full name</label>
                         <input type = "text"  class = "form-control" id = "fullname" name = "fullname">
-                        <div class="invalid-feedback">
-                        </div>
-                    </div>
-                    <div class = "form-group">
-                        <label for = "e_mail_address" data-i18n-key = "e_mail_address">E-mail address</label>
-                        <input type = "text" class = "form-control" id = "email" name = "email">
                         <div class="invalid-feedback">
                         </div>
                     </div>
@@ -265,9 +258,9 @@ class RegisterPage extends HTMLElement{
         SwalCustomFunctions.initializeCloseButton();
     }
     validateForm(json){
-        if (Validation.validateUsername(json.username).isTrue === false){
-            const validation = Validation.validateUsername(json.username)
-            validation.element = "#username"
+        if (Validation.validateEmail(json.email).isTrue === false){
+            const validation = Validation.validateEmail(json.email)
+            validation.element = "#email"
             return validation
         }
         else if (Validation.validatePassword(json.password).isTrue === false){
@@ -278,11 +271,6 @@ class RegisterPage extends HTMLElement{
         else if (Validation.validateConfirmPassword(json.password, json.confirm_password).isTrue === false){
             const validation = Validation.validateConfirmPassword(json.password, json.confirm_password)
             validation.element = "#confirm_password"
-            return validation
-        }
-        else if (Validation.validateEmail(json.email).isTrue === false){
-            const validation = Validation.validateEmail(json.email)
-            validation.element = "#email"
             return validation
         }
         else if (Validation.validateGender(json.gender).isTrue === false){
@@ -326,7 +314,7 @@ class RegisterPage extends HTMLElement{
         });        
 
         registerButtonElement.addEventListener("click", async (event) => {
-            const username = this.registerElement.querySelector("#username").value;
+            // const username = this.registerElement.querySelector("#username").value;
             const password = this.registerElement.querySelector("#password").value;
             const confirmPassword = this.registerElement.querySelector("#confirm_password").value;
             const email = this.registerElement.querySelector("#email").value;
@@ -338,7 +326,7 @@ class RegisterPage extends HTMLElement{
             const statusId = this.registerElement.querySelector("#status_id").value;
             const businessId = this.registerElement.querySelector("#business_id").value;
             const jsonRequestBody = {
-                "username": username,
+                // "username": username,
                 "password": password,
                 "confirm_password": confirmPassword,
                 "email": email,

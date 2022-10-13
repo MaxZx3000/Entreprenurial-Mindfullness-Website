@@ -1,15 +1,18 @@
-const JWT_TOKEN_ID = "jwt-token"
+const storageIDs = {
+    JWT_TOKEN_ID: "jwt-token",
+    USER_DB: "user-db"
+}
 
 class StorageHelpers{
-    static saveJWToken(jwtToken){
-        localStorage.setItem(JWT_TOKEN_ID, jwtToken)
+    static save(itemID, item){
+        localStorage.setItem(itemID, item)
     }
-    static loadJWTToken(){
-        return localStorage.getItem(JWT_TOKEN_ID)
+    static get(itemID){
+        return localStorage.getItem(itemID)
     }
-    static deleteJWTToken(){
-        return localStorage.removeItem(JWT_TOKEN_ID)
+    static delete(itemID){
+        return localStorage.removeItem(itemID)
     }
 }
 
-export default StorageHelpers
+export {storageIDs, StorageHelpers}

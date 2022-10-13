@@ -1,5 +1,5 @@
 import MyFetch from "./my-fetch"
-import StorageHelpers from "./storage-helpers"
+import {storageIDs, StorageHelpers} from "./storage-helpers"
 
 class _UserGlobal{
     constructor(){
@@ -8,27 +8,33 @@ class _UserGlobal{
         }
         return _UserGlobal.instance
     }
-    // setUserData(userData){
-    //    this.userData = userData
+    // async getUserFullData(){
+    //     const fullUserData = await MyFetch.getUserData()
+    //     return fullUserData.json
     // }
-    // getUserData(){
-    //     return this.userData
-    // }
-    async getUserFullData(){
-        const fullUserData = await MyFetch.getUserData()
-        return fullUserData.json
+    saveUserData(userJSON){
+        const jsonUserStringify = JSON.stringify(userJSON)
+        StorageHelpers.save(storageIDs.USER_DB, jsonUserStringify)
+    }
+    getUserData(){
+        const jsonUser = StorageHelpers.get(storageIDs.USER_DB)
+        return JSON.parse(jsonUser)
+    }
+    deleteUserData(){
+        StorageHelpers.delete(storageIDs.USER_DB)
     }
     setJWTToken(jwtToken){
-        StorageHelpers.saveJWToken(jwtToken)
+        StorageHelpers.save(storageIDs.JWT_TOKEN_ID, jwtToken)
     }
     getJWTToken(){
-        return StorageHelpers.loadJWTToken()
+        return StorageHelpers.get(storageIDs.JWT_TOKEN_ID)
     }
     logoutUser(){
-        StorageHelpers.deleteJWTToken()
+        StorageHelpers.delete(storageIDs.JWT_TOKEN_ID)
+        StorageHelpers.delete(storageIDs.USER_DB)
     }
     isLogin(){
-        if (StorageHelpers.loadJWTToken() === null){
+        if (StorageHelpers.get(storageIDs.JWT_TOKEN_ID) === null){
             return false
         }
         else{

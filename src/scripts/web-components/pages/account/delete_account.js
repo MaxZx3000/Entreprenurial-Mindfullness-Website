@@ -24,7 +24,7 @@ class DeleteAccountPage extends HTMLElement{
                 <p id = "delete_account_confirmation" data-i18n-key = "delete_account_confirmation">Are you sure you want to delete your account?</p>
                 <p id = "delete_account_confirmation_2" data-i18n-key = "delete_account_confirmation_2">This will erase all of your account data from the site. To delete your account, enter the password below.</p>
                 <form>
-                    <input type = "text" class = "form-control" id = "delete-account-password" name = "delete-account-password">
+                    <input type = "password" class = "form-control" id = "delete-account-password" name = "delete-account-password">
                     <div class = "invalid-feedback">
                     </div>
                     <button id = "delete_account_button" data-i18n-key = "delete_account" type = "button" class = "danger-action-button"></button>

@@ -34,9 +34,9 @@ class EditProfilePage extends HTMLElement{
                     <div class = "form-group">
                         <label data-i18n-key = "gender">Gender</label>
                         <br>
-                        <input type="radio" id="male" name="gender" value="Male">
+                        <input type="radio" id="Male" name="gender" value="Male">
                         <label for="male" data-i18n-key = "male">Male</label>
-                        <input type="radio" id="female" name="gender" value="Female">
+                        <input type="radio" id="Female" name="gender" value="Female">
                         <label for="female" data-i18n-key = "female">Female</label>
                         <div class="invalid-feedback">
                         </div>
@@ -182,6 +182,10 @@ class EditProfilePage extends HTMLElement{
         SwalCustomFunctions.initializeLoadingPopUp();
         const responseJSONData = await MyFetch.editProfile(jsonRequestData)
         if (responseJSONData.status === 200){
+            console.log(responseJSONData);
+            UserGlobal.saveUserData(
+                responseJSONData.json.data
+            );
             Swal.fire({
                 title: "Hooray!",
                 icon: 'success',
@@ -191,9 +195,8 @@ class EditProfilePage extends HTMLElement{
                 html: `
                     <p>${Localization.getLocalizedText("success-edit-profile")}</p>
                     <button type = "button" id = "swal-close-button" class = "action-button" id = "forgot-password" style = "width: 100%">OK</button>
-                
                 `
-            })
+            });
             SwalCustomFunctions.initializeCloseButton()
         }
         else if (responseJSONData.status === 401){
@@ -285,7 +288,16 @@ class EditProfilePage extends HTMLElement{
                 const ageId = this.editProfileElement.querySelector("#age_id").value;
                 const statusId = this.editProfileElement.querySelector("#status_id").value
                 const businessId = this.editProfileElement.querySelector("#business_id").value;
-                
+
+                // const editProfileFormData = new FormData()
+                // editProfileFormData.append("fullname", fullname)
+                // editProfileFormData.append("gender", gender)
+                // editProfileFormData.append("country_id", countryId)
+                // editProfileFormData.append("province_id", provinceId)
+                // editProfileFormData.append("age_id", ageId)
+                // editProfileFormData.append("status_id", statusId)
+                // editProfileFormData.append("business_id", businessId)
+
                 const jsonRequestBody = {
                     "fullname": fullname,
                     "gender": gender,
@@ -297,59 +309,58 @@ class EditProfilePage extends HTMLElement{
                 }
 
                 const validationResult = this.validateForm(jsonRequestBody)
-                
-                // console.log("Result:")
-                // console.log(validationResult)
 
                 if (validationResult.isTrue === false){
                     HTMLHelpers.makeInvalidStatusField(this.editProfileElement, validationResult)
                     this.editProfileElement.querySelector(validationResult.element).focus()
                 }
 
-                const userCheckResult = await MyFetch.userCheck(jsonRequestBody["username"], jsonRequestBody["email"])
+                // const userCheckResult = await MyFetch.userCheck(jsonRequestBody["username"], jsonRequestBody["email"])
                 
-                if (userCheckResult.status === 409){
-                    Swal.fire({
-                        title: "Oops!",
-                        showCancelButton: false,
-                        showConfirmButton: false,
-                        showDenyButton: false,
-                        html: `
-                            <p>${userCheckResult.json.message}</p>
-                            <button type = "button" class = "action-button" id = "swal-close-button" style = "width: 100%">OK</button>
-                        `
-                    })
-                    SwalCustomFunctions.initializeCloseButton()
-                    return
-                }
+                // if (userCheckResult.status === 409){
+                //     Swal.fire({
+                //         title: "Oops!",
+                //         showCancelButton: false,
+                //         showConfirmButton: false,
+                //         showDenyButton: false,
+                //         html: `
+                //             <p>${userCheckResult.json.message}</p>
+                //             <button type = "button" class = "action-button" id = "swal-close-button" style = "width: 100%">OK</button>
+                //         `
+                //     })
+                //     SwalCustomFunctions.initializeCloseButton()
+                //     return
+                // }
                 
                 await this.performRequest(jsonRequestBody)
             })
     }
     async fetchUserData(){
-        const responseJSONData = await UserGlobal.getUserFullData()
+        const responseJSONData = await UserGlobal.getUserData()
+        console.log("Response JSON Data:")
+        console.log(responseJSONData)
         this.editProfileElement.querySelector("#fullname").value = responseJSONData["fullname"];
         this.editProfileElement.querySelector("input[name = 'gender']").value = responseJSONData["gender"];
-        this.editProfileElement.querySelector("#country_id").value = responseJSONData["country_id"];
-        this.editProfileElement.querySelector("#province_id").value = responseJSONData["province_id"];
-        this.editProfileElement.querySelector("#age_id").value = responseJSONData["age_id"];
-        this.editProfileElement.querySelector("#status_id").value = responseJSONData["status_id"];
-        this.editProfileElement.querySelector("#business_id").value = responseJSONData["business_id"];
+        this.editProfileElement.querySelector("#country_id").value = responseJSONData.country.id;
+        this.editProfileElement.querySelector("#province_id").value = responseJSONData.province.id;
+        this.editProfileElement.querySelector("#age_id").value = responseJSONData.age.id;
+        this.editProfileElement.querySelector("#status_id").value = responseJSONData.status.id;
+        this.editProfileElement.querySelector("#business_id").value = responseJSONData.business.id;
     }
     appendChildren(){
         this.appendChild(this.editProfileElement)
     }
     async fetchData(){
-        this.addProvincesOptionElement();
-        this.addCountriesOptionElement();
-        this.addAgesOptionElement();
-        this.addStatusesOptionElement();
+        await this.addProvincesOptionElement();
+        await this.addCountriesOptionElement();
+        await this.addAgesOptionElement();
+        await this.addStatusesOptionElement();
         await this.addBusinessesOptionElement();
-        this.fetchUserData()
+        await this.fetchUserData()
     }
     async init(){
         this.render();
-        this.fetchData();
+        await this.fetchData();
         this.setListeners();
         this.appendChildren();
     }

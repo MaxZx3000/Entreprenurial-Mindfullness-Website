@@ -80,7 +80,7 @@
     "success_submit": "Successfully submit the answer! Let's see your results!",
     "failed_submit": "Failed to submit your answer! Please try again!",
     "processing_answer": "Processing your score...",
-    "last_updated_score": "Your last updated score: ",
+    "last_updated_score": "Tanggal: ",
     "your_entreprenurial_score": "Your Entrepreneurial Score",
     "logout": "Logout",
     "logout_success": "Logout successfully!",
@@ -95,5 +95,7 @@
     "success-edit-profile": "Successfully edit your profile!",
     "success-change-password": "Successfully change your password!",
     "wrong-password": "Wrong Password",
-    "duplicate_username_email": "Username/ email is already taken! Please try with different username/ email!"
+    "duplicate_username_email": "Email is already taken! Please try with different email!",
+    "unanswered_questions_numbers": "You haven't answered these questions yet: ",
+    "unanswered_questions_instruction": "Please answer these questions first!"
 }

@@ -12,21 +12,11 @@ class TestPage extends HTMLElement{
         super();
         this.testElement = document.createElement("div");
         this.loadingElement = new LoadingElement();
-        this.userAnswer = {
-            'ACT': 4,
-            'INS': 4,
-            'UBE': 4,
-            'HSI': 4,
-            'HCA': 4,
-            'DST': 4,
-            'DEV': 4,
-            'DCS': 4,
-            'COG': 4,
-            'AFK': 4,
-        }
+        this.userAnswer = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
         this.refreshQuestionFunction = () => {
             this.renderQuestionElement()
-            this.updateAnswerCaptionValue();
+            // this.updateAnswerCaptionValue();
+            this.refreshCurrentAnswer();
         }
     }
     async renderLoadingElement(){
@@ -35,6 +25,11 @@ class TestPage extends HTMLElement{
         this.appendChild(this.loadingElement);
         await Localization.initTranslate();
         this.loadingElement.style.visibility = "visible"
+    }
+    refreshCurrentAnswer(){
+        const tickmarksElement = this.testElement.querySelector("#user_response");
+        const currentQuestionNumber = parseInt(WindowController.getURLStripParts()[1]) - 1;
+        tickmarksElement.value = this.userAnswer[currentQuestionNumber]
     }
     removeLoadingElement(){
         this.removeChild(this.loadingElement)
@@ -64,7 +59,7 @@ class TestPage extends HTMLElement{
                     <p id = "question_en"></p>
                     <p id = "question_id"></p>
                     <p id = "user_response_feedback"></p>
-                    <input list = "tickmarks" type = "range" min = 1 max = 7 id = "user_response" name = "user_response">
+                    <input list = "tickmarks" type = "range" min = 0 max = 7 id = "user_response" name = "user_response">
                     <datalist id = "tickmarks">
 
                     </datalist>
@@ -82,12 +77,6 @@ class TestPage extends HTMLElement{
                     </div>
                     <div class = "row">
                         <div class = "col-sm-12 col-md-12 col-lg-12" id = "light-dark-background">
-                            <div class = "float-right">
-                                <button type = "button" id = "save-answer" data-i18n-key = "save_answer" class = "action-button primary-button">
-                                    Save Answer
-                                </button>
-                                
-                            </div>
                             <div class = "float-right">
                                 <button type = "button" id = "submit-answer" data-i18n-key = "submit_answer" class = "action-button primary-button">
                                     Submit Answer
@@ -108,34 +97,30 @@ class TestPage extends HTMLElement{
         const tickmarksElement = this.testElement.querySelector("input[type='range']");
         const questionNumberElement = this.testElement.querySelector("#question_number");
         // const userResponseFeedbackElement = this.testElement.querySelector("#user_response_feedback")
-        const currentQuestionNumber = parseInt(WindowController.getURLStripParts()[1]);
+        const currentQuestionNumber = parseInt(WindowController.getURLStripParts()[1]) - 1;
         // const userResponse = this.testElement.querySelector("#user_response").value
 
         dimensionElement.innerText = this.questions[currentQuestionNumber].dimension_name
-        questionEnglishElement.innerText = this.questions[currentQuestionNumber].question_in
-        questionIndonesianElement.innerHTML = this.questions[currentQuestionNumber].question_en
-        questionNumberElement.innerText = `No. ${currentQuestionNumber}`
+        questionEnglishElement.innerText = this.questions[currentQuestionNumber].questionA_in
+        questionIndonesianElement.innerHTML = this.questions[currentQuestionNumber].questionA_en
+        questionNumberElement.innerText = `No. ${currentQuestionNumber + 1}`
     
-        // userResponseFeedbackElement.innerText = this.scores[tickmarksElement.value - 1].title
-        // userResponseFeedbackElement.innerText = this.scores[userResponse - 1].title
-        // console.log(`User Response Feedback Element: ${this.scores[userResponse - 1].title}`)
-        const currentIndicator = this.questions[currentQuestionNumber].indicator_code.split('-')[1]
+        console.log("Questions:")
+        console.log(this.questions);
+        const currentIndicator = this.questions[currentQuestionNumber].indicator_en.split('-')[1]
         tickmarksElement.value = `${this.userAnswer[currentIndicator]}`;
-        
     }
     renderOptionsElement(){
         const tickmarksElement = this.testElement.querySelector("#tickmarks");
-        this.scores.forEach(score => {
+        console.log("This score 2:")
+        console.log(this.scores)
+        const scoresInNumber = this.scores.length + 1
+        for (var i = 0; i < scoresInNumber; i++){
             const optionElement = document.createElement("option")
-            optionElement.value = score.score
-            optionElement.label = score.score
+            optionElement.value = i
+            optionElement.label = i
             tickmarksElement.appendChild(optionElement)
-        });
-    }
-    updateCaptionAnswer(){
-        const userResponseFeedbackElement = this.testElement.querySelector("#user_response_feedback")
-        const userResponse = this.testElement.querySelector("#user_response").value
-        userResponseFeedbackElement.innerText = this.scores[userResponse - 1].title
+        }
     }
     setPreviousButtonListener(){
         const previousNumberElement = this.testElement.querySelector("#previous");
@@ -160,7 +145,6 @@ class TestPage extends HTMLElement{
             else{
                 nextNumberElement.disabled = false
             }
-            
         });
     }
     setHelpButtonListener(){
@@ -180,15 +164,9 @@ class TestPage extends HTMLElement{
             SwalCustomFunctions.initializeCloseButton()
         });
     }
-    initValueForResponseFeedback(){
-        const userResponseFeedbackElement = this.testElement.querySelector("#user_response_feedback")
-        const userResponse = this.testElement.querySelector("#user_response").value
-        const currentQuestionNumber = parseInt(WindowController.getURLStripParts()[1]);
-        const indicatorCode = this.questions[currentQuestionNumber].indicator_code
-        const rightIndicatorCode = indicatorCode.split("-")[1]
-
-        userResponseFeedbackElement.innerText = this.scores[userResponse - 1].title
-        this.userAnswer[rightIndicatorCode] = parseInt(userResponse)
+    initValueForResponseFeedback(scoreValue){
+        const currentQuestionNumber = parseInt(WindowController.getURLStripParts()[1]) - 1;
+        this.userAnswer[currentQuestionNumber] = parseInt(scoreValue)
     }
     updateAnswerCaptionValue(){
         const userResponseFeedbackElement = this.testElement.querySelector("#user_response_feedback")
@@ -198,23 +176,44 @@ class TestPage extends HTMLElement{
     setUserResponseListener(){
         const userResponseElement = this.testElement.querySelector("#user_response")
         userResponseElement.addEventListener("input", () => {
-            this.initValueForResponseFeedback()
+            const scoreValue = userResponseElement.value;
+            this.initValueForResponseFeedback(scoreValue)
+            userResponseElement.value = scoreValue;
+            console.log(userResponseElement)
         })
     }
-    setSaveAnswerListener(){
-        const saveAnswerButton = this.testElement.querySelector("#save-answer")
-        saveAnswerButton.addEventListener("click", async () => {
-            saveAnswerButton.disabled = true
-            saveAnswerButton.textContent = Localization.getLocalizedText("saving_answer")
-            const responseJSON = await MyFetch.saveAnswer(this.userAnswer)
-            if (responseJSON.status === 200){
-                saveAnswerButton.disabled = false
-                saveAnswerButton.textContent = Localization.getLocalizedText("save_answer")
+
+    checkIfAnsweredAll(){
+        const unansweredQuestions = []
+        this.userAnswer.forEach((value, index) => {
+            console.log(`Value: ${value}`);
+            if (value == 0){
+                unansweredQuestions.push(index + 1)        
             }
         })
+        
+        if (unansweredQuestions.length != 0){
+            Swal.fire({
+                title: "Oops!",
+                icon: "error",
+                showConfirmButton: false,
+                showCancelButton: false,
+                showDenyButton: false,
+                html: `
+                    <p>${Localization.getLocalizedText('unanswered_questions_numbers')} ${unansweredQuestions}</p>
+                    <p>${Localization.getLocalizedText('unanswered_questions_instruction')}</p>
+                    <button type = "button" id = "swal-close-button" class = "action-button" style = "width: 100%">OK</button>
+                `
+            });
+            SwalCustomFunctions.initializeCloseButton();
+            return false; 
+        }
+        return true;
     }
+
     setSubmitAnswerListener(){
         const submitAnswerButton = this.testElement.querySelector("#submit-answer")
+
         submitAnswerButton.addEventListener("click", async () => {
             Swal.fire({
                 title: 'Processing your answers...',
@@ -231,7 +230,12 @@ class TestPage extends HTMLElement{
                     Swal.hideLoading()
                 }
             });
-            const responseJSON = await MyFetch.submitAnswer(this.userAnswer)
+            if (this.checkIfAnsweredAll() == false){
+                return;
+            }
+            const responseJSON = await MyFetch.submitAnswer(
+                this.userAnswer
+            )
             console.log(responseJSON)
             if (responseJSON.status === 200){
                 Swal.fire({
@@ -246,8 +250,9 @@ class TestPage extends HTMLElement{
                         <button type = "button" id = "swal-close-button" class = "action-button" style = "width: 100%">OK</button>
                     `
                 })
+                const answerID = responseJSON.json.id
                 SwalCustomFunctions.initializeCloseButton();
-                WindowController.setWindowURLHash(`result`);
+                WindowController.setWindowURLHash(`result?id=${answerID}`);
             }
             else{
                 Swal.fire({
@@ -262,6 +267,7 @@ class TestPage extends HTMLElement{
                         <button type = "button" id = "swal-close-button" class = "action-button" style = "width: 100%">OK</button>
                     `
                 })
+                SwalCustomFunctions.initializeCloseButton();
             }
         })
     }
@@ -274,18 +280,14 @@ class TestPage extends HTMLElement{
         this.setHelpButtonListener()
         this.setUserResponseListener()
         this.setQuestionListener()
-        this.setSaveAnswerListener()
         this.setSubmitAnswerListener()
     }
     async fetchQuestions(){
-        const responseJSONData = await FetchHelpers.getJSONResult(
-            ApiEndpoint.getQuestionLink(),
-            FetchHelpers.getDefaultRequestBody()
-        )
+        const responseJSONData = await MyFetch.getQuestionData()
         if (responseJSONData.status === 200){
             this.questions = responseJSONData.json
         }
-        console.log(responseJSONData)
+        return responseJSONData;
     }
     async fetchScoresData(){
         const responseJSONData = await FetchHelpers.getJSONResult(
@@ -294,29 +296,24 @@ class TestPage extends HTMLElement{
         )
         if (responseJSONData.status === 200){
             this.scores = responseJSONData.json
+            // console.log("This scores: ")
+            // console.log(this.scores)
         }
-    }
-    async fetchCurrentUserAnswer(){
-        const responseJSONData = await MyFetch.getAnswer()
-        this.userAnswer = responseJSONData.json
-        console.log(`Response JSON Data: ${this.userAnswer.ACT}`)
     }
     async preRender(){
         await this.renderLoadingElement();
         await this.fetchQuestions();
         await this.fetchScoresData();
-        await this.fetchCurrentUserAnswer();
         this.removeLoadingElement();
     }
     async init(){
         await this.preRender();
         this.render();
         this.setListeners();
-        this.updateAnswerCaptionValue();
-        Localization.initTranslate();
+        // this.updateAnswerCaptionValue();
         this.appendChildren();
     }
-    disinit(){
+    disconnectCallback(){
         window.removeEventListener("hashchange", this.refreshQuestionFunction)
     }
     appendChildren(){

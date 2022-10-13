@@ -28,7 +28,7 @@ class AccountInfoPage extends HTMLElement{
         `;
     }
     async fetchUserData(){
-        this.userData = await UserGlobal.getUserFullData()
+        this.userData = await UserGlobal.getUserData()
     }
     appendChildren(){
         this.appendChild(this.accountInfoElement);

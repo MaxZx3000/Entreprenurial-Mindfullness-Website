@@ -3,6 +3,7 @@ import StorageHelpers from "../globals/storage-helpers";
 import Localization from "../utils/localization";
 import WindowController from "../utils/window-manager";
 import SwalCustomFunctions from "../globals/swal-custom-function";
+import UserGlobal from "../globals/user-helpers";
 
 class RegisteredUserHeader extends HTMLElement{
     constructor(){
@@ -30,20 +31,16 @@ class RegisteredUserHeader extends HTMLElement{
                         
                     </ul>
                     <form class="form-inline my-2 my-lg-0 dropdown">
-                        <!-- <li class="nav-item active"> -->
+                        <a class="nav-link" href = "#result" data-i18n-key = "result">Result</a>
+                        <a class="nav-link" href = "#history" data-i18n-key = "history">History</a>
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img id = "profile-menu" src = "https://upload.wikimedia.org/wikipedia/commons/6/67/Vector_Face_wearing_Spectacles.png" class = "nav-link dropdown-toggle" id = "profile-image" role = "button" data-toggle = "dropdown" aria-haspopup = "true" aria-expanded = "false">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
+                            <a class="nav-link" href = "#account/account-info" data-i18n-key = "profile_config">Edit Profile</a>
                             <a class="nav-link" href="#profile_intro" data-i18n-key = "profile">Profile</a>
-                            <!-- <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> -->
-                        <!-- </li> -->
-                        <!-- <li class="nav-item dropdown"> -->
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img id = "profile-menu" src = "https://upload.wikimedia.org/wikipedia/commons/6/67/Vector_Face_wearing_Spectacles.png" class = "nav-link dropdown-toggle" id = "profile-image" role = "button" data-toggle = "dropdown" aria-haspopup = "true" aria-expanded = "false">
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
-                                <a class="nav-link" href = "#account/account-info" data-i18n-key = "profile_config">Edit Profile</a>
-                                <a class="nav-link" href = "#result" data-i18n-key = "result">Result</a>
-                                <button type = "button"  id = "logout-button" class="nav-link" data-i18n-key = "logout">Logout</button>
-                            </div>
-                        <!-- </li> -->
+                            <button type = "button"  id = "logout-button" class="nav-link" data-i18n-key = "logout">Logout</button>
+                        </div>
                     </form>
                 </div>
             </nav>
@@ -59,7 +56,7 @@ class RegisteredUserHeader extends HTMLElement{
     _setLogoutListener(){
         const logoutButtonElement = this.registeredUserHeaderElement.querySelector("#logout-button");
         logoutButtonElement.addEventListener("click", () => {
-            StorageHelpers.deleteJWTToken();
+            UserGlobal.logoutUser()
             Swal.fire({
                 icon: "success",
                 title: Localization.getLocalizedText("logout"),
@@ -72,6 +69,7 @@ class RegisteredUserHeader extends HTMLElement{
                 `
             });
             SwalCustomFunctions.initializeCloseButton();
+            WindowController.setWindowURLHash('loading');
             WindowController.setWindowURLHash('login');
         });
     }

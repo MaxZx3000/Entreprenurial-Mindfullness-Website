@@ -1,11 +1,14 @@
 import MyFetch from "../../../globals/my-fetch";
 import Localization from "../../../utils/localization";
 import GaugeElement from "../../templates/gauge";
+import WindowController from "../../../utils/window-manager";
 
 class ResultPage extends HTMLElement{
     constructor(){
         super();
         this.resultElement = document.createElement("div");
+        this.submission = null
+        this.userScore = null
     }
     async render(){
         this.resultElement.innerHTML = `
@@ -21,55 +24,70 @@ class ResultPage extends HTMLElement{
     async renderResultElement(){
         const resultSectionElement = this.resultElement.querySelector(".result-section");
         const gaugeElement = new GaugeElement();
-        const scoreJSON = await MyFetch.getUserCurrentScore();
-        if (scoreJSON.status === 200){
-            console.log(scoreJSON.json)
-            const score = scoreJSON.json.score;
-            const scoreTitle = scoreJSON.json.score_title;
-            const scoreDescriptionEn = scoreJSON.json.score_desc_en;
-            const scoreDescriptionId = scoreJSON.json.score_desc_id;
-            const lastUpdatedScore = scoreJSON.json.last_updated;
 
-            gaugeElement.intiializeValues(score, 7);
-            gaugeElement.renderAll();
+        const score = this.userScore.score;
+        const scoreTitle = this.userScore.title;
+        const scoreDescriptionEn = this.userScore.description_en;
+        const scoreDescriptionId = this.userScore.description_in;
+        const lastUpdatedScore = this.submission.created_at;
 
-            resultSectionElement.innerHTML += ` 
-                <div id = "score-div">
-                    <p id = "last-updated-score" data-i18n-key = "last_updated_score"></p>
-                    <p id = "last">
-                        ${lastUpdatedScore}
-                    </p>
-                </div>
-                
-            `
-            resultSectionElement.appendChild(gaugeElement);
-            resultSectionElement.innerHTML += `
-                <p id = "mindfullness-status">${scoreTitle}</p>
-                <div id = "mindfulness-description">
-                    <p id = "mindfulness-description-id">${scoreDescriptionEn}</p>
-                    <p id = "mindfulness-description-en">${scoreDescriptionId}</p>
-                </div>
-                <p id = "your-entreprenurial-score" data-i18n-key = "your_entreprenurial_score">Your Entreprenurial Score</p>
-            `;
-        
-        }
-        else if (scoreJSON.status === 404){
-            resultSectionElement.innerHTML = `
-                <p id = "mindfulness-description">
-                    <span class="material-icons material-symbols-outlined" id = "no-test-icon">
-                        edit_document
-                    </span>
-                    <p id = "no-test" data-i18n-key = "not_performed_test"></p>
+        gaugeElement.intiializeValues(score, 7);
+        gaugeElement.renderAll();
+
+        resultSectionElement.innerHTML += ` 
+            <div id = "score-div">
+                <p id = "last-updated-score" data-i18n-key = "last_updated_score"></p>
+                <p id = "last">
+                    ${lastUpdatedScore}
                 </p>
-            `
-        }
+            </div>
+            
+        `
+        resultSectionElement.appendChild(gaugeElement);
+        resultSectionElement.innerHTML += `
+            <p id = "mindfullness-status">${scoreTitle}</p>
+            <div id = "mindfulness-description">
+                <p id = "mindfulness-description-id">${scoreDescriptionEn}</p>
+                <p id = "mindfulness-description-en">${scoreDescriptionId}</p>
+            </div>
+            <p id = "your-entreprenurial-score" data-i18n-key = "your_entreprenurial_score">Your Entreprenurial Score</p>
+        `;
+        
+        // }
+        // else if (scoreJSON.status === 404){
+        //     resultSectionElement.innerHTML = `
+        //         <p id = "mindfulness-description">
+        //             <span class="material-icons material-symbols-outlined" id = "no-test-icon">
+        //                 edit_document
+        //             </span>
+        //             <p id = "no-test" data-i18n-key = "not_performed_test"></p>
+        //         </p>
+        //     `
+        // }
         
         Localization.initTranslate();
     }
+    async fetchCurrentAnswerByID(){
+        const id = WindowController.getURLKeyPairHashParams().id;
+        console.log(id)
+        const submission = await MyFetch.getAnswer(id);
+        this.submission = submission.json
+        console.log("Submission:");
+        console.log(this.submission);
+    }
+    async fetchScores(){
+        let scores = await MyFetch.getScore();
+        scores = scores.json;
+        const userEMScore = this.submission.em_score;
+        this.userScore = scores[userEMScore - 1]
+        console.log(this.userScore);
 
+    }
     async init(){
         this.render();
-        this.renderResultElement();
+        await this.fetchCurrentAnswerByID();
+        await this.fetchScores();
+        await this.renderResultElement();
         this.appendChildren();
     }
     appendChildren(){

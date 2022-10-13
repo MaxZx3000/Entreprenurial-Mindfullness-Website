@@ -15,15 +15,15 @@ class _FetchHelpers{
         }
     }
     async getJSONResult(apiURL, apiData){
-        try{
+        // try{
             const response = await fetch(apiURL, apiData)
             const json = await response.json()
             const responseStatus = response.status;
             return {"json": json, "status": responseStatus};
-        }
-        catch(e){
-            return {"json": "Unknown Error Occured", "status": -1}
-        }
+        // }
+        // catch(e){
+        //     return {"json": "Unknown Error Occured", "status": -1}
+        // }
         
     }
 }

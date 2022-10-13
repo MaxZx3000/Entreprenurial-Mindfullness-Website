@@ -16,8 +16,8 @@ class LoginPage extends HTMLElement{
     _getFormsElement(){
         return `
             <div class = "form-group">
-                <label for = "username" data-i18n-key = "Username">Username</label>
-                <input type = "text" name = "username" id = "username" class = "form-control">
+                <label for = "email" data-i18n-key = "email">Email</label>
+                <input type = "text" name = "email" id = "email" class = "form-control">
                 <div class="invalid-feedback">
                 </div>
             </div>
@@ -81,9 +81,9 @@ class LoginPage extends HTMLElement{
     //     })
     // }
     validateForm(json){
-        if (Validation.validateUsername(json.username).isTrue === false){
-            const validation = Validation.validateUsername(json.username)
-            validation.element = "#username"
+        if (Validation.validateEmail(json.email).isTrue === false){
+            const validation = Validation.validateEmail(json.email)
+            validation.element = "#email"
             return validation
         }
         else if (Validation.validatePassword(json.password).isTrue === false){
@@ -105,11 +105,11 @@ class LoginPage extends HTMLElement{
         })
 
         loginElement.addEventListener("click", async () => {
-            const username = this.loginElement.querySelector("#username").value;
+            const email = this.loginElement.querySelector("#email").value;
             const password = this.loginElement.querySelector("#password").value;
 
             const jsonRequestBody = {
-                "username": username,
+                "email": email,
                 "password": password
             }
             
@@ -149,6 +149,7 @@ class LoginPage extends HTMLElement{
                 }
                 else if (responseJSONData.status === 200){
                     UserGlobal.setJWTToken(responseJSONData.json.data.access_token)
+                    UserGlobal.saveUserData(responseJSONData.json.data.user)
                     // UserGlobal.setUserData(responseJSONData.json.data.user)
                     Swal.fire({
                         title: "Hello!",
