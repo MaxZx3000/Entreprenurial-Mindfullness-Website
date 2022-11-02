@@ -24,6 +24,7 @@ const _API_ENDPOINT = {
     JWT_AUTHENTICATION_TEST: `${BASE_URL.API_ENDPOINT}/jwt-authentication-test`,
     USER_SCORE: `${BASE_URL.API_ENDPOINT}/user-score`,
     STATISTICS: `${BASE_URL.API_ENDPOINT}/statistics`,
+    AUTHENTICATE: `${BASE_URL.API_ENDPOINT}/verification`,
 };
 
 class ApiEndpoint{
@@ -89,6 +90,12 @@ class ApiEndpoint{
     }
     static getStatisticsLink(){
         return `${_API_ENDPOINT.STATISTICS}`
+    }
+    static getAuthenticateLink(email){
+        return `${_API_ENDPOINT.AUTHENTICATE}?email=${email}`
+    }
+    static getAuthenticateLinkWithoutArgs(){
+        return `${_API_ENDPOINT.AUTHENTICATE}`;
     }
 }
 

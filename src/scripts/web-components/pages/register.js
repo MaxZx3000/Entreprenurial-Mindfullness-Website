@@ -7,6 +7,7 @@ import SwalCustomFunctions from "../../globals/swal-custom-function";
 import Validation from "../../globals/validation";
 import HTMLHelpers from "../../globals/htnl-helpers";
 import WindowController from "../../utils/window-manager";
+import UserGlobal from "../../globals/user-helpers";
 
 class RegisterPage extends HTMLElement{
     constructor(){
@@ -224,9 +225,11 @@ class RegisterPage extends HTMLElement{
                 showDenyButton: false,
                 html: `
                     <p>${Localization.getLocalizedText('success-register')}</p>
+                    <p>Make sure to verify your account by inputting OTP code from the email we sent to you!</p>
                     <button type = "button" id = "swal-close-button" class = "action-button" id = "forgot-password" style = "width: 100%">OK</button>
                 `,
             });
+            UserGlobal.setOTP(responseJSONData.json.OTP)
             WindowController.setWindowURLHash("login")
         }
         else if (responseJSONData.status === 400){
@@ -349,22 +352,18 @@ class RegisterPage extends HTMLElement{
                 return
             }
 
-            const userCheckResult = await MyFetch.userCheck(jsonRequestBody.username, jsonRequestBody.email)
-
-            if (userCheckResult.status === 409){
-                Swal.fire({
-                    title: "Oops!",
-                    showCancelButton: false,
-                    showConfirmButton: false,
-                    html: `
-                        <p>${userCheckResult.json.message}</p>
-                        <button type = "button" class = "action-button" id = "swal-close-button" style = "width: 100%">OK</button>
-                    `
-                }).then(() => {
-                    SwalCustomFunctions.initializeCloseButton()
-                })
-               return
-            }
+            // const userCheckResult = await MyFetch.userCheck(jsonRequestBody.username, jsonRequestBody.email)
+            // Swal.fire({
+            //     title: "Oops!",
+            //     showCancelButton: false,
+            //     showConfirmButton: false,
+            //     html: `
+            //         <p>${userCheckResult.json.message}</p>
+            //         <button type = "button" class = "action-button" id = "swal-close-button" style = "width: 100%">OK</button>
+            //     `
+            // }).then(() => {
+            //     SwalCustomFunctions.initializeCloseButton()
+            // })
             SwalCustomFunctions.initializeLoadingPopUp();
             await this.performRequest(jsonRequestBody)
             

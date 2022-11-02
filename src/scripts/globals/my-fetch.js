@@ -186,6 +186,31 @@ class MyFetch{
         )
         return responseJSON
     }
+    static async authenticateUser(email){
+        const requestBody = RequestJSONTemplate.getGetAuthorizationJSONData()
+        requestBody.method = 'PUT'
+        requestBody.body = JSON.stringify({
+            "secret_key": "em-2022-TUA717v3",
+        })
+        const responseJSON = await FetchHelpers.getJSONResult(
+            ApiEndpoint.getAuthenticateLink(email),
+            requestBody,
+        )
+        return responseJSON;
+    }
+    static async sendEmailAuthentication(email){
+        const requestBody = RequestJSONTemplate.getGetAuthorizationJSONData()
+        requestBody.method = 'POST'
+        requestBody.body = JSON.stringify({
+            "email": email,
+            "secret_key": "em-2022-TUA717v3",
+        })
+        const responseJSON = await FetchHelpers.getJSONResult(
+            ApiEndpoint.getAuthenticateLink(email),
+            requestBody,
+        )
+        return responseJSON;
+    }
 }
 
 export default MyFetch

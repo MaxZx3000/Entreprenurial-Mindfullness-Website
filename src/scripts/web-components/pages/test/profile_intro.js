@@ -21,7 +21,7 @@ class ProfileIntroPage extends HTMLElement{
                     <a class = "action-button" href = "#test/1" data-i18n-key = "take_test">Take the test</a>
                 </div>
                 <div class = "container">
-                    <a class = "secondary-action-button" href = "#account/account-info" data-i18n-key = "edit_profile">Edit Profile</a>
+                    <a class = "secondary-action-link" href = "#account/account-info" data-i18n-key = "edit_profile">Edit Profile</a>
                 </div>
             </div>
         `;

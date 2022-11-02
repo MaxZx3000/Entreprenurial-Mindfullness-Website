@@ -1,6 +1,7 @@
 const storageIDs = {
     JWT_TOKEN_ID: "jwt-token",
-    USER_DB: "user-db"
+    USER_DB: "user-db",
+    OTP: "otp",
 }
 
 class StorageHelpers{

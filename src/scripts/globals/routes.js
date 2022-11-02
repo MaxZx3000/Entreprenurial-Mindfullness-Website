@@ -9,6 +9,7 @@ import AccountPage from "../web-components/pages/account/account.js";
 import StatisticsPage from "../web-components/pages/statistics.js";
 import UserHelpers from "./user-helpers.js";
 import HistoryPage from "../web-components/pages/test/history.js";
+import AuthenticationPage from "../web-components/pages/auth/authentication.js";
 
 class Routes {
   constructor() {
@@ -35,6 +36,9 @@ class Routes {
     }
     // For Registered User.
     if (UserHelpers.getJWTToken() !== null){
+      if (UserHelpers.getIsAuthenticated() === false){
+        return new AuthenticationPage();
+      }
       if (url === "account"){
         return new AccountPage();
       }

@@ -8,10 +8,6 @@ class _UserGlobal{
         }
         return _UserGlobal.instance
     }
-    // async getUserFullData(){
-    //     const fullUserData = await MyFetch.getUserData()
-    //     return fullUserData.json
-    // }
     saveUserData(userJSON){
         const jsonUserStringify = JSON.stringify(userJSON)
         StorageHelpers.save(storageIDs.USER_DB, jsonUserStringify)
@@ -19,6 +15,10 @@ class _UserGlobal{
     getUserData(){
         const jsonUser = StorageHelpers.get(storageIDs.USER_DB)
         return JSON.parse(jsonUser)
+    }
+    getIsAuthenticated(){
+        const userData = this.getUserData();
+        return userData.verified;
     }
     deleteUserData(){
         StorageHelpers.delete(storageIDs.USER_DB)
@@ -28,6 +28,14 @@ class _UserGlobal{
     }
     getJWTToken(){
         return StorageHelpers.get(storageIDs.JWT_TOKEN_ID)
+    }
+    setOTP(otp){
+        StorageHelpers.save(storageIDs.OTP, otp);
+    }
+    getOTP(){
+        const jsonUser = StorageHelpers.get(storageIDs.USER_DB)
+        const otp = jsonUser["otp"]
+        return parseInt(otp, 10);
     }
     logoutUser(){
         StorageHelpers.delete(storageIDs.JWT_TOKEN_ID)

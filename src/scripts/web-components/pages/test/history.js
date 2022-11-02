@@ -23,6 +23,18 @@ class HistoryPage extends HTMLElement{
     renderHistories(){
         const userHistoriesElement = this.historyElement.querySelector("#user-histories .row");
         
+        if (this.jsonHistoryData.length === 0){
+            userHistoriesElement.innerHTML += `
+                <div class = "container-no-data">
+                    <span class="material-icons material-symbols-outlined" id = "no_data_icon">
+                        help
+                    </span>
+                    <p id = "no_data_message">Anda belum melakukan tes sama sekali! Silahkan mengikuti tes terlebih dahulu!</p>
+                </div>
+            `;
+            return;
+        }
+
         this.jsonHistoryData.forEach(element => {
             const userHistoryElement = document.createElement("div");
             userHistoryElement.className = "col-sm-12 col-md-4 col-lg-4 box";
@@ -37,7 +49,7 @@ class HistoryPage extends HTMLElement{
                     </div>
                     <div class = "card-footer">
                         <a class = "action-button" href = "#result?id=${element.id}">View</a>
-                        <button class = "secondary-action-button" id = "delete-history-button">Delete</button>
+                        <button class = "secondary-action-link" id = "delete-history-button">Delete</button>
                     </div>
                 </div>
             `;
@@ -59,9 +71,7 @@ class HistoryPage extends HTMLElement{
                 `
             }).then(function(result) {
                 if (result.isConfirmed){
-                    
                     SwalCustomFunction.initializeLoadingPopUp();
-
                 }
             });
         });

@@ -50,7 +50,7 @@ class LoginPage extends HTMLElement{
                     <a href = "#register" data-i18n-key = "not_already_registered"></a>
                 </div>
                 <!-- <div class = "form-group">
-                    <button class = "btn secondary-action-button" type = "button" id = "forgot_password" data-i18n-key = "forgot_password">Forgot your password?</button>
+                    <button class = "btn secondary-action-link" type = "button" id = "forgot_password" data-i18n-key = "forgot_password">Forgot your password?</button>
                 </div> -->
             </div>
         `;

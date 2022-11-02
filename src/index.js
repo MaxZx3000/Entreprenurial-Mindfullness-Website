@@ -24,8 +24,9 @@ import './styles/tabs.sass';
 import './styles/statistics.sass';
 import './styles/not_found_page.sass';
 import './styles/registered-user-header.sass';
+import './styles/auth/authentication.sass';
 import './scripts/web-components/header.js';
-import './scripts/web-components/registered-user-header.js'
+import './scripts/web-components/registered-user-header.js';
 import './scripts/web-components/footer.js';
 import './scripts/web-components/templates/loading.js';
 

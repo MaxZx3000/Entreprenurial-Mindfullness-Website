@@ -69,11 +69,8 @@ class ResultPage extends HTMLElement{
     }
     async fetchCurrentAnswerByID(){
         const id = WindowController.getURLKeyPairHashParams().id;
-        console.log(id)
         const submission = await MyFetch.getAnswer(id);
         this.submission = submission.json
-        console.log("Submission:");
-        console.log(this.submission);
     }
     async fetchScores(){
         let scores = await MyFetch.getScore();
