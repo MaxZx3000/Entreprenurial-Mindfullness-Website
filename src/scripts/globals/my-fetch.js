@@ -211,6 +211,19 @@ class MyFetch{
         )
         return responseJSON;
     }
+    static async reactivateAccount(email, password){
+        const requestBody = RequestJSONTemplate.getGetAuthorizationJSONData();
+        requestBody.method = 'PUT'
+        requestBody.body = JSON.stringify({
+            "email": email,
+            "password": password
+        })
+        const responseJSON = await FetchHelpers.getJSONResult(
+            ApiEndpoint.getReactivateAccountLink(),
+            requestBody
+        )
+        return responseJSON
+    }
 }
 
 export default MyFetch

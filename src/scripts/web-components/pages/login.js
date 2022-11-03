@@ -7,6 +7,7 @@ import HTMLHelpers from "../../globals/htnl-helpers";
 import Validation from "../../globals/validation";
 import UserGlobal from "../../globals/user-helpers";
 import WindowController from "../../utils/window-manager";
+import MyFetch from "../../globals/my-fetch";
 
 class LoginPage extends HTMLElement{
     constructor(){
@@ -44,7 +45,14 @@ class LoginPage extends HTMLElement{
                     </label>
                 </div> -->
                 <div class = "form-group">
-                    <button type = "button" class = "action-button" id = "login" name = "login" data-i18n-key = "Login">Login</button>
+                    <div class = "row">
+                        <div class = "col-sm-12 col-md-6 col-lg-6">
+                            <button type = "button" class = "action-button" id = "login" name = "login" data-i18n-key = "Login">Login</button>
+                        </div>
+                        <div class = "col-sm-12 col-md-6 col-lg-6">
+                            <button type = "button" class = "secondary-action-button" id = "reactivate" name = "reactivate" data-i18n-key = "reactivate">Reactivate</button>
+                        </div>
+                    </div>
                 </div>
                 <div class = "form-group">
                     <a href = "#register" data-i18n-key = "not_already_registered"></a>
@@ -56,30 +64,6 @@ class LoginPage extends HTMLElement{
         `;
         // this.forgotPasword();
     }
-    // forgotPasword(){
-    //     const forgotPasswordElement = this.loginElement.querySelector("#forgot_password");
-        
-    //     forgotPasswordElement.addEventListener("click", (event) => {
-    //         event.preventDefault();
-    //         Swal.fire({
-    //             title: `<h1 data-i18n-key = "forgot_password" class = "forgot_password"></h1>`,
-    //             showCancelButton: false,
-    //             showConfirmButton: false,
-    //             html: `
-    //                 <p data-i18n-key = "sorry_forgot_password"></p>
-    //                 <p data-i18n-key = "instructions_forgot_password"></p>
-    //                 <input type = "email" class = "form-control" id = "email">
-    //                 <button type = "button" class = "action-button" id = "forgot-password" style = "width: 100%" data-i18n-key = "forgot_password">Forgot Password</button>
-    //             `,
-    //             preConfirm: () => {
-                    
-    //             }
-    //         }).then((result) => {
-                
-    //         });
-    //         Localization.initTranslate();
-    //     })
-    // }
     validateForm(json){
         if (Validation.validateEmail(json.email).isTrue === false){
             const validation = Validation.validateEmail(json.email)
@@ -93,17 +77,8 @@ class LoginPage extends HTMLElement{
         }
         return {"isTrue": true}
     }
-    setListeners(){
+    setLoginButtonListener(){
         const loginElement = this.loginElement.querySelector('#login');
-        const inputElements = this.loginElement.querySelectorAll("input");
-        console.log(inputElements)
-
-        inputElements.forEach((element) => {
-            element.addEventListener("input", () => {
-                HTMLHelpers.makeRegularStatusField(this.loginElement, `#${element.id}`)
-            })
-        })
-
         loginElement.addEventListener("click", async () => {
             const email = this.loginElement.querySelector("#email").value;
             const password = this.loginElement.querySelector("#password").value;
@@ -147,6 +122,22 @@ class LoginPage extends HTMLElement{
                     })
                     SwalCustomFunctions.initializeCloseButton();
                 }
+                else if (responseJSONData.status === 402){
+                    Swal.fire({
+                        title: `Inactive Account Detected`,
+                        icon: 'warning',
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                        showCloseButton: false,
+                        allowOutsideClick: false,
+                        html: `
+                            <p>It looks like that your account is inactive.</p>
+                            <p>To use your account and log in, simply click reactivate button on this page!</p>
+                            <button type = "button" id = "swal-close-button" class = "action-button" style = "width: 100%">OK</button>
+                        `
+                    })
+                    SwalCustomFunctions.initializeCloseButton();
+                }
                 else if (responseJSONData.status === 200){
                     UserGlobal.setJWTToken(responseJSONData.json.data.access_token)
                     UserGlobal.saveUserData(responseJSONData.json.data.user)
@@ -180,6 +171,55 @@ class LoginPage extends HTMLElement{
                 }
             }
         });
+    }
+    setReactivateButtonListener(){
+        const reactivateButtonElement = this.loginElement.querySelector("#reactivate");
+        reactivateButtonElement.addEventListener("click", async () => {
+            const email = this.loginElement.querySelector("#email").value;
+            const password = this.loginElement.querySelector("#password").value;
+            const jsonRequestBody = {
+                "email": email,
+                "password": password,
+            }
+            const validationResult = this.validateForm(jsonRequestBody)
+         
+            if (validationResult.isTrue === false){
+                HTMLHelpers.makeInvalidStatusField(this.loginElement, validationResult)
+                this.loginElement.querySelector(validationResult.element).focus()
+            }
+            else{
+                SwalCustomFunctions.initializeLoadingPopUp();
+                const jsonResponseData = await MyFetch.reactivateAccount(email, password);
+                if (jsonResponseData.status === 200){
+                    Swal.fire({
+                        title: "Hooray!",
+                        icon: "success",
+                        showCancelButton: false,
+                        showCloseButton: false,
+                        showConfirmButton: false,
+                        html: `
+                            <p>Your account has been reactivated.</p>
+                            <p>Nice to meet you again!</p>
+                            <button type = "button" id = "swal-close-button" class = "action-button" style = "width: 100%">OK</button>
+                        `,
+                    });
+                    SwalCustomFunctions.initializeCloseButton();
+                }
+            }
+        });
+    }
+    setListeners(){
+        const inputElements = this.loginElement.querySelectorAll("input");
+        console.log(inputElements)
+
+        inputElements.forEach((element) => {
+            element.addEventListener("input", () => {
+                HTMLHelpers.makeRegularStatusField(this.loginElement, `#${element.id}`)
+            })
+        })
+
+        this.setLoginButtonListener();
+        this.setReactivateButtonListener();
     }
     async init(){
         this.render();

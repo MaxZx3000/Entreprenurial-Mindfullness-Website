@@ -35,6 +35,9 @@ class AuthenticationPage extends HTMLElement{
             const userOTP = UserGlobal.getOTP();
             const inputtedOTP = this.authenticationElement.querySelector("#authentication-code").value;
             
+            console.log(userOTP)
+            console.log(inputtedOTP)
+
             if (userOTP !== inputtedOTP){
                 Swal.fire({
                     title: "Oops!",

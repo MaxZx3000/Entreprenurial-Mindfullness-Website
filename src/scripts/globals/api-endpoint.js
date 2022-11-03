@@ -25,6 +25,7 @@ const _API_ENDPOINT = {
     USER_SCORE: `${BASE_URL.API_ENDPOINT}/user-score`,
     STATISTICS: `${BASE_URL.API_ENDPOINT}/statistics`,
     AUTHENTICATE: `${BASE_URL.API_ENDPOINT}/verification`,
+    REACTIVATE_ACCOUNT: `${BASE_URL.API_ENDPOINT}/reactivate-account`,
 };
 
 class ApiEndpoint{
@@ -96,6 +97,9 @@ class ApiEndpoint{
     }
     static getAuthenticateLinkWithoutArgs(){
         return `${_API_ENDPOINT.AUTHENTICATE}`;
+    }
+    static getReactivateAccountLink(){
+        return `${_API_ENDPOINT.REACTIVATE_ACCOUNT}`;
     }
 }
 

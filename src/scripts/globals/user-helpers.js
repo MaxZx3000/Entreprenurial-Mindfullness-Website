@@ -33,9 +33,9 @@ class _UserGlobal{
         StorageHelpers.save(storageIDs.OTP, otp);
     }
     getOTP(){
-        const jsonUser = StorageHelpers.get(storageIDs.USER_DB)
-        const otp = jsonUser["otp"]
-        return parseInt(otp, 10);
+        const jsonUser = this.getUserData()
+        const otp = jsonUser.otp
+        return otp
     }
     logoutUser(){
         StorageHelpers.delete(storageIDs.JWT_TOKEN_ID)
