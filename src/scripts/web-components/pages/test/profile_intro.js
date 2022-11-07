@@ -15,7 +15,7 @@ class ProfileIntroPage extends HTMLElement{
                 <img src = "https://upload.wikimedia.org/wikipedia/commons/6/67/Vector_Face_wearing_Spectacles.png" id = "profile-image">
                 <hr>
                 <div class = "container">
-                    <h2>${userData.fullname} (${userData.username})</h2>
+                    <h2>${userData.fullname}</h2>
                 </div>
                 <div class = "container">
                     <a class = "action-button" href = "#test/1" data-i18n-key = "take_test">Take the test</a>
