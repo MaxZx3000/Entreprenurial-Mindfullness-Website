@@ -7,7 +7,7 @@ import UserGlobal from "../../../globals/user-helpers";
 import WindowController from "../../../utils/window-manager";
 import SwalCustomFunctions from "../../../globals/swal-custom-function";
 
-class DeleteAccountPage extends HTMLElement{
+class InactiveAccountPage extends HTMLElement{
     constructor(){
         super();
         this.deletePasswordElement = document.createElement("div");
@@ -20,14 +20,14 @@ class DeleteAccountPage extends HTMLElement{
     render(){
        this.deletePasswordElement.innerHTML = `
             <div class = "container">
-                <span class="material-icons material-symbols-outlined icon-large-danger">warning</span>
-                <p id = "delete_account_confirmation" data-i18n-key = "delete_account_confirmation">Are you sure you want to delete your account?</p>
-                <p id = "delete_account_confirmation_2" data-i18n-key = "delete_account_confirmation_2">This will erase all of your account data from the site. To delete your account, enter the password below.</p>
+                <img src = "./images/power_button.png" id = "delete-account-icon">
+                <p id = "deactivate_account_confirmation" data-i18n-key = "deactivate_account_confirmation">Are you sure you want to delete your account?</p>
+                <p id = "deactivate_account_confirmation_2" data-i18n-key = "deactivate_account_confirmation_2"></p>
                 <form>
                     <input type = "password" class = "form-control" id = "delete-account-password" name = "delete-account-password">
                     <div class = "invalid-feedback">
                     </div>
-                    <button id = "delete_account_button" data-i18n-key = "delete_account" type = "button" class = "danger-action-button"></button>
+                    <button id = "inactive_account_button" data-i18n-key = "deactivate_account" type = "button" class = "danger-action-button"></button>
                 </form>  
             </div>
        `;
@@ -41,7 +41,7 @@ class DeleteAccountPage extends HTMLElement{
         return {'isTrue': true, 'message': ""}
     }
     setListeners(){
-        const deleteAccountButton = this.deletePasswordElement.querySelector("#delete_account_button")
+        const deleteAccountButton = this.deletePasswordElement.querySelector("#inactive_account_button")
         const inputElements = this.deletePasswordElement.querySelectorAll("input[type='text']");
 
         inputElements.forEach(element => {
@@ -105,5 +105,5 @@ class DeleteAccountPage extends HTMLElement{
     }
 }
 
-customElements.define("delete_password-page", DeleteAccountPage);
-export default DeleteAccountPage;
+customElements.define("inactive_account-page", InactiveAccountPage);
+export default InactiveAccountPage;

@@ -1,7 +1,13 @@
 class HTMLHelpers{
-    static makeInvalidStatusField(parentElement, validationResult){
+    static makeInvalidStatusField(parentElement, validationResult, isNextElementSibling = true){
         const errorInputElement = parentElement.querySelector(validationResult.element)
-        const errorMessageElement = errorInputElement.nextElementSibling
+        let errorMessageElement = null
+        if (isNextElementSibling){
+            errorMessageElement = errorInputElement.nextElementSibling
+        }
+        else{
+            errorMessageElement = errorInputElement
+        }
         errorInputElement.className = "form-control is-invalid"
         errorMessageElement.className = "invalid-feedback d-block"
         errorMessageElement.innerText = validationResult.message

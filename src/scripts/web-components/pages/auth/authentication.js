@@ -3,6 +3,7 @@ import SwalCustomFunctions from "../../../globals/swal-custom-function";
 import MyFetch from "../../../globals/my-fetch";
 import UserGlobal from "../../../globals/user-helpers";
 import WindowController from "../../../utils/window-manager";
+import Localization from "../../../utils/localization";
 
 class AuthenticationPage extends HTMLElement{
     constructor(){
@@ -18,13 +19,13 @@ class AuthenticationPage extends HTMLElement{
                 <span class = "material-icons material-symbols-outlined" id = "authentication-key">
                     key
                 </span>
-                <p>You must fill in authentication code to continue using your application!</p>
-                <p>Please check your email to check your authentication code and enter 4 digit of authentication code.</p>
+                <p data-i18n-key = "authentication_fill_in">You must fill in authentication code to continue using your application!</p>
+                <p data-i18n-key = "email_check_auth">Please check your email to check your authentication code and enter 4 digit of authentication code.</p>
                 <div class = "form-group">
                     <input type = "text" class = "form-control" id = "authentication-code" name = "authentication-code" maxlength = "4">
                 </div>
                 <div class = "form-group">
-                    <button type = "button" id = "authentication-check-button" class = "action-button" data-i18n-key = "authentication-check">Cek Autentikasi</button>
+                    <button type = "button" id = "authentication-check-button" class = "action-button" data-i18n-key = "authenticate_account"></button>
                 </div>
             </div>
         `;
@@ -32,29 +33,12 @@ class AuthenticationPage extends HTMLElement{
     addAuthenticationCheckListener(){
         const authenticationCheckButtonElement = this.authenticationElement.querySelector("#authentication-check-button");
         authenticationCheckButtonElement.addEventListener("click", async () => {
-            const userOTP = UserGlobal.getOTP();
             const inputtedOTP = this.authenticationElement.querySelector("#authentication-code").value;
             
-            console.log(userOTP)
-            console.log(inputtedOTP)
-
-            if (userOTP !== inputtedOTP){
-                Swal.fire({
-                    title: "Oops!",
-                    icon: 'error',
-                    html: `
-                        <p>Your OTP password is incorrect!</p>
-                        <p>Please try again!</p>
-                    `
-                });
-                return
-            }
-            // const authenticationCodeInputElement = this.authenticationElement.querySelector("#authentication-code");
-            // const authenticationCodeValue = authenticationCodeInputElement.value;
             SwalCustomFunctions.initializeLoadingPopUp();
             const userData = UserGlobal.getUserData();
 
-            const responseJSON = await MyFetch.authenticateUser(userData.email)
+            const responseJSON = await MyFetch.authenticateUser(userData.email, inputtedOTP)
             
             if (responseJSON.status === 200){
                 userData.verified = true
@@ -67,8 +51,8 @@ class AuthenticationPage extends HTMLElement{
                     showCloseButton: false,
                     allowOutsideClick: false,
                     html: `
-                        <p>Now you can use this app! Enjoy :)</p>
-                        <button type = "button" class = "action-button" name = "ok" id = "back-to-home-button">OK</button>
+                        <p>${Localization.getLocalizedText("authentication_success_message")}</p>
+                        <button type = "button" class = "action-button" name = "ok" id = "back-to-home-button" style = "width: 100%">OK</button>
                     `
                 });
                 const backToHomeButton = document.querySelector("#back-to-home-button");
@@ -78,46 +62,60 @@ class AuthenticationPage extends HTMLElement{
                     Swal.close();
                 });
             }
-            else if (responseJSON.status === 402){
+            else if (responseJSON.status === 400){
                 Swal.fire({
-                    title: "Authentication Failed!",
+                    title: Localization.getLocalizedText("authentication_failed"),
                     icon: "error",
                     showConfirmButton: false,
                     showDenyButton: false,
                     html: `
-                        <p>Wrong authentication code!</p>
-                        <button type = "button" class = "action-button" name = "ok">OK</button>
+                        <p>${Localization.getLocalizedText("otp_key_invalid")}</p>
+                        <button type = "button" id = "swal-close-button" class = "action-button" name = "ok" style = "width: 100%">OK</button>
                     `
                 });
+            }
+            else if (responseJSON.status === 401){
+                Swal.fire({
+                    title: Localization.getLocalizedText("authentication_failed"),
+                    icon: "error",
+                    showConfirmButton: false,
+                    showDenyButton: false,
+                    html: `
+                        <p>${Localization.getLocalizedText("otp_length_mismatch")}</p>
+                        <button type = "button" id = "swal-close-button" class = "action-button" name = "ok" style = "width: 100%">OK</button>
+                    `
+                })
+            }
+            else if (responseJSON.status === 402){
+                Swal.fire({
+                    title: Localization.getLocalizedText("authentication_failed"),
+                    icon: "error",
+                    showConfirmButton: false,
+                    showDenyButton: false,
+                    html: `
+                        <p>${Localization.getLocalizedText("invalid_secret_key")}</p>
+                        <button type = "button" id = "swal-close-button" class = "action-button" name = "ok" style = "width: 100%">OK</button>
+                    `
+                })
+            }
+            else{
+                Swal.fire({
+                    title: Localization.getLocalizedText("authentication_failed"),
+                    icon: "error",
+                    showConfirmButton: false,
+                    showDenyButton: false,
+                    html: `
+                        <p>${Localization.getLocalizedText("unknown_error_occured")}</p>
+                        <button type = "button" id = "swal-close-button" class = "action-button" name = "ok" style = "width: 100%">OK</button>
+                    `
+                })
             }
             SwalCustomFunctions.initializeCloseButton();
         });
     }
-    // addSendAuthenticationListener(){
-    //     const sendAuthenticationButtonElement = this.authenticationElement.querySelector("#send-authentication-button");
-    //     sendAuthenticationButtonElement.addEventListener("click", async () => {
-    //         SwalCustomFunctions.initializeLoadingPopUp();
-    //         const userData = UserGlobal.getUserData()
-    //         const responseBody = await MyFetch.sendEmailAuthentication(userData.email);
-    //         if (responseBody.status === 200){
-    //             Swal.fire({
-    //                 title: "Authentication Success!",
-    //                 icon: "success",
-    //                 showConfirmButton: false,
-    //                 showDenyButton: false,
-    //                 html: `
-    //                     <p>Now you can use this app! Enjoy :)</p>
-    //                     <button type = "button" class = "action-button" name = "ok">OK</button>
-    //                 `
-    //             });
-    //             SwalCustomFunctions.initializeCloseButton();
-    //         }
-    //     });
-    // }
     async init(){
         this.render();
         this.addAuthenticationCheckListener();
-        // this.addSendAuthenticationListener();
         this.appendChildren();
     }
     appendChildren(){

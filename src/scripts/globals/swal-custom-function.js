@@ -1,4 +1,5 @@
 import Swal from "sweetalert2";
+import Localization from "../utils/localization";
 
 class SwalCustomFunctions{
     static initializeCloseButton(closeButtonSwalId = "swal-close-button"){
@@ -16,7 +17,7 @@ class SwalCustomFunctions{
     }
     static initializeLoadingPopUp(){
         Swal.fire({
-            title: 'Processing your request...',
+            title: Localization.getLocalizedText("processing"),
             showConfirmButton: false,
             showCloseButton: false,
             showDenyButton: false,

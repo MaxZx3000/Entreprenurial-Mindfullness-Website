@@ -14,29 +14,44 @@ class LoginPage extends HTMLElement{
         super();
         this.loginElement = document.createElement("div");
     }
-    _getFormsElement(){
-        return `
-            <div class = "form-group">
-                <label for = "email" data-i18n-key = "email">Email</label>
-                <input type = "text" name = "email" id = "email" class = "form-control">
-                <div class="invalid-feedback">
-                </div>
-            </div>
-            <div class = "form-group">
-                <label for = "password" data-i18n-key = "Password">Password</label>
-                <input type = "password" name = "password" id = "password" class = "form-control">
-                <div class="invalid-feedback">
-                </div>    
-            </div>
-        `;
-    }
     render(){
         this.loginElement.innerHTML = `
             <div class = "h1-header">
                 <h1 data-i18n-key = "Login">Login</h1>
             </div>
             <div class = "container">
-                ${this._getFormsElement()}
+                <div class = "row">
+                    <div class = "col-sm-12 col-md-6 col-lg-6">
+                        <img src = "./images/Compressed/steps/sign_up_compressed.png" id = "login-image">
+                    </div>
+                    <div class = "col-sm-12 col-md-6 col-lg-6">
+                        <div class = "form-group">
+                            <label for = "email" data-i18n-key = "email">Email</label>
+                            <input type = "text" name = "email" id = "email" class = "form-control">
+                            <div class="invalid-feedback">
+                            </div>
+                        </div>
+                        <div class = "form-group">
+                            <label for = "password" data-i18n-key = "Password">Password</label>
+                            <input type = "password" name = "password" id = "password" class = "form-control">
+                            <div class="invalid-feedback">
+                            </div>    
+                        </div>
+                        <div class = "form-group">
+                            <div class = "row">
+                                <div class = "col-sm-12 col-md-6 col-lg-6">
+                                    <button type = "button" class = "action-button" id = "login" name = "login" data-i18n-key = "Login">Login</button>
+                                </div>
+                                <div class = "col-sm-12 col-md-6 col-lg-6">
+                                    <button type = "button" class = "secondary-action-button" id = "reactivate" name = "reactivate" data-i18n-key = "reactivate">Reactivate</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class = "form-group">
+                            <a href = "#register" data-i18n-key = "not_already_registered"></a>
+                        </div>
+                    </div>
+                </div>
                 <!-- <div class = "form-group">
                     <label class = "control control-checkbox">
                         <label data-i18n-key = "keep_sign_in" for = "keep_sign_in">Keep me signed in</label>
@@ -44,19 +59,7 @@ class LoginPage extends HTMLElement{
                         <div class = "control_indicator"></div>
                     </label>
                 </div> -->
-                <div class = "form-group">
-                    <div class = "row">
-                        <div class = "col-sm-12 col-md-6 col-lg-6">
-                            <button type = "button" class = "action-button" id = "login" name = "login" data-i18n-key = "Login">Login</button>
-                        </div>
-                        <div class = "col-sm-12 col-md-6 col-lg-6">
-                            <button type = "button" class = "secondary-action-button" id = "reactivate" name = "reactivate" data-i18n-key = "reactivate">Reactivate</button>
-                        </div>
-                    </div>
-                </div>
-                <div class = "form-group">
-                    <a href = "#register" data-i18n-key = "not_already_registered"></a>
-                </div>
+                
                 <!-- <div class = "form-group">
                     <button class = "btn secondary-action-link" type = "button" id = "forgot_password" data-i18n-key = "forgot_password">Forgot your password?</button>
                 </div> -->
@@ -198,13 +201,44 @@ class LoginPage extends HTMLElement{
                         showCloseButton: false,
                         showConfirmButton: false,
                         html: `
-                            <p>Your account has been reactivated.</p>
-                            <p>Nice to meet you again!</p>
+                            <p>${Localization.getLocalizedText("reactivate_account_success")}</p>
+                            <p>${Localization.getLocalizedText("nice_to_meet_you_again")}</p>
                             <button type = "button" id = "swal-close-button" class = "action-button" style = "width: 100%">OK</button>
                         `,
                     });
-                    SwalCustomFunctions.initializeCloseButton();
+                    UserGlobal.saveUserData(jsonResponseData.json.user)
+                    WindowController.setWindowURLHash("profile_intro")
                 }
+                else if (jsonResponseData.status === 401){
+                    Swal.fire({
+                        title: "Oops!",
+                        icon: "error",
+                        showCancelButton: false,
+                        showCloseButton: false,
+                        showConfirmButton: false,
+                        html: `
+                            <p>${Localization.getLocalizedText("wrong-password")}</p>
+                            <button type = "button" id = "swal-close-button" class = "action-button" style = "width: 100%">OK</button>
+                        `,
+                    });
+                }
+                else if (jsonResponseData.status === 404){
+                    Swal.fire({
+                        title: "Oops!",
+                        icon: "error",
+                        showCancelButton: false,
+                        showCloseButton: false,
+                        showConfirmButton: false,
+                        html: `
+                            <p>${Localization.getLocalizedText("no_inactivate_account")}</p>
+                            <button type = "button" id = "swal-close-button" class = "action-button" style = "width: 100%">OK</button>
+                        `,
+                    })
+                }
+                else{
+                    
+                }
+                SwalCustomFunctions.initializeCloseButton();
             }
         });
     }

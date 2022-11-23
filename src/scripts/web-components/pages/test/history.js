@@ -48,32 +48,11 @@ class HistoryPage extends HTMLElement{
                         <p>Title: ${element.title}</p>
                     </div>
                     <div class = "card-footer">
-                        <a class = "action-button" href = "#result?id=${element.id}">View</a>
-                        <button class = "secondary-action-link" id = "delete-history-button">Delete</button>
+                        <a class = "action-button" href = "#result?id=${element.id}" data-i18n-key = "view_detail"></a>
                     </div>
                 </div>
             `;
-            const deleteButtonHistoryElement = userHistoryElement.querySelector("#delete-history-button");
-            this.setDeleteHistoryButtonListener(deleteButtonHistoryElement, element.date)
             userHistoriesElement.appendChild(userHistoryElement)
-        });
-    }
-    setDeleteHistoryButtonListener(buttonElement, testDate){
-        buttonElement.addEventListener("click", () => {
-            Swal.fire({
-                title: "Confirm Delete",
-                icon: "question",
-                showDenyButton: true,
-                confirmButtonText: 'Ya',
-                denyButtonText: 'Tidak',
-                html: `
-                    <p>Are you sure you'd like to delete test data with date ${testDate}?</p>
-                `
-            }).then(function(result) {
-                if (result.isConfirmed){
-                    SwalCustomFunction.initializeLoadingPopUp();
-                }
-            });
         });
     }
     render(){

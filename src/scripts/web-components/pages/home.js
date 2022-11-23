@@ -20,7 +20,6 @@ class HomePage extends HTMLElement{
                 <div class = "container">
                     <h1 data-i18n-key = "entreprenurial_mindfullness_is">Entrepreneurial Mindfulness is…</h1>
                     <h2 data-i18n-key = "find_balance">finding balance in your entrepreneurial journey.</h2>
-                    <button class = "action-button" data-i18n-key = "take_the_test">Take the test</button>
                 </div>
             </div>
         `;
@@ -41,28 +40,16 @@ class HomePage extends HTMLElement{
     }
 
     _getUniversitiesElement(){
-        const universities = [
-            new University("Pusat Penelitian Kebijakan Pendidikan Tinggi, Balitbangdikbud, Kemendikbud RI (PUSLITJAKDIKBUD)", "./images/tut-wuri-handayani.png"),
-            new University("Universitas Agung Podomoro (UAP)", "./images/universitas-pomodoro.png"),
-            new University("Universiti Teknologi Malaysia (UTM)", "./images/universitas-teknologi-malaysia.png")
-        ]
+        const universityElements = `
+            <li>Pusat Penelitian Kebijakan Pendidikan Tinggi, Balitbangdikbud, Kemendikbud RI (PUSLITJAKDIKBUD)</li>
+            <li>Universitas Agung Podomoro (UAP)</li>
+            <li>Universiti Teknologi Malaysia (UTM)</li>
+        `
 
-        let universityElements = [];
-        universities.forEach(element => {
-            universityElements.push(`
-                <div class = "card container">
-                    <img class = "university-image" src = "${element.universityImageURL}" alt = "${element.universityName}">
-                    <p>${element.universityName}</p>
-                </div>
-            `);
-        });
+        let pointsElement = document.createElement("ul")
+        pointsElement.innerHTML = universityElements
 
-        let gridElement = new GridElement();
-        gridElement.setChildElements(universityElements);
-        gridElement.setPerElementSize(6, 4, 4);
-        gridElement.render();
-        gridElement.appendChildren();
-        return gridElement.innerHTML;
+        return pointsElement.innerHTML;
     }
 
     render(){

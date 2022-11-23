@@ -20,7 +20,7 @@ class EditProfilePage extends HTMLElement{
             <div class = "container">                
                 <form>
                     <div class = "image-container">
-                        <img id = 'profile-picture' src = "https://upload.wikimedia.org/wikipedia/commons/6/67/Vector_Face_wearing_Spectacles.png" id = "profile-image">
+                        <img id = 'profile-picture' src = "https://beeentmind-edutech.apps.binus.ac.id/api-em/images/profile_male.png" id = "profile-image">
                         <!-- <button type = "file" class = "icon-button" id = "edit-picture">
                             <span class="material-icons material-symbols-outlined">edit</span>
                         </button> -->
@@ -34,11 +34,17 @@ class EditProfilePage extends HTMLElement{
                     <div class = "form-group">
                         <label data-i18n-key = "gender">Gender</label>
                         <br>
-                        <input type="radio" id="Male" name="gender" value="Male">
-                        <label for="male" data-i18n-key = "male">Male</label>
-                        <input type="radio" id="Female" name="gender" value="Female">
-                        <label for="female" data-i18n-key = "female">Female</label>
-                        <div class="invalid-feedback">
+                        <div class = "form-check">
+                            <div class = "form-check-inline">
+                                <input class="form-check-input" type="radio" id="Male" name="gender" value="Male">
+                                <label class="form-check-label" for="Male" data-i18n-key = "male">Male</label>
+                            </div>
+                            <div class = "form-check-inline">
+                                <input class="form-check-input" type="radio" id="Female" name="gender" value="Female">
+                                <label class="form-check-label" for="Female" data-i18n-key = "female" id = 'gender-dummy'>Female</label>
+                            </div>
+                        </div>
+                        <div class="invalid-feedback" id = 'gender-invalid-feedback'>
                         </div>
                     </div>
                     <div class = "form-group">
@@ -78,7 +84,7 @@ class EditProfilePage extends HTMLElement{
                         </div>
                     </div>
                     <div class = "form-group">
-                        <button type = "button" id = "register-button" class = "action-button">Update Profile</button>
+                        <button type = "button" id = "register-button" class = "action-button" data-i18n-key = "update_profile">Update Profile</button>
                     </div>
                 </form>
             </div>
@@ -220,6 +226,11 @@ class EditProfilePage extends HTMLElement{
             validation.element = "#fullname"
             return validation
         }
+        else if (Validation.validateGender(json.gender).isTrue === false){
+            const validation = Validation.validateFullname(json.gender)
+            validation.element = "#gender-invalid-feedback"
+            return validation
+        }
         else if (Validation.validateCity(json.country_id).isTrue === false){
             const validation = Validation.validateCity(json.country_id)
             validation.element = "#country_id"
@@ -282,7 +293,9 @@ class EditProfilePage extends HTMLElement{
         const registerButtonElement = this.editProfileElement.querySelector("#register-button")
             registerButtonElement.addEventListener("click", async () => {
                 const fullname = this.editProfileElement.querySelector("#fullname").value
-                const gender = this.editProfileElement.querySelector("input[name = 'gender']").value
+                const genderElement = this.editProfileElement.querySelector("input[name = 'gender']:checked")
+                const gender = genderElement !== null ? genderElement.value : ""
+                console.log(gender)
                 const countryId = this.editProfileElement.querySelector("#country_id").value;
                 const provinceId = this.editProfileElement.querySelector("#province_id").value;
                 const ageId = this.editProfileElement.querySelector("#age_id").value;
@@ -313,6 +326,7 @@ class EditProfilePage extends HTMLElement{
                 if (validationResult.isTrue === false){
                     HTMLHelpers.makeInvalidStatusField(this.editProfileElement, validationResult)
                     this.editProfileElement.querySelector(validationResult.element).focus()
+                    return
                 }
 
                 // const userCheckResult = await MyFetch.userCheck(jsonRequestBody["username"], jsonRequestBody["email"])
@@ -337,8 +351,6 @@ class EditProfilePage extends HTMLElement{
     }
     async fetchUserData(){
         const responseJSONData = await UserGlobal.getUserData()
-        console.log("Response JSON Data:")
-        console.log(responseJSONData)
         this.editProfileElement.querySelector("#fullname").value = responseJSONData["fullname"];
         this.editProfileElement.querySelector("input[name = 'gender']").value = responseJSONData["gender"];
         this.editProfileElement.querySelector("#country_id").value = responseJSONData.country.id;
@@ -360,7 +372,7 @@ class EditProfilePage extends HTMLElement{
     }
     async init(){
         this.render();
-        await this.fetchData();
+        this.fetchData();
         this.setListeners();
         this.appendChildren();
     }

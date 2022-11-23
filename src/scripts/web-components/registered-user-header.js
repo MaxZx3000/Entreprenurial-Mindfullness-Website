@@ -28,13 +28,11 @@ class RegisteredUserHeader extends HTMLElement{
                                 <option value = "en" data-i18n-key = "english">English</option>
                             </select>
                         </li>
-                        
                     </ul>
                     <form class="form-inline my-2 my-lg-0 dropdown">
-                        <a class="nav-link" href = "#result" data-i18n-key = "result">Result</a>
-                        <a class="nav-link" href = "#history" data-i18n-key = "history">History</a>
+                        <a class="nav-link" href = "#history" data-i18n-key = "history_test"></a>
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img id = "profile-menu" src = "https://upload.wikimedia.org/wikipedia/commons/6/67/Vector_Face_wearing_Spectacles.png" class = "nav-link dropdown-toggle" id = "profile-image" role = "button" data-toggle = "dropdown" aria-haspopup = "true" aria-expanded = "false">
+                            <img id = "profile-menu" src = "https://beeentmind-edutech.apps.binus.ac.id/api-em/images/profile_male.png" class = "nav-link dropdown-toggle" id = "profile-image" role = "button" data-toggle = "dropdown" aria-haspopup = "true" aria-expanded = "false">
                         </a>
                         <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
                             <a class="nav-link" href = "#account/account-info" data-i18n-key = "profile_config">Edit Profile</a>

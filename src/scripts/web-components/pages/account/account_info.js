@@ -5,37 +5,37 @@ class AccountInfoPage extends HTMLElement{
     constructor(){
         super();
         this.accountInfoElement = document.createElement("div");    
-        this.userData = null
+        // this.userData = null
     }
     render(){
         this.accountInfoElement.innerHTML = `
             <div class = "container">
                 <table>
                     <tr>
-                        <td class = "left-table"><span class = "icon-small material-icons">person</span><label class = "profile-key" data-i18n-key = "Username"></label></td>
-                        <td class = "right-table"><label class = "profile-value">${this.userData.username}</label></td>
-                    </tr>
-                    <tr>
                         <td class = "left-table"><span class = "icon-small material-icons">badge</span><label class = "profile-key" data-i18n-key = "fullname"></label></td>
-                        <td class = "right-table"><label class = "profile-value">${this.userData.fullname}</label></td>
+                        <td class = "right-table"><label class = "profile-value" id = "fullname-label"></label></td>
                     </tr>
                     <tr>
                         <td class = "left-table"><span class = "icon-small material-icons">email</span><label class = "profile-key" data-i18n-key = "email"></label></td>
-                        <td class = "right-table"><label class = "profile-value">${this.userData.email}</label></td>
+                        <td class = "right-table"><label class = "profile-value" id = "email-label"></label></td>
                     </tr>                    
                 </table>
             </div>
         `;
     }
     async fetchUserData(){
-        this.userData = await UserGlobal.getUserData()
+        const userData = await UserGlobal.getUserData()
+        const fullnameLabelElement = this.accountInfoElement.querySelector("#fullname-label");
+        const emailLabelElement = this.accountInfoElement.querySelector("#email-label");
+        fullnameLabelElement.innerText = userData.fullname;
+        emailLabelElement.innerText = userData.email;
     }
     appendChildren(){
         this.appendChild(this.accountInfoElement);
     }
     async init(){
-        await this.fetchUserData();
         this.render();
+        this.fetchUserData();
         this.appendChildren();
     }
 }

@@ -22,83 +22,90 @@ class RegisterPage extends HTMLElement{
             </div>
             <div class = "container">
                 <form class = "needs-validation" novalidate>
-                    <div class = "form-group">
-                        <label for = "e_mail_address" data-i18n-key = "e_mail_address">E-mail address</label>
-                        <input type = "text" class = "form-control" id = "email" name = "email">
-                        <div class="invalid-feedback">
-                        </div>
-                    </div>
-                    <div class = "form-group">
-                        <label for = "password" data-i18n-key = "Password">Password</label>
-                        <input type = "password"  class = "form-control" id = "password" name = "password">
-                        <div class="invalid-feedback">
-                        </div>
-                    </div>
-                    <div class = "form-group">
-                        <label for = "confirm_password" data-i18n-key = "confirm_password">Confirm Password</label>
-                        <input type = "password"  class = "form-control" id = "confirm_password" name = "confirm_password">
-                        <div class="invalid-feedback">
-                        </div>
-                    </div>
-                    <div class = "form-group">
-                        <label for = "fullname" data-i18n-key = "fullname">Full name</label>
-                        <input type = "text"  class = "form-control" id = "fullname" name = "fullname">
-                        <div class="invalid-feedback">
-                        </div>
-                    </div>
-                    <div class = "form-group">
-                        <label data-i18n-key = "gender">Gender</label>
-                        <br>
-                        <div id = "radio-gender" class = "radio-group">
-                            <input type="radio" id="male" name="gender" value="Male">
-                            <label for="male" data-i18n-key = "male">Male</label>
-                            <input type="radio" id="female" name="gender" value="Female">
-                            <label for="female" data-i18n-key = "female">Female</label>
-                        </div>
-                        <div class="invalid-feedback">
-                        </div>
-                    </div>
-                    <div class = "form-group">
-                        <label for = "country_id" data-i18n-key = "country">Country</label>
-                        <select type = "text"  class = "form-control" id = "country_id" name = "country_id"></select>
-                        <div class="invalid-feedback">
-                        </div>
-                    </div>
-                    <div class = "form-group">
-                        <label for = "province_id" data-i18n-key = "province">Province</label>
-                        <select type = "text"  class = "form-control" id = "province_id" name = "province_id"></select>
-                        <div class="invalid-feedback">
-                        </div>
-                    </div>
                     <div class = "row">
-                        <div class = "col-sm">
+                        <div class = "col-sm-12 col-md-12 col-lg-12">
+                            <img src = "./images/Compressed/steps/sign_up_compressed.png" id = "register-image">
+                        </div>
+                        <div class = "col-sm-12 col-md-12 col-lg-12">
                             <div class = "form-group">
-                                <label for = "age" data-i18n-key = "age">Age</label>
-                                <select type = "text"  class = "form-control" id = "age_id" name = "age_id"></select>
+                                <label for = "e_mail_address" data-i18n-key = "e_mail_address">E-mail address</label>
+                                <input type = "text" class = "form-control" id = "email" name = "email">
                                 <div class="invalid-feedback">
                                 </div>
                             </div>
                             <div class = "form-group">
-                                <label for = "status" data-i18n-key = "status">Status</label>
-                                <select type = "text"  class = "form-control" id = "status_id" name = "status_id"></select>
+                                <label for = "password" data-i18n-key = "Password">Password</label>
+                                <input type = "password"  class = "form-control" id = "password" name = "password">
                                 <div class="invalid-feedback">
                                 </div>
                             </div>
-                        </div>
-                        <div class = "col-sm">
                             <div class = "form-group">
-                                <label for = "type_of_business" data-i18n-key = "type_of_business">Type of Business</label>
-                                <select class = "form-control" id = "business_id" name = "business_id"></select>
+                                <label for = "confirm_password" data-i18n-key = "confirm_password">Confirm Password</label>
+                                <input type = "password"  class = "form-control" id = "confirm_password" name = "confirm_password">
                                 <div class="invalid-feedback">
+                                </div>
                             </div>
+                            <div class = "form-group">
+                                <label for = "fullname" data-i18n-key = "fullname">Full name</label>
+                                <input type = "text"  class = "form-control" id = "fullname" name = "fullname">
+                                <div class="invalid-feedback">
+                                </div>
+                            </div>
+                            <div class = "form-group">
+                                <label data-i18n-key = "gender">Gender</label>
+                                <br>
+                                <div id = "radio-gender" class = "radio-group">
+                                    <input type="radio" id="male" name="gender" value="Male" checked>
+                                    <label for="male" data-i18n-key = "male">Male</label>
+                                    <input type="radio" id="female" name="gender" value="Female">
+                                    <label for="female" data-i18n-key = "female">Female</label>
+                                </div>
+                                <div class="invalid-feedback">
+                                </div>
+                            </div>
+                            <div class = "form-group">
+                                <label for = "country_id" data-i18n-key = "country">Country</label>
+                                <select type = "text"  class = "form-control" id = "country_id" name = "country_id"></select>
+                                <div class="invalid-feedback">
+                                </div>
+                            </div>
+                            <div class = "form-group">
+                                <label for = "province_id" data-i18n-key = "province">Province</label>
+                                <select type = "text"  class = "form-control" id = "province_id" name = "province_id"></select>
+                                <div class="invalid-feedback">
+                                </div>
+                            </div>
+                            <div class = "row">
+                                <div class = "col-sm">
+                                    <div class = "form-group">
+                                        <label for = "age" data-i18n-key = "age">Age</label>
+                                        <select type = "text"  class = "form-control" id = "age_id" name = "age_id"></select>
+                                        <div class="invalid-feedback">
+                                        </div>
+                                    </div>
+                                    <div class = "form-group">
+                                        <label for = "status" data-i18n-key = "status">Status</label>
+                                        <select type = "text"  class = "form-control" id = "status_id" name = "status_id"></select>
+                                        <div class="invalid-feedback">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class = "col-sm">
+                                    <div class = "form-group">
+                                        <label for = "type_of_business" data-i18n-key = "type_of_business">Type of Business</label>
+                                        <select class = "form-control" id = "business_id" name = "business_id"></select>
+                                        <div class="invalid-feedback">
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class = "form-group">
+                                <button type = "button" id = "register" class = "action-button" data-i18n-key = "Register">Register</button>
+                            </div>
+                            <div class = "form-group">
+                                <a href = "#login" data-i18n-key = "already_registered"></a>
                             </div>
                         </div>
-                    </div>
-                    <div class = "form-group">
-                        <button type = "button" id = "register" class = "action-button" data-i18n-key = "Register">Register</button>
-                    </div>
-                    <div class = "form-group">
-                        <a href = "#login" data-i18n-key = "already_registered"></a>
                     </div>
                 </form>
             </div>
@@ -225,7 +232,7 @@ class RegisterPage extends HTMLElement{
                 showDenyButton: false,
                 html: `
                     <p>${Localization.getLocalizedText('success-register')}</p>
-                    <p>Make sure to verify your account by inputting OTP code from the email we sent to you!</p>
+                    <p>${Localization.getLocalizedText('verify_account_reminder')}</p>
                     <button type = "button" id = "swal-close-button" class = "action-button" id = "forgot-password" style = "width: 100%">OK</button>
                 `,
             });

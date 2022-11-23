@@ -211,12 +211,12 @@ class TestPage extends HTMLElement{
         return true;
     }
 
-    setSubmitAnswerListener(){
+    setSubmitAnswerListener(messageKey = "processing"){
         const submitAnswerButton = this.testElement.querySelector("#submit-answer")
 
         submitAnswerButton.addEventListener("click", async () => {
             Swal.fire({
-                title: 'Processing your answers...',
+                title: Localization.getLocalizedText(messageKey),
                 icon: 'question',
                 showConfirmButton: false,
                 showCancelButton: false,

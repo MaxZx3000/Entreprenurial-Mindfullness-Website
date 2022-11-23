@@ -2,7 +2,7 @@ import Localization from "../../../utils/localization";
 import WindowController from "../../../utils/window-manager";
 import AccountInfoPage from "./account_info";
 import ChangePasswordPage from "./change_password";
-import DeleteAccountPage from "./delete_account";
+import InactiveAccountPage from "./delete_account";
 import EditProfilePage from "./edit_profile";
 
 class AccountPage extends HTMLElement{
@@ -47,7 +47,7 @@ class AccountPage extends HTMLElement{
                             <span class="material-icons material-symbols-outlined">
                                 delete_forever
                             </span>
-                            <span class = "nav-title" data-i18n-key = "delete_account"></span>
+                            <span class = "nav-title" data-i18n-key = "deactivate_account"></span>
                         </a>
                     </li>
                 </div>
@@ -118,12 +118,12 @@ class AccountPage extends HTMLElement{
             editProfileLink.className = "nav-link";
             passwordLink.className = "nav-link";
             deleteAccountLink.className = "nav-link active";
-            const deleteAccountPageElement = new DeleteAccountPage();
-            await deleteAccountPageElement.init();
-            deleteAccountPageElement.style.visibility = "hidden";
-            subpageElement.appendChild(deleteAccountPageElement);
+            const InactiveAccountPageElement = new InactiveAccountPage();
+            await InactiveAccountPageElement.init();
+            InactiveAccountPageElement.style.visibility = "hidden";
+            subpageElement.appendChild(InactiveAccountPageElement);
             await Localization.initTranslate();
-            deleteAccountPageElement.style.visibility = "visible";
+            InactiveAccountPageElement.style.visibility = "visible";
         }
         
     }

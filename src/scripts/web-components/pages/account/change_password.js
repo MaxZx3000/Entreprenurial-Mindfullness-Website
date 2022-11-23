@@ -14,31 +14,38 @@ class ChangePasswordPage extends HTMLElement{
     render(){
         this.changePasswordElement.innerHTML = `
             <div class = "container">
-                <h1 data-i18n-key = "change_password"></h1>
-                <form>
-                    <div class = "form-group">
-                        <label for = "current_password" data-i18n-key = "current_password"></label>
-                        <input class = "form-control" type = "password" id = "current_password" name = "current_password">
-                        <div class = "invalid-feedback">
-                        
-                        </div>
+                <div class = "row">
+                    <div class = "col-sm-6 col-md-6 col-lg-6">
+                        <img src = "./images/lock.png" id = "change-password-image">
                     </div>
-                    <div class = "form-group">
-                        <label for = "new_password" data-i18n-key = "new_password"></label>
-                        <input class = "form-control" type = "password" id = "new_password" name = "new_password">
-                        <div class = "invalid-feedback">
-                            
-                        </div>
-                    </div>
-                    <div class = "form-group">
-                        <label for = "confirm_password" data-i18n-key = "confirm_password"></label>
-                        <input class = "form-control" type = "password" id = "confirm_password" name = "confirm_password">
-                        <div class = "invalid-feedback">
+                    <div class = "col-sm-6 col-md-6 col-lg-6">
+                        <h1 data-i18n-key = "change_password"></h1>
+                        <form>
+                            <div class = "form-group">
+                                <label for = "current_password" data-i18n-key = "current_password"></label>
+                                <input class = "form-control" type = "password" id = "current_password" name = "current_password">
+                                <div class = "invalid-feedback">
+                                
+                                </div>
+                            </div>
+                            <div class = "form-group">
+                                <label for = "new_password" data-i18n-key = "new_password"></label>
+                                <input class = "form-control" type = "password" id = "new_password" name = "new_password">
+                                <div class = "invalid-feedback">
+                                    
+                                </div>
+                            </div>
+                            <div class = "form-group">
+                                <label for = "confirm_password" data-i18n-key = "confirm_password"></label>
+                                <input class = "form-control" type = "password" id = "confirm_password" name = "confirm_password">
+                                <div class = "invalid-feedback">
 
-                        </div>
+                                </div>
+                            </div>
+                            <button id = "apply-password" type = "button" class = "action-button" data-i18n-key = "update"></button>
+                        </form>
                     </div>
-                    <button id = "apply-password" type = "button" class = "action-button" data-i18n-key = "update"></button>
-                </form>
+                </div>
             </div>
         `;
     }

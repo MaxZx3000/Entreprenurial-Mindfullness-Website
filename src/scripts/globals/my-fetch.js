@@ -186,11 +186,12 @@ class MyFetch{
         )
         return responseJSON
     }
-    static async authenticateUser(email){
+    static async authenticateUser(email, otp){
         const requestBody = RequestJSONTemplate.getGetAuthorizationJSONData()
         requestBody.method = 'PUT'
         requestBody.body = JSON.stringify({
             "secret_key": "em-2022-TUA717v3",
+            "otp": otp,
         })
         const responseJSON = await FetchHelpers.getJSONResult(
             ApiEndpoint.getAuthenticateLink(email),
