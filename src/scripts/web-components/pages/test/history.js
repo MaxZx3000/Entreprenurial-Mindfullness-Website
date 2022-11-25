@@ -58,7 +58,7 @@ class HistoryPage extends HTMLElement{
     render(){
         this.historyElement.innerHTML = `
             <div class = "h1-header">
-                <h1>Test Result History</h1>
+                <h1 data-i18n-key = "user_test_history"></h1>
             </div>
             <div class = "container">
                 <div class = "alert alert-primary" role = "alert">
@@ -69,7 +69,7 @@ class HistoryPage extends HTMLElement{
                             </span>
                         </div>
                         <div class = "col-sm-11 col-md-11 col-lg-11">
-                            <p>Silahkan pilih tes yang Anda ingin lihat! Tes diurutkan berdasarkan tanggal terakhir Anda mengikuti suatu tes!</p>
+                            <p data-i18n-key = "user_test_history_instructions"></p>
                         </div>
                     </div>
                 </div>

@@ -10,14 +10,16 @@ class HomePage extends HTMLElement{
 
     async init(){
         this.render();
-        Localization.initTranslate();
         this.appendChildren();
     }
 
     _getJumbotronElement(){
         return `
             <div class = "jumbotron">
-                <div class = "container">
+                <div class = "row" id = "row-1">
+                    <img src = "./images/work-contribution.png" id = "work-contribution-image">
+                </div>
+                <div class = "row" id = "row-2">
                     <h1 data-i18n-key = "entreprenurial_mindfullness_is">Entrepreneurial Mindfulness is…</h1>
                     <h2 data-i18n-key = "find_balance">finding balance in your entrepreneurial journey.</h2>
                 </div>
@@ -44,6 +46,7 @@ class HomePage extends HTMLElement{
             <li>Pusat Penelitian Kebijakan Pendidikan Tinggi, Balitbangdikbud, Kemendikbud RI (PUSLITJAKDIKBUD)</li>
             <li>Universitas Agung Podomoro (UAP)</li>
             <li>Universiti Teknologi Malaysia (UTM)</li>
+            <br>
         `
 
         let pointsElement = document.createElement("ul")

@@ -1,4 +1,4 @@
-import Gauge from "svg-gauge/src/gauge";
+import "./jquery-gauge.min.js"
 
 class GaugeElement extends HTMLElement{
     constructor(){
@@ -12,21 +12,43 @@ class GaugeElement extends HTMLElement{
     }
     render(){
         this.gaugeElement.innerHTML = `
-            <div id = "cpuSpeed" class = "gauge-container"></div>
+            <div class = "gauge gauge-container"></div>
         `;
     }
     initializeGauge(){
-        this.cpuGauge = Gauge(this.gaugeElement.querySelector("#cpuSpeed"), {
-            max: this.maxValue,
-            value: this.value,
-            label: function(value){
-                return Math.round(value) + "/" + this.max
+        // this.cpuGauge = Gauge(this.gaugeElement.querySelector("#cpuSpeed"), {
+        //     max: this.maxValue,
+        //     value: this.value,
+        //     label: function(value){
+        //         return Math.round(value) + "/" + this.max
+        //     },
+        //     color: function(value){
+        //         return "#019267"; // red
+        //     }
+        // })
+        // this.cpuGauge.setValueAnimated(4, 4)
+        options = {
+            values: {
+                1: '1',
+                4: '4',
+                7: '7',
             },
-            color: function(value){
-                return "#019267"; // red
-            }
-        })
-        this.cpuGauge.setValueAnimated(4, 4)
+            colors: {
+                1: "#666",
+                4: "#ffa500",
+                7: "f00",
+            },
+            angles: [
+                180,
+                360,
+            ],
+            lineWidth: 10,
+            arrowWidth: 20,
+            arrowColor: '#ccc',
+            inset: true,
+            value: this.value
+        };
+
     }
     renderAll(){
         this.render();

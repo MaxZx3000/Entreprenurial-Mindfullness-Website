@@ -2,9 +2,8 @@ home-page
     .jumbotron
         display: block
         width: 100%
-        background:  url("../public/images/Jumbotron-background.jpg")
-        background-size: 100%
-    
+        padding: 0
+
         h1
             color: white
 
@@ -13,6 +12,23 @@ home-page
 
         h1, h2
             text-shadow: 2px 2px black
+            text-align: center
+
+        #row-1
+            display: block
+            width: 100%
+            margin: 0
+            border-radius-top-left: 50px !important
+            border-radius-top-right: 50px !important
+
+        #row-2
+            display: block
+            background-color: #4B7BE5
+            width: 100%
+            padding: 20px
+            margin: 0
+            border-radius-bottom-left: 50px !important
+            border-radius-bottom-right: 50px !important
 
     .university-image
         width: 150px
@@ -20,6 +36,12 @@ home-page
         left: 50%
         margin-top: 10px
         margin-bottom: 10px
+        transform: translateX(-50%)
+
+    #work-contribution-image
+        position: relative
+        width: 250px
+        left: 50%
         transform: translateX(-50%)
     
     .col-sm-6

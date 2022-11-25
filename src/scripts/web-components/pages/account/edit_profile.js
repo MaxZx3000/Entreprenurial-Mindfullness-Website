@@ -16,7 +16,7 @@ class EditProfilePage extends HTMLElement{
     }
     render(){
         this.editProfileElement.innerHTML = `
-            <img id = "background-profile" src = "https://img.freepik.com/free-vector/alone-concept-illustration_114360-2393.jpg?t=st=1652167671~exp=1652168271~hmac=1ec930ffe4c6e31e560abe966f0c7c0835dbc7be6c7dab05236b0d445e8617b0&w=740" class = "background_image">
+            <img id = "background-profile" src = "./images/forest.png" class = "background_image">
             <div class = "container">                
                 <form>
                     <div class = "image-container">
@@ -34,15 +34,13 @@ class EditProfilePage extends HTMLElement{
                     <div class = "form-group">
                         <label data-i18n-key = "gender">Gender</label>
                         <br>
-                        <div class = "form-check">
-                            <div class = "form-check-inline">
-                                <input class="form-check-input" type="radio" id="Male" name="gender" value="Male">
-                                <label class="form-check-label" for="Male" data-i18n-key = "male">Male</label>
-                            </div>
-                            <div class = "form-check-inline">
-                                <input class="form-check-input" type="radio" id="Female" name="gender" value="Female">
-                                <label class="form-check-label" for="Female" data-i18n-key = "female" id = 'gender-dummy'>Female</label>
-                            </div>
+                        <div class = "form-check-inline">
+                            <input class="form-check-input" type="radio" id="Male" name="gender" value="Male">
+                            <label class="form-check-label" for="Male" data-i18n-key = "male">Male</label>
+                        </div>
+                        <div class = "form-check-inline">
+                            <input class="form-check-input" type="radio" id="Female" name="gender" value="Female">
+                            <label class="form-check-label" for="Female" data-i18n-key = "female">Female</label>
                         </div>
                         <div class="invalid-feedback" id = 'gender-invalid-feedback'>
                         </div>
@@ -295,7 +293,6 @@ class EditProfilePage extends HTMLElement{
                 const fullname = this.editProfileElement.querySelector("#fullname").value
                 const genderElement = this.editProfileElement.querySelector("input[name = 'gender']:checked")
                 const gender = genderElement !== null ? genderElement.value : ""
-                console.log(gender)
                 const countryId = this.editProfileElement.querySelector("#country_id").value;
                 const provinceId = this.editProfileElement.querySelector("#province_id").value;
                 const ageId = this.editProfileElement.querySelector("#age_id").value;
@@ -352,7 +349,7 @@ class EditProfilePage extends HTMLElement{
     async fetchUserData(){
         const responseJSONData = await UserGlobal.getUserData()
         this.editProfileElement.querySelector("#fullname").value = responseJSONData["fullname"];
-        this.editProfileElement.querySelector("input[name = 'gender']").value = responseJSONData["gender"];
+        this.editProfileElement.querySelector(`input[name = 'gender'][id = '${responseJSONData["gender"]}'`).checked = true;
         this.editProfileElement.querySelector("#country_id").value = responseJSONData.country.id;
         this.editProfileElement.querySelector("#province_id").value = responseJSONData.province.id;
         this.editProfileElement.querySelector("#age_id").value = responseJSONData.age.id;

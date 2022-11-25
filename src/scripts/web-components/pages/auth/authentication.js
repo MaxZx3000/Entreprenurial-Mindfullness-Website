@@ -13,12 +13,13 @@ class AuthenticationPage extends HTMLElement{
     render(){
         this.authenticationElement.innerHTML = `
             <div class = "h1-header">
-                <h1 data-i18n-key = "authentication">Authentication</h1>
+                <h1 data-i18n-key = "authentication"></h1>
             </div>
             <div class = "container">
-                <span class = "material-icons material-symbols-outlined" id = "authentication-key">
-                    key
-                </span>
+                <br>
+                <img id = "authentication-image" src = "./images/Compressed/steps/sign_up_compressed.png">
+                <br>
+                <br>
                 <p data-i18n-key = "authentication_fill_in">You must fill in authentication code to continue using your application!</p>
                 <p data-i18n-key = "email_check_auth">Please check your email to check your authentication code and enter 4 digit of authentication code.</p>
                 <div class = "form-group">

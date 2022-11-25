@@ -329,7 +329,7 @@ class RegisterPage extends HTMLElement{
             const confirmPassword = this.registerElement.querySelector("#confirm_password").value;
             const email = this.registerElement.querySelector("#email").value;
             const fullname = this.registerElement.querySelector("#fullname").value;
-            const gender = this.registerElement.querySelector("input[name = 'gender']").value;
+            const gender = this.registerElement.querySelector("input[name = 'gender']:checked").value;
             const countryId = this.registerElement.querySelector("#country_id").value;
             const provinceId = this.registerElement.querySelector("#province_id").value;
             const ageId = this.registerElement.querySelector("#age_id").value;

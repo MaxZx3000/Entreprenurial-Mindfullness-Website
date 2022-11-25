@@ -37,10 +37,10 @@ class TestPage extends HTMLElement{
     render(){
         this.testElement.innerHTML = `
             <div class = "h1-header">
-                <h1>Test</h1>
+                <h1 data-i18n-key = "entreprenurial_mindfulness_test"></h1>
             </div>
+            <br>
             <div class = "container">
-                <h1 id = "test-title">Entrepreneurial Mindfulness Test</h1>
                 <div class = "card">
                     <div class = "row">
                         <div class = "col-sm-8 col-md-8 col-lg-10">

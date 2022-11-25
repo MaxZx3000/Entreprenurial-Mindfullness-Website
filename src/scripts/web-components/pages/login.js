@@ -22,7 +22,7 @@ class LoginPage extends HTMLElement{
             <div class = "container">
                 <div class = "row">
                     <div class = "col-sm-12 col-md-6 col-lg-6">
-                        <img src = "./images/Compressed/steps/sign_up_compressed.png" id = "login-image">
+                        <img src = "./images/Compressed/read_compressed.png" id = "login-image">
                     </div>
                     <div class = "col-sm-12 col-md-6 col-lg-6">
                         <div class = "form-group">
@@ -194,6 +194,9 @@ class LoginPage extends HTMLElement{
                 SwalCustomFunctions.initializeLoadingPopUp();
                 const jsonResponseData = await MyFetch.reactivateAccount(email, password);
                 if (jsonResponseData.status === 200){
+                    console.log(jsonResponseData.json)
+                    UserGlobal.saveUserData(jsonResponseData.json.data.user)
+                    UserGlobal.setJWTToken(jsonResponseData.json.data.access_token)
                     Swal.fire({
                         title: "Hooray!",
                         icon: "success",
@@ -206,7 +209,7 @@ class LoginPage extends HTMLElement{
                             <button type = "button" id = "swal-close-button" class = "action-button" style = "width: 100%">OK</button>
                         `,
                     });
-                    UserGlobal.saveUserData(jsonResponseData.json.user)
+                    
                     WindowController.setWindowURLHash("profile_intro")
                 }
                 else if (jsonResponseData.status === 401){
