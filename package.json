@@ -62,7 +62,7 @@
     "regenerator-runtime": "^0.13.5",
     "serviceworker-webpack-plugin": "^1.0.1",
     "sprintf-js": "^1.1.2",
-    "svg-gauge": "^1.0.6",
+    "svg-gauge": "^1.0.7",
     "sweetalert2": "^11.4.17",
     "workbox-window": "^6.5.4"
   }
