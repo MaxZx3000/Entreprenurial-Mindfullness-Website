@@ -127,15 +127,15 @@ class LoginPage extends HTMLElement{
                 }
                 else if (responseJSONData.status === 402){
                     Swal.fire({
-                        title: `Inactive Account Detected`,
+                        title: Localization.getLocalizedText("inactive_account_detected"),
                         icon: 'warning',
                         showCancelButton: false,
                         showConfirmButton: false,
                         showCloseButton: false,
                         allowOutsideClick: false,
                         html: `
-                            <p>It looks like that your account is inactive.</p>
-                            <p>To use your account and log in, simply click reactivate button on this page!</p>
+                            <p>${Localization.getLocalizedText("inactive_account_message")}</p>
+                            <p>${Localization.getLocalizedText("inactive_account_message_2")}</p>
                             <button type = "button" id = "swal-close-button" class = "action-button" style = "width: 100%">OK</button>
                         `
                     })

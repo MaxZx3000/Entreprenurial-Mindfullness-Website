@@ -119,5 +119,9 @@
     "otp_key_invalid": "Kode OTP yang dimasukkan salah",
     "invalid_secret_key": "Invalid secret key!",
     "authentication_success": "Autentication Success",
-    "authentication_failed": "Autentication Failed"
+    "authentication_failed": "Autentication Failed",
+    "authentication_success_message": "Now, you can use this app. Enjoy!",
+    "inactive_account_detected": "Inactive Account Detected",
+    "inactive_account_message": "It looks like that your account is inactive.",
+    "inactive_account_message_2": "To use your account and log in, simply click reactivate button on this page!"
 }

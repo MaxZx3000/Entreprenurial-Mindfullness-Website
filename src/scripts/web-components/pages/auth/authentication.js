@@ -45,7 +45,7 @@ class AuthenticationPage extends HTMLElement{
                 userData.verified = true
                 UserGlobal.saveUserData(userData)
                 Swal.fire({
-                    title: "Authentication Success!",
+                    title: Localization.getLocalizedText("authentication_success"),
                     icon: "success",
                     showConfirmButton: false,
                     showDenyButton: false,

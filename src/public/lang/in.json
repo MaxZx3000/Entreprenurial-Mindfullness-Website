@@ -120,5 +120,8 @@
     "invalid_secret_key": "Kode secret key salah!",
     "authentication_success": "Autentikasi Berhasil",
     "authentication_failed": "Autentikasi Gagal",
-    "authentication_success_message": "Now, you can use this app. Enjoy!"
+    "authentication_success_message": "Sekarang, Anda bisa menggunakan aplikasi ini! Selamat menikmati!",
+    "inactive_account_detected": "Akun Tidak Aktif Terdeteksi!",
+    "inactive_account_message": "Sepertinya, akun Anda sedang tidak aktif.",
+    "inactive_account_message_2": "Untuk menggunakan akun Anda dan masuk ke aplikasi, tinggal pilih Aktifkan Ulang Akun pada halaman ini!"
 }
