@@ -11,7 +11,6 @@ class AboutEntrepreneurialMindfulnessPage extends HTMLElement{
 
     _getTentangKamiElement(){
         return `
-            <h2 data-i18n-key = "about_us"></h2>
             <p data-i18n-key = "about_us_content_1">Entrepreneurial Mindfulness merupakan sebuah website dengan instrumen yang mengukur kapabilitas seseorang untuk berfokus dan perhatian terhadap sesuatu yang menjadi rangkaian penting dalam proses menjadi sekaligus menjalankan praktik kewirausahaan.</p>
             <p data-i18n-key = "about_us_content_2">Instrumen Entrepreneurial Mindfulness dikembangkan oleh Research Interest Group (RIG) Edutech melalui Hibah Internasional BINUS University, berkolaborasi dengan berbagai institusi dari Indonesia dan Malaysia:</p>
         `;

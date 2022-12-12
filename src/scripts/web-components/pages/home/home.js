@@ -37,11 +37,17 @@ class HomePage extends HTMLElement{
                 <div class = "nav nav-tabs">
                     <li class = "nav-item">
                         <a class = "nav-link active" href = "#home/about" id = "about-entrepreneurial-mindfulness-link">
+                            <span class="material-icons material-symbols-outlined">
+                                help
+                            </span>    
                             <span class = "nav-title" data-i18n-key = "about_entrepreneurial_mindfulness"></span>
                         </a>
                     </li>
                     <li class = "nav-item">
                         <a class = "nav-link" href = "#home/video" id = "video-intervensi-link">
+                            <span class="material-icons material-symbols-outlined">
+                                play_circle
+                            </span>      
                             <span class = "nav-title" data-i18n-key = "video_intervensi"></span>
                         </a>
                     </li>
