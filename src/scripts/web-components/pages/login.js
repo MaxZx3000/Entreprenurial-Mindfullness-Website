@@ -92,7 +92,6 @@ class LoginPage extends HTMLElement{
             }
             
             const validationResult = this.validateForm(jsonRequestBody)
-            console.log(validationResult)
             if (validationResult.isTrue === false){
                 HTMLHelpers.makeInvalidStatusField(this.loginElement, validationResult)
                 this.loginElement.querySelector(validationResult.element).focus()
@@ -112,14 +111,14 @@ class LoginPage extends HTMLElement{
                     jsonRequestData,
                 );
             
-                if (responseJSONData.status == 401){
+                if (responseJSONData.status === 401){
                     Swal.fire({
                         title: `Oops!`,
                         icon: 'error',
                         showCancelButton: false,
                         showConfirmButton: false,
                         html: `
-                            <p>${responseJSONData.json.message}</p>
+                            <p>${Localization.getLocalizedText("wrong-password")}/ ${Localization.getLocalizedText("email_not_found")}</p>
                             <button type = "button" id = "swal-close-button" class = "action-button" style = "width: 100%">OK</button>
                         `
                     })
@@ -159,7 +158,7 @@ class LoginPage extends HTMLElement{
                     SwalCustomFunctions.initializeCloseButton()
                     WindowController.setWindowURLHash("profile_intro")
                 }
-                else if (responseJSONData.status === -1){
+                else{
                     Swal.fire({
                         title: `Oops!`,
                         icon: 'error',
@@ -194,7 +193,6 @@ class LoginPage extends HTMLElement{
                 SwalCustomFunctions.initializeLoadingPopUp();
                 const jsonResponseData = await MyFetch.reactivateAccount(email, password);
                 if (jsonResponseData.status === 200){
-                    console.log(jsonResponseData.json)
                     UserGlobal.saveUserData(jsonResponseData.json.data.user)
                     UserGlobal.setJWTToken(jsonResponseData.json.data.access_token)
                     Swal.fire({
@@ -239,7 +237,17 @@ class LoginPage extends HTMLElement{
                     })
                 }
                 else{
-                    
+                    Swal.fire({
+                        title: "Oops!",
+                        icon: "error",
+                        showCancelButton: false,
+                        showCloseButton: false,
+                        showConfirmButton: false,
+                        html: `
+                            <p>${Localization.getLocalizedText("unknown_error_occured")}</p>
+                            <button type = "button" id = "swal-close-button" class = "action-button" style = "width: 100%">OK</button>
+                        `,
+                    })
                 }
                 SwalCustomFunctions.initializeCloseButton();
             }
@@ -247,7 +255,6 @@ class LoginPage extends HTMLElement{
     }
     setListeners(){
         const inputElements = this.loginElement.querySelectorAll("input");
-        console.log(inputElements)
 
         inputElements.forEach((element) => {
             element.addEventListener("input", () => {

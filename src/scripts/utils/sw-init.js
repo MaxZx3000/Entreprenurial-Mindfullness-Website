@@ -8,7 +8,6 @@ class _ServiceWorkerInitializer{
     }
     async initialize(){
         if ('serviceWorker' in navigator){
-            console.log("Service Worker is running!");
             await runtime.register();
             return;
         }

@@ -25,6 +25,7 @@ import './styles/statistics.sass';
 import './styles/not_found_page.sass';
 import './styles/registered-user-header.sass';
 import './styles/auth/authentication.sass';
+import './styles/video_intervensi.sass';
 import './scripts/web-components/header.js';
 import './scripts/web-components/registered-user-header.js';
 import './scripts/web-components/footer.js';
@@ -77,3 +78,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     await defineHeader();
     await defineBodyPage();
 });
+
+if (WindowController.getURLHashValue() === undefined){
+    WindowController.setWindowURLHash("home/about");
+}

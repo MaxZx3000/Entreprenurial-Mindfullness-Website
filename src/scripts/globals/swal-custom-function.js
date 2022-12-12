@@ -6,7 +6,6 @@ class SwalCustomFunctions{
         const swalWindowElement = document.querySelector(".swal2-container");
         const swalCloseButton = swalWindowElement.querySelector(`#${closeButtonSwalId}`);
         swalCloseButton.addEventListener("click", () => {
-            console.log("Close!");
             Swal.clickConfirm();
         });
     }

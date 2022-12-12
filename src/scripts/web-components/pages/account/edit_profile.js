@@ -12,6 +12,7 @@ class EditProfilePage extends HTMLElement{
     constructor(){
         super();
         this.editProfileElement = document.createElement('div');
+        this.isProvinceAvailable = false;
         this.provinceJSON = {}
     }
     render(){
@@ -94,8 +95,15 @@ class EditProfilePage extends HTMLElement{
         const selectCountryElement = this.editProfileElement.querySelector("#country_id");
 
         const filteredProvinceJSON = this.provinceJSON.filter(province => province.country_id == selectCountryElement.value)
-        console.log(filteredProvinceJSON)
         selectProvincesElement.innerHTML = ""
+
+        if (filteredProvinceJSON.length === 0){
+            this.isProvinceAvailable = false;
+        }
+        else{
+            this.isProvinceAvailable = true;
+        }
+
         filteredProvinceJSON.forEach((province) => {
             const optionElement = document.createElement("option")
             optionElement.innerText = province.name
@@ -186,7 +194,6 @@ class EditProfilePage extends HTMLElement{
         SwalCustomFunctions.initializeLoadingPopUp();
         const responseJSONData = await MyFetch.editProfile(jsonRequestData)
         if (responseJSONData.status === 200){
-            console.log(responseJSONData);
             UserGlobal.saveUserData(
                 responseJSONData.json.data
             );
@@ -204,7 +211,6 @@ class EditProfilePage extends HTMLElement{
             SwalCustomFunctions.initializeCloseButton()
         }
         else if (responseJSONData.status === 401){
-            console.log(responseJSONData.json)
             Swal.fire({
                 title: "Oops!",
                 icon: 'error',
@@ -262,32 +268,6 @@ class EditProfilePage extends HTMLElement{
             })
         });   
 
-        // const editPictureElement = this.editProfileElement.querySelector("#edit-picture")
-        // editPictureElement.addEventListener("click", () => {
-        //     Swal.fire({
-        //         title: "Upload Image",
-        //         showCloseButton: false,
-        //         showConfirmButton: false,
-        //         showDenyButton: false,
-        //         html: `
-        //             <input type = "file" id = "image-file-picker">
-        //             <button type = "button" id = "swal-confirm-button" class = "action-button" style = "width: 100%">OK</button>
-        //             <div class = "invalid-feedback">
-                        
-        //             </div>
-        //         `
-        //     })
-        //     const imageConfirmElement = document.querySelector("#swal-confirm-button")
-        //     imageConfirmElement.addEventListener("click", () => {
-        //         const imageInputElement = document.querySelector("#image-file-picker")
-        //         const [file] = imageInputElement.files
-        //         if (file) {
-        //             const imagePreviewElement = this.editProfileElement.querySelector("#profile-picture")
-        //             imagePreviewElement.src = URL.createObjectURL(file)
-        //             Swal.clickConfirm()
-        //         }
-        //     })
-        // })
         const registerButtonElement = this.editProfileElement.querySelector("#register-button")
             registerButtonElement.addEventListener("click", async () => {
                 const fullname = this.editProfileElement.querySelector("#fullname").value
@@ -298,26 +278,33 @@ class EditProfilePage extends HTMLElement{
                 const ageId = this.editProfileElement.querySelector("#age_id").value;
                 const statusId = this.editProfileElement.querySelector("#status_id").value
                 const businessId = this.editProfileElement.querySelector("#business_id").value;
+                
+                let jsonRequestBody = {};
 
-                // const editProfileFormData = new FormData()
-                // editProfileFormData.append("fullname", fullname)
-                // editProfileFormData.append("gender", gender)
-                // editProfileFormData.append("country_id", countryId)
-                // editProfileFormData.append("province_id", provinceId)
-                // editProfileFormData.append("age_id", ageId)
-                // editProfileFormData.append("status_id", statusId)
-                // editProfileFormData.append("business_id", businessId)
-
-                const jsonRequestBody = {
-                    "fullname": fullname,
-                    "gender": gender,
-                    "country_id": countryId,
-                    "province_id": provinceId,
-                    "age_id": ageId,
-                    "status_id": statusId,
-                    "business_id": businessId
+                if (this.isProvinceAvailable){
+                    jsonRequestBody = {
+                        // "username": username,
+                        "fullname": fullname,
+                        "gender": gender,
+                        "country_id": countryId,
+                        "province_id": provinceId,
+                        "age_id": ageId,
+                        "status_id": statusId,
+                        "business_id": businessId
+                    }
                 }
-
+                else{
+                    jsonRequestBody = {
+                        // "username": username,
+                        "fullname": fullname,
+                        "gender": gender,
+                        "country_id": countryId,
+                        "age_id": ageId,
+                        "status_id": statusId,
+                        "business_id": businessId
+                    }
+                }
+                
                 const validationResult = this.validateForm(jsonRequestBody)
 
                 if (validationResult.isTrue === false){
@@ -325,23 +312,6 @@ class EditProfilePage extends HTMLElement{
                     this.editProfileElement.querySelector(validationResult.element).focus()
                     return
                 }
-
-                // const userCheckResult = await MyFetch.userCheck(jsonRequestBody["username"], jsonRequestBody["email"])
-                
-                // if (userCheckResult.status === 409){
-                //     Swal.fire({
-                //         title: "Oops!",
-                //         showCancelButton: false,
-                //         showConfirmButton: false,
-                //         showDenyButton: false,
-                //         html: `
-                //             <p>${userCheckResult.json.message}</p>
-                //             <button type = "button" class = "action-button" id = "swal-close-button" style = "width: 100%">OK</button>
-                //         `
-                //     })
-                //     SwalCustomFunctions.initializeCloseButton()
-                //     return
-                // }
                 
                 await this.performRequest(jsonRequestBody)
             })
@@ -368,10 +338,12 @@ class EditProfilePage extends HTMLElement{
         await this.fetchUserData()
     }
     async init(){
+        SwalCustomFunctions.initializeLoadingPopUp();
         this.render();
-        this.fetchData();
+        await this.fetchData();
         this.setListeners();
         this.appendChildren();
+        Swal.close();
     }
 }
 

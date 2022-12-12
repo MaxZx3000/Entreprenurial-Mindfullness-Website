@@ -13,6 +13,7 @@ class RegisterPage extends HTMLElement{
     constructor(){
         super();
         this.registerElement = document.createElement("div");
+        this.isProvinceAvailable = false;
         this.provinceJSON = {}
     }
     render(){
@@ -24,7 +25,7 @@ class RegisterPage extends HTMLElement{
                 <form class = "needs-validation" novalidate>
                     <div class = "row">
                         <div class = "col-sm-12 col-md-12 col-lg-12">
-                            <img src = "./images/Compressed/steps/sign_up_compressed.png" id = "register-image">
+                            <img src = "./images/Compressed/waiting_compressed.png" id = "register-image">
                         </div>
                         <div class = "col-sm-12 col-md-12 col-lg-12">
                             <div class = "form-group">
@@ -54,11 +55,13 @@ class RegisterPage extends HTMLElement{
                             <div class = "form-group">
                                 <label data-i18n-key = "gender">Gender</label>
                                 <br>
-                                <div id = "radio-gender" class = "radio-group">
-                                    <input type="radio" id="male" name="gender" value="Male" checked>
-                                    <label for="male" data-i18n-key = "male">Male</label>
-                                    <input type="radio" id="female" name="gender" value="Female">
-                                    <label for="female" data-i18n-key = "female">Female</label>
+                                <div class = "form-check-inline">
+                                    <input class="form-check-input" type="radio" id="Male" name="gender" value="Male" checked>
+                                    <label class="form-check-label" for="Male" data-i18n-key = "male">Male</label>
+                                </div>
+                                <div class = "form-check-inline">
+                                    <input class="form-check-input" type="radio" id="Female" name="gender" value="Female">
+                                    <label class="form-check-label" for="Female" data-i18n-key = "female">Female</label>
                                 </div>
                                 <div class="invalid-feedback">
                                 </div>
@@ -123,8 +126,15 @@ class RegisterPage extends HTMLElement{
         const selectCountryElement = this.registerElement.querySelector("#country_id");
 
         const filteredProvinceJSON = this.provinceJSON.filter(province => province.country_id == selectCountryElement.value)
-        console.log(filteredProvinceJSON)
         selectProvincesElement.innerHTML = ""
+
+        if (filteredProvinceJSON.length === 0){
+            this.isProvinceAvailable = false;
+        }
+        else{
+            this.isProvinceAvailable = true;
+        }
+
         filteredProvinceJSON.forEach((province) => {
             const optionElement = document.createElement("option")
             optionElement.innerText = province.name
@@ -260,7 +270,7 @@ class RegisterPage extends HTMLElement{
                 showConfirmButton: false,
                 showDenyButton: false,
                 html: `
-                    <p>Unknown Error Occured!</p>
+                    <p>${Localization.getLocalizedText("unknown_error_occured")}</p>
                     <button type = "button" id = "swal-close-button" class = "action-button" id = "forgot-password" style = "width: 100%">OK</button>
                 `,
             });
@@ -276,6 +286,11 @@ class RegisterPage extends HTMLElement{
         else if (Validation.validatePassword(json.password).isTrue === false){
             const validation = Validation.validatePassword(json.password)
             validation.element = "#password"
+            return validation
+        }
+        else if (Validation.validateFullname(json.fullname).isTrue === false){
+            const validation = Validation.validateFullname(json.fullname)
+            validation.element = "#fullname"
             return validation
         }
         else if (Validation.validateConfirmPassword(json.password, json.confirm_password).isTrue === false){
@@ -315,7 +330,7 @@ class RegisterPage extends HTMLElement{
     }
     setListeners(){        
         const registerButtonElement = this.registerElement.querySelector("#register");
-        const inputElements = this.registerElement.querySelectorAll("input[type='text'], select, .radio-group");
+        const inputElements = this.registerElement.querySelectorAll("input[type='text'], input[type='password'], select, .radio-group");
 
         inputElements.forEach(element => {
             element.addEventListener("input", () => {
@@ -335,23 +350,40 @@ class RegisterPage extends HTMLElement{
             const ageId = this.registerElement.querySelector("#age_id").value;
             const statusId = this.registerElement.querySelector("#status_id").value;
             const businessId = this.registerElement.querySelector("#business_id").value;
-            const jsonRequestBody = {
-                // "username": username,
-                "password": password,
-                "confirm_password": confirmPassword,
-                "email": email,
-                "fullname": fullname,
-                "gender": gender,
-                "country_id": countryId,
-                "province_id": provinceId,
-                "age_id": ageId,
-                "status_id": statusId,
-                "business_id": businessId
+
+            let jsonRequestBody = {}
+            
+            if (this.isProvinceAvailable){
+                jsonRequestBody = {
+                    // "username": username,
+                    "password": password,
+                    "confirm_password": confirmPassword,
+                    "email": email,
+                    "fullname": fullname,
+                    "gender": gender,
+                    "country_id": countryId,
+                    "province_id": provinceId,
+                    "age_id": ageId,
+                    "status_id": statusId,
+                    "business_id": businessId
+                }
+            }
+            else{
+                jsonRequestBody = {
+                    // "username": username,
+                    "password": password,
+                    "confirm_password": confirmPassword,
+                    "email": email,
+                    "fullname": fullname,
+                    "gender": gender,
+                    "country_id": countryId,
+                    "age_id": ageId,
+                    "status_id": statusId,
+                    "business_id": businessId
+                }
             }
 
             const validationResult = this.validateForm(jsonRequestBody)
-
-            console.log(validationResult);
 
             if (validationResult.isTrue === false){
                 HTMLHelpers.makeInvalidStatusField(this.registerElement, validationResult)
@@ -377,11 +409,13 @@ class RegisterPage extends HTMLElement{
         })
     }
     async init(){
+        SwalCustomFunctions.initializeLoadingPopUp();
         this.render();
         Localization.initTranslate();
-        this.fetchData();
+        await this.fetchData();
         this.setListeners();
         this.appendChildren();
+        Swal.close();
     }
     appendChildren(){
         this.appendChild(this.registerElement);

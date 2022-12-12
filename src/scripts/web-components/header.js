@@ -16,7 +16,7 @@ class HeaderElement extends HTMLElement{
     _setHeaderElement(){
         this.headerElement.innerHTML = `
             <nav class="navbar fixed-top navbar-expand-lg navbar-light">
-                <a class="navbar-brand" href="#home">
+                <a class="navbar-brand" href="#home/about">
                     <img src = "./images/entreprenurial-mindfullness-logo.png" class = "website-logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,7 +42,6 @@ class HeaderElement extends HTMLElement{
     _setListeners(){
         const changeLanguageElement = this.headerElement.querySelector("#change-language");
         changeLanguageElement.onchange = (e) => {
-            console.log(e.target.value);
             Localization.changeLanguage(e.target.value);
             Localization.initTranslate();
         }

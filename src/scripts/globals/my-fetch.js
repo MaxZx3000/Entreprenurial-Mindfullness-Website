@@ -67,7 +67,6 @@ class MyFetch{
             'username': username,
             'email': email
         }
-        console.log(requestJSON)
         const responseJSON = await FetchHelpers.getJSONResult(
             ApiEndpoint.getUserCheckLink(),
             requestJSON
@@ -167,7 +166,6 @@ class MyFetch{
             ApiEndpoint.changePassword(),
             requestBody
         )
-        console.log(responseJSON)
         return responseJSON
     }
     static async getScore(){

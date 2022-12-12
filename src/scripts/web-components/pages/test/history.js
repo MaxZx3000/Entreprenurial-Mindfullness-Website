@@ -12,7 +12,6 @@ class HistoryPage extends HTMLElement{
     async fetchUserAnswerHistory(){
         const jsonHistoryData = await MyFetch.getHistories()
         this.jsonHistoryData = jsonHistoryData.json
-        console.log(jsonHistoryData)
     }
     async init(){
         await this.fetchUserAnswerHistory()
@@ -25,7 +24,7 @@ class HistoryPage extends HTMLElement{
         
         if (this.jsonHistoryData.length === 0){
             userHistoriesElement.innerHTML += `
-                <div class = "container-no-data">
+                <div class = "container-no-data col-sm-12 col-md-12 col-lg-12">
                     <span class="material-icons material-symbols-outlined" id = "no_data_icon">
                         help
                     </span>
@@ -44,8 +43,8 @@ class HistoryPage extends HTMLElement{
                         <h2>${element.date}</h2>
                     </div>
                     <div class = "card-body">
-                        <p>Score: ${element.score}</p>
-                        <p>Title: ${element.title}</p>
+                        <p><label data-i18n-key = "score"></label>: ${element.score}</p>
+                        <p><label data-i18n-key = "title"></label>: ${element.title}</p>
                     </div>
                     <div class = "card-footer">
                         <a class = "action-button" href = "#result?id=${element.id}" data-i18n-key = "view_detail"></a>
@@ -75,7 +74,7 @@ class HistoryPage extends HTMLElement{
                 </div>
 
                 <div id = "user-histories">
-                    <div class = "row mx-md-n5">
+                    <div class = "row">
 
                     </div>
                 </div>

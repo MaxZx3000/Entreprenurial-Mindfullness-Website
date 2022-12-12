@@ -6,7 +6,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const path = require('path');
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
+// const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
 
 module.exports = {
   entry: path.resolve(__dirname, 'src/index.js'),
@@ -98,10 +98,10 @@ module.exports = {
     
     new CssMinimizerPlugin(),
     new MiniCssExtractPlugin(),
-    new WorkboxWebpackPlugin.GenerateSW({
-      swDest: "./sw.bundle.js",
-    }),
-    new BundleAnalyzerPlugin(),
+    // new WorkboxWebpackPlugin.GenerateSW({
+    //   swDest: "./sw.bundle.js",
+    // }),
+    // new BundleAnalyzerPlugin(),
   ],
   optimization: {
     concatenateModules: false,

@@ -5,7 +5,7 @@ class GridElement extends HTMLElement{
     }
     setChildElements(elements){
         this.childElements = elements;
-        // console.log(this.childElements);
+
     }
     setPerElementSize(smallSize = 12, mediumSize = 6, largeSize = 4){
         this.smallSize = smallSize;

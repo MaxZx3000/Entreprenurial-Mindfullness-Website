@@ -65,7 +65,6 @@ class AccountPage extends HTMLElement{
     }
     async initializeChangePage(){
         const currentURL = WindowController.getURLStripParts()[1];
-        console.log(currentURL);
 
         const subpageElement = this.accountElement.querySelector("#subpage");
         subpageElement.innerHTML = "";

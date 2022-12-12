@@ -1,5 +1,6 @@
 const BASE_URL = {
-    API_ENDPOINT: 'http://localhost:5000/api'
+    API_ENDPOINT: 'https://beeentmind-edutech.apps.binus.ac.id/api-em/api'
+    // API_ENDPOINT: 'http://localhost:5000/api'
 }
 
 const _API_ENDPOINT = { 

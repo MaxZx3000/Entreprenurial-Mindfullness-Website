@@ -13,7 +13,7 @@ class RegisteredUserHeader extends HTMLElement{
     _setHeaderElement(){
         this.registeredUserHeaderElement.innerHTML = `
             <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-                <a class="navbar-brand" href="#home">
+                <a class="navbar-brand" href="#home/about">
                      <img src = "./images/entreprenurial-mindfullness-logo.png" class = "website-logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

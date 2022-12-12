@@ -12,14 +12,12 @@ class _WindowController{
     getURLHashValue(){
         var baseURL = window.location.hash;
         baseURL = baseURL.split("#")[1];
-        console.log(baseURL);
         return baseURL;
     }
     
     getURLStripParts(){
         const hashValue = this.getURLHashValue();
         var urlStripParts = hashValue.split('/');
-        console.log(urlStripParts)
         return urlStripParts;
     }
 

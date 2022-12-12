@@ -12,11 +12,13 @@ class TestPage extends HTMLElement{
         super();
         this.testElement = document.createElement("div");
         this.loadingElement = new LoadingElement();
-        this.userAnswer = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+        this.userAnswer = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         this.refreshQuestionFunction = () => {
-            this.renderQuestionElement()
-            // this.updateAnswerCaptionValue();
-            this.refreshCurrentAnswer();
+            try{
+                this.renderQuestionElement();
+                this.refreshCurrentAnswer();
+            }
+            catch{}
         }
     }
     async renderLoadingElement(){
@@ -56,8 +58,13 @@ class TestPage extends HTMLElement{
                         </div>
                     </div>
                     <p id = "question_number"></p>
-                    <p id = "question_en"></p>
-                    <p id = "question_id"></p>
+                    <p data-i18n-key = "if_score_0"></p>
+                    <p data-i18n-key = "if_score_1"></p>
+                    <p id = "question_en_A"></p>
+                    <p id = "question_id_A"></p>
+                    <p data-i18n-key = "if_score_7"></p>
+                    <p id = "question_en_B"></p>
+                    <p id = "question_id_B"></p>
                     <p id = "user_response_feedback"></p>
                     <input list = "tickmarks" type = "range" min = 0 max = 7 id = "user_response" name = "user_response">
                     <datalist id = "tickmarks">
@@ -92,8 +99,10 @@ class TestPage extends HTMLElement{
     }
     renderQuestionElement(){
         const dimensionElement = this.testElement.querySelector("#dimension")
-        const questionEnglishElement = this.testElement.querySelector("#question_en")
-        const questionIndonesianElement = this.testElement.querySelector("#question_id")
+        const questionEnglishAElement = this.testElement.querySelector("#question_en_A")
+        const questionIndonesianAElement = this.testElement.querySelector("#question_id_A")
+        const questionEnglishBElement = this.testElement.querySelector("#question_en_B")
+        const questionIndonesianBElement = this.testElement.querySelector("#question_id_B")
         const tickmarksElement = this.testElement.querySelector("input[type='range']");
         const questionNumberElement = this.testElement.querySelector("#question_number");
         // const userResponseFeedbackElement = this.testElement.querySelector("#user_response_feedback")
@@ -101,19 +110,18 @@ class TestPage extends HTMLElement{
         // const userResponse = this.testElement.querySelector("#user_response").value
 
         dimensionElement.innerText = this.questions[currentQuestionNumber].dimension_name
-        questionEnglishElement.innerText = this.questions[currentQuestionNumber].questionA_in
-        questionIndonesianElement.innerHTML = this.questions[currentQuestionNumber].questionA_en
+        questionEnglishAElement.innerText = this.questions[currentQuestionNumber].questionA_en
+        questionIndonesianAElement.innerHTML = this.questions[currentQuestionNumber].questionA_in
+        questionEnglishBElement.innerText = this.questions[currentQuestionNumber].questionB_en
+        questionIndonesianBElement.innerHTML = this.questions[currentQuestionNumber].questionB_in
         questionNumberElement.innerText = `No. ${currentQuestionNumber + 1}`
     
-        console.log("Questions:")
-        console.log(this.questions);
         const currentIndicator = this.questions[currentQuestionNumber].indicator_en.split('-')[1]
         tickmarksElement.value = `${this.userAnswer[currentIndicator]}`;
     }
     renderOptionsElement(){
         const tickmarksElement = this.testElement.querySelector("#tickmarks");
-        console.log("This score 2:")
-        console.log(this.scores)
+
         const scoresInNumber = this.scores.length + 1
         for (var i = 0; i < scoresInNumber; i++){
             const optionElement = document.createElement("option")
@@ -179,14 +187,12 @@ class TestPage extends HTMLElement{
             const scoreValue = userResponseElement.value;
             this.initValueForResponseFeedback(scoreValue)
             userResponseElement.value = scoreValue;
-            console.log(userResponseElement)
         })
     }
 
     checkIfAnsweredAll(){
         const unansweredQuestions = []
         this.userAnswer.forEach((value, index) => {
-            console.log(`Value: ${value}`);
             if (value == 0){
                 unansweredQuestions.push(index + 1)        
             }
@@ -236,7 +242,6 @@ class TestPage extends HTMLElement{
             const responseJSON = await MyFetch.submitAnswer(
                 this.userAnswer
             )
-            console.log(responseJSON)
             if (responseJSON.status === 200){
                 Swal.fire({
                     title: 'Hooray!',
@@ -272,7 +277,7 @@ class TestPage extends HTMLElement{
         })
     }
     setQuestionListener(){
-        window.addEventListener("hashchange", this.refreshQuestionFunction)
+        window.addEventListener("hashchange", this.refreshQuestionFunction, true)
     }
     setListeners(){
         this.setNextButtonListener()
@@ -296,8 +301,6 @@ class TestPage extends HTMLElement{
         )
         if (responseJSONData.status === 200){
             this.scores = responseJSONData.json
-            // console.log("This scores: ")
-            // console.log(this.scores)
         }
     }
     async preRender(){
@@ -314,7 +317,7 @@ class TestPage extends HTMLElement{
         this.appendChildren();
     }
     disconnectCallback(){
-        window.removeEventListener("hashchange", this.refreshQuestionFunction)
+        window.removeEventListener("hashchange", this.refreshQuestionFunction, true)
     }
     appendChildren(){
         this.appendChild(this.testElement);

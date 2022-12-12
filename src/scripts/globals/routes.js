@@ -1,4 +1,4 @@
-import HomePage from "../web-components/pages/home.js";
+import HomePage from "../web-components/pages/home/home.js";
 import LoginPage from "../web-components/pages/login.js";
 import NotFoundPage from "../web-components/pages/not_found_page.js";
 import ProfileIntroPage from "../web-components/pages/test/profile_intro.js";
@@ -10,6 +10,7 @@ import StatisticsPage from "../web-components/pages/statistics.js";
 import UserHelpers from "./user-helpers.js";
 import HistoryPage from "../web-components/pages/test/history.js";
 import AuthenticationPage from "../web-components/pages/auth/authentication.js";
+import VideoIntervensiPage from "../web-components/pages/home/video_intervensi.js";
 
 class Routes {
   constructor() {
@@ -19,7 +20,7 @@ class Routes {
     return Routes.instance;
   }
   getPage(url) {
-    if (url === '' || url === 'home'){
+    if (url === 'home'){
       return new HomePage();
     }
     else if (url === "statistics"){
@@ -54,6 +55,12 @@ class Routes {
       else if (url === "history"){
         return new HistoryPage();
       }
+      else if (url === "video_intervensi"){
+        return new VideoIntervensiPage();
+      }
+      // else if (url === "authenticate"){
+      //   return new AuthenticationPage();
+      // }
     }
     return new NotFoundPage();
   }

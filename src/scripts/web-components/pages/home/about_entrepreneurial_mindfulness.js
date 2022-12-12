@@ -1,11 +1,7 @@
-import University from "../../classes/university";
-import Localization from "../../utils/localization";
-import GridElement from "../templates/grid-element";
-
-class HomePage extends HTMLElement{
+class AboutEntrepreneurialMindfulnessPage extends HTMLElement{
     constructor(){
         super();
-        this.homeElement = document.createElement('div');
+        this.aboutEntrepreneurialMindfulnessElement = document.createElement('div');
     }
 
     async init(){
@@ -13,23 +9,9 @@ class HomePage extends HTMLElement{
         this.appendChildren();
     }
 
-    _getJumbotronElement(){
-        return `
-            <div class = "jumbotron">
-                <div class = "row" id = "row-1">
-                    <img src = "./images/work-contribution.png" id = "work-contribution-image">
-                </div>
-                <div class = "row" id = "row-2">
-                    <h1 data-i18n-key = "entreprenurial_mindfullness_is">Entrepreneurial Mindfulness is…</h1>
-                    <h2 data-i18n-key = "find_balance">finding balance in your entrepreneurial journey.</h2>
-                </div>
-            </div>
-        `;
-    }
-
     _getTentangKamiElement(){
         return `
-            <h2 data-i18n-key = "about_us">About Us</h2>
+            <h2 data-i18n-key = "about_us"></h2>
             <p data-i18n-key = "about_us_content_1">Entrepreneurial Mindfulness merupakan sebuah website dengan instrumen yang mengukur kapabilitas seseorang untuk berfokus dan perhatian terhadap sesuatu yang menjadi rangkaian penting dalam proses menjadi sekaligus menjalankan praktik kewirausahaan.</p>
             <p data-i18n-key = "about_us_content_2">Instrumen Entrepreneurial Mindfulness dikembangkan oleh Research Interest Group (RIG) Edutech melalui Hibah Internasional BINUS University, berkolaborasi dengan berbagai institusi dari Indonesia dan Malaysia:</p>
         `;
@@ -56,8 +38,8 @@ class HomePage extends HTMLElement{
     }
 
     render(){
-        this.homeElement.innerHTML = `
-            ${this._getJumbotronElement()}
+        this.aboutEntrepreneurialMindfulnessElement.innerHTML = `
+            <br>
             <div class = "container">
                 ${this._getTentangKamiElement()}
                 ${this._getUniversitiesElement()}
@@ -67,9 +49,9 @@ class HomePage extends HTMLElement{
     }
 
     appendChildren(){
-        this.appendChild(this.homeElement);
+        this.appendChild(this.aboutEntrepreneurialMindfulnessElement);
     }
 }
 
-customElements.define("home-page", HomePage);
-export default HomePage;
+customElements.define("about_entrepreneurial_mindfulness-page", AboutEntrepreneurialMindfulnessPage);
+export default AboutEntrepreneurialMindfulnessPage;

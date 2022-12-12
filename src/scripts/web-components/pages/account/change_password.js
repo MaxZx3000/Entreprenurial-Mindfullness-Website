@@ -79,7 +79,6 @@ class ChangePasswordPage extends HTMLElement{
         }
         
         const validationResult = this.validateForm(jsonRequestBody)
-        console.log(validationResult);
 
         if (validationResult.isTrue === false){
             HTMLHelpers.makeInvalidStatusField(this.changePasswordElement, validationResult)
@@ -101,7 +100,8 @@ class ChangePasswordPage extends HTMLElement{
                     <button type = "button" id = "swal-close-button" class = "action-button" id = "forgot-password" style = "width: 100%">OK</button>
                 `,
             });
-            WindowController.setWindowURLHash("");
+            SwalCustomFunctions.initializeCloseButton()
+            WindowController.setWindowURLHash("account/account-info");
         }
         else if (responseJSONData.status === 401){
             Swal.fire({
@@ -111,12 +111,12 @@ class ChangePasswordPage extends HTMLElement{
                 showConfirmButton: false,
                 showDenyButton: false,
                 html: `
-                    <p>${responseJSONData.json.message}</p>
-                    <button type = "button" id = "swal-close-button" class = "action-button" id = "forgot-password" style = "width: 100%">OK</button>
+                    <p>${Localization.getLocalizedText("change_password_wrong_current_password")}</p>
+                    <button type = "button" id = "swal-close-button" class = "action-button" style = "width: 100%">OK</button>
                 `,
             });
+            SwalCustomFunctions.initializeCloseButton()
         }
-        SwalCustomFunctions.initializeCloseButton()
     }
     setListeners(){
         const inputElements = this.changePasswordElement.querySelectorAll("input[type='password']");

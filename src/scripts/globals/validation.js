@@ -10,7 +10,6 @@ class _Validation{
         return _Validation.instance
     }
     validateUsername(value){
-        console.log(value)
         var result = {}
         if (value.trim() === ""){
             result = {
@@ -85,15 +84,6 @@ class _Validation{
     }
     validateFullname(value){
         if (value.trim() === ""){
-            return {
-                'isTrue': false, 
-                "message": sprintf(
-                    Localization.getLocalizedText("is_empty"),
-                    Localization.getLocalizedText("fullname")
-                )
-            }
-        }
-        else if (length > 65535){
             return {
                 'isTrue': false, 
                 "message": sprintf(

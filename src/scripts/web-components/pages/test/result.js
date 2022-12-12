@@ -25,7 +25,6 @@ class ResultPage extends HTMLElement{
         const resultSectionElement = this.resultElement.querySelector(".result-section");
         const gaugeElement = new GaugeElement();
 
-        console.log(this.userScore)
         const score = this.userScore.score;
         const scoreTitle = this.userScore.title;
         const scoreDescriptionEn = this.userScore.description_en;
@@ -72,15 +71,12 @@ class ResultPage extends HTMLElement{
         const id = WindowController.getURLKeyPairHashParams().id;
         const submission = await MyFetch.getAnswer(id);
         this.submission = submission.json
-        console.log(this.submission)
     }
     async fetchScores(){
         let scores = await MyFetch.getScore();
         scores = scores.json;
         const userEMScore = this.submission.em_score;
-        console.log(userEMScore)
         this.userScore = scores[userEMScore - 1]
-        console.log(scores);
     }
     async init(){
         this.render();
