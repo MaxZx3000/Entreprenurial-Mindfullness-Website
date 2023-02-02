@@ -10,9 +10,9 @@ class ProfileIntroPage extends HTMLElement{
     async render(){
         const userData = await UserGlobal.getUserData()
         this.profileIntroElement.innerHTML = `
-            <img id = "background-profile" src = "./images/forest.png" class = "background_image">
+            <img alt = "Background Profile" id = "background-profile" src = "./images/forest.png" class = "background_image">
             <div class = "profile container">
-                <img src = "https://beeentmind-edutech.apps.binus.ac.id/api-em/images/profile_male.png" id = "profile-image">
+                <img alt = "Profile Picture" src = "https://beeentmind-edutech.apps.binus.ac.id/api-em/images/profile_male.png" id = "profile-image">
                 <hr>
                 <div class = "container">
                     <h2>${userData.fullname}</h2>

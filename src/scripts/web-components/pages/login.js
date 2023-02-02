@@ -22,7 +22,7 @@ class LoginPage extends HTMLElement{
             <div class = "container">
                 <div class = "row">
                     <div class = "col-sm-12 col-md-6 col-lg-6">
-                        <img src = "./images/Compressed/read_compressed.png" id = "login-image">
+                        <img loading = 'lazy' alt = 'Login Image' src = "./images/Compressed/read_compressed.png" id = "login-image" srcset = "./images/Compressed/read_compressed.png">
                     </div>
                     <div class = "col-sm-12 col-md-6 col-lg-6">
                         <div class = "form-group">

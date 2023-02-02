@@ -20,7 +20,7 @@ class HomePage extends HTMLElement{
         return `
             <div class = "jumbotron">
                 <div class = "row" id = "row-1">
-                    <img src = "./images/work-contribution.png" id = "work-contribution-image">
+                    <img alt = "Work Contribution Home Image" src = "./images/work-contribution.png" id = "work-contribution-image">
                 </div>
                 <div class = "row" id = "row-2">
                     <h1 data-i18n-key = "entreprenurial_mindfullness_is">Entrepreneurial Mindfulness is…</h1>

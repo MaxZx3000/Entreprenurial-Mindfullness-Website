@@ -16,7 +16,7 @@ class ChangePasswordPage extends HTMLElement{
             <div class = "container">
                 <div class = "row">
                     <div class = "col-sm-6 col-md-6 col-lg-6">
-                        <img src = "./images/lock.png" id = "change-password-image">
+                        <img alt = "Change Password Image" src = "./images/lock.png" id = "change-password-image">
                     </div>
                     <div class = "col-sm-6 col-md-6 col-lg-6">
                         <h1 data-i18n-key = "change_password"></h1>

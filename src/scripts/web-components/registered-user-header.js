@@ -1,5 +1,4 @@
 import Swal from "sweetalert2";
-import StorageHelpers from "../globals/storage-helpers";
 import Localization from "../utils/localization";
 import WindowController from "../utils/window-manager";
 import SwalCustomFunctions from "../globals/swal-custom-function";
@@ -30,13 +29,13 @@ class RegisteredUserHeader extends HTMLElement{
                         </li>
                     </ul>
                     <form class="form-inline my-2 my-lg-0 dropdown">
-                        <a class="nav-link" href = "#history" data-i18n-key = "history_test"></a>
+                        <a class="nav-link" href="#profile_intro" data-i18n-key = "profile">Profile</a>
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img id = "profile-menu" src = "https://beeentmind-edutech.apps.binus.ac.id/api-em/images/profile_male.png" class = "nav-link dropdown-toggle" id = "profile-image" role = "button" data-toggle = "dropdown" aria-haspopup = "true" aria-expanded = "false">
                         </a>
                         <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
+                            <a class="nav-link" href = "#history" data-i18n-key = "history_test"></a>
                             <a class="nav-link" href = "#account/account-info" data-i18n-key = "profile_config">Edit Profile</a>
-                            <a class="nav-link" href="#profile_intro" data-i18n-key = "profile">Profile</a>
                             <button type = "button"  id = "logout-button" class="nav-link" data-i18n-key = "logout">Logout</button>
                         </div>
                     </form>

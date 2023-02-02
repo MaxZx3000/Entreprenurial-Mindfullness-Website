@@ -17,11 +17,11 @@ class EditProfilePage extends HTMLElement{
     }
     render(){
         this.editProfileElement.innerHTML = `
-            <img id = "background-profile" src = "./images/forest.png" class = "background_image">
+            <img alt = "Entreprenurial Mindfulness Background Picture" id = "background-profile" src = "./images/forest.png" class = "background_image">
             <div class = "container">                
                 <form>
                     <div class = "image-container">
-                        <img id = 'profile-picture' src = "https://beeentmind-edutech.apps.binus.ac.id/api-em/images/profile_male.png" id = "profile-image">
+                        <img alt = "Edit Profile Image" id = 'profile-picture' src = "https://beeentmind-edutech.apps.binus.ac.id/api-em/images/profile_male.png" id = "profile-image">
                         <!-- <button type = "file" class = "icon-button" id = "edit-picture">
                             <span class="material-icons material-symbols-outlined">edit</span>
                         </button> -->

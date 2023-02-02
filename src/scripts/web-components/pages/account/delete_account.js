@@ -20,7 +20,7 @@ class InactiveAccountPage extends HTMLElement{
     render(){
        this.deletePasswordElement.innerHTML = `
             <div class = "container">
-                <img src = "./images/power_button.png" id = "delete-account-icon">
+                <img src = "./images/power_button.png" id = "delete-account-icon" alt = "Deactivate Account Image.">
                 <p id = "deactivate_account_confirmation" data-i18n-key = "deactivate_account_confirmation">Are you sure you want to delete your account?</p>
                 <p id = "deactivate_account_confirmation_2" data-i18n-key = "deactivate_account_confirmation_2"></p>
                 <form>

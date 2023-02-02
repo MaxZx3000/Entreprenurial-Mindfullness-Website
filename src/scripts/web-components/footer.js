@@ -8,7 +8,7 @@ class FooterElement extends HTMLElement{
         this.footerElement.id = "border-top-footer"
         this.footerElement.innerHTML = `
             <div class = "col-sm-6">
-                <img src = "./images/entreprenurial-mindfullness-logo.png" class = "website-logo">
+                <img src = "./images/entreprenurial-mindfullness-logo.png" class = "website-logo" alt = "Entrepreneurial Mindfulness Website Logo">
             </div>
             <div class = "col-sm-6">
                 <h3 data-i18n-key = "powered_by">Powered by Bina Nusantara University</h2>

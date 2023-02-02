@@ -57,12 +57,12 @@ class TestPage extends HTMLElement{
                             </button>
                         </div>
                     </div>
-                    <p id = "question_number"></p>
-                    <p data-i18n-key = "if_score_0"></p>
-                    <p data-i18n-key = "if_score_1"></p>
+                    <p id = "question_number" style = "font-weight: 800"></p>
+                    <p data-i18n-key = "if_score_0" style = "font-weight: 800"></p>
+                    <p data-i18n-key = "if_score_1" style = "font-weight: 800"></p>
                     <p id = "question_en_A"></p>
                     <p id = "question_id_A"></p>
-                    <p data-i18n-key = "if_score_7"></p>
+                    <p data-i18n-key = "if_score_7" style = "font-weight: 800"></p>
                     <p id = "question_en_B"></p>
                     <p id = "question_id_B"></p>
                     <p id = "user_response_feedback"></p>
@@ -165,6 +165,7 @@ class TestPage extends HTMLElement{
                 showCancelButton: false,
                 showDenyButton: false,
                 html: `
+                    <img id = "filling_instructions_image" src = "./images/setting-slider.png" width = "250" height = "250">
                     <p>${Localization.getLocalizedText('test_tutorial_explanation')}</p>
                     <button type = "button" id = "swal-close-button" class = "action-button" style = "width: 100%">OK</button>
                 `,

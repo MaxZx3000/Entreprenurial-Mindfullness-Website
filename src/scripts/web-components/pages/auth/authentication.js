@@ -17,7 +17,7 @@ class AuthenticationPage extends HTMLElement{
             </div>
             <div class = "container">
                 <br>
-                <img id = "authentication-image" src = "./images/Compressed/steps/sign_up_compressed.png">
+                <img id = "authentication-image" alt = "Authentication Image." src = "./images/Compressed/steps/sign_up_compressed.png">
                 <br>
                 <br>
                 <p data-i18n-key = "authentication_fill_in">You must fill in authentication code to continue using your application!</p>
